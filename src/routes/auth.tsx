@@ -6,7 +6,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { GraduationCap, Users, ArrowLeft } from "lucide-react";
+import {
+  GraduationCap,
+  Users,
+  ArrowLeft,
+  BookOpen,
+  Sparkles,
+  Trophy,
+  Calendar,
+  MessageCircle,
+  Bell,
+  ShieldCheck,
+  LineChart,
+} from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -19,6 +32,41 @@ export const Route = createFileRoute("/auth")({
 });
 
 type Role = "student" | "parent";
+
+const PREVIEW = {
+  student: {
+    label: "Student dashboard",
+    tagline: "Crush high school. On your terms.",
+    accent: "from-amber-300 to-yellow-500",
+    highlights: [
+      { icon: BookOpen, title: "AI tutor on call", body: "Stuck on calc at 1am? Claude has you." },
+      { icon: Trophy, title: "Scholarship matches", body: "New matches every week, sorted by fit." },
+      { icon: Sparkles, title: "Senior year guide", body: "HOCO, prom, grad templates ready to go." },
+      { icon: MessageCircle, title: "Community", body: "Spaces by topic — AP, sports, college life." },
+    ],
+    stats: [
+      { k: "12", v: "Tasks this week" },
+      { k: "$4.2k", v: "Scholarships saved" },
+      { k: "3", v: "Apps in progress" },
+    ],
+  },
+  parent: {
+    label: "Parent dashboard",
+    tagline: "Be in the loop. Without hovering.",
+    accent: "from-yellow-500 to-amber-700",
+    highlights: [
+      { icon: Bell, title: "Deadline alerts", body: "FAFSA, apps, scholarships — never missed." },
+      { icon: LineChart, title: "Progress view", body: "See where your student stands at a glance." },
+      { icon: ShieldCheck, title: "Verified resources", body: "Curated for parents, no rabbit holes." },
+      { icon: Calendar, title: "Family calendar", body: "Sync key high-school dates in one place." },
+    ],
+    stats: [
+      { k: "5", v: "Upcoming deadlines" },
+      { k: "92%", v: "On-track score" },
+      { k: "2", v: "Action items" },
+    ],
+  },
+} as const;
 
 function AuthPage() {
   const navigate = useNavigate();
@@ -65,108 +113,184 @@ function AuthPage() {
     }
   }
 
+  const preview = PREVIEW[role];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-night px-4 py-12">
-      <div className="w-full max-w-md">
-        <Link to="/" className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold">
-          <ArrowLeft className="h-4 w-4" /> Back
-        </Link>
+    <div className="min-h-screen bg-gradient-night px-4 py-10">
+      <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
+        {/* LEFT: Auth card */}
+        <div>
+          <Link to="/" className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold">
+            <ArrowLeft className="h-4 w-4" /> Back
+          </Link>
 
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-gold">
-          <div className="mb-6 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-gold shadow-gold">
-              <span className="font-display text-lg font-bold text-primary-foreground">P</span>
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-gold">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-gold shadow-gold">
+                <span className="font-display text-lg font-bold text-primary-foreground">P</span>
+              </div>
+              <div>
+                <h1 className="font-display text-xl font-bold leading-tight">The Plug</h1>
+                <p className="text-xs text-muted-foreground">Your unfair advantage</p>
+              </div>
             </div>
-            <div>
-              <h1 className="font-display text-xl font-bold leading-tight">The Plug</h1>
-              <p className="text-xs text-muted-foreground">Your unfair advantage</p>
+
+            {/* Role toggle */}
+            <div className="mb-6">
+              <Label className="mb-2 block text-xs uppercase tracking-wider text-muted-foreground">
+                I am a
+              </Label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRole("student")}
+                  className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-all ${
+                    role === "student"
+                      ? "border-gold bg-gold/10 text-gold shadow-gold"
+                      : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
+                  }`}
+                >
+                  <GraduationCap className="h-4 w-4" /> I'm a Student
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRole("parent")}
+                  className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-all ${
+                    role === "parent"
+                      ? "border-gold bg-gold/10 text-gold shadow-gold"
+                      : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
+                  }`}
+                >
+                  <Users className="h-4 w-4" /> I'm a Parent
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Role toggle */}
-          <div className="mb-6">
-            <Label className="mb-2 block text-xs uppercase tracking-wider text-muted-foreground">
-              I am a
-            </Label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setRole("student")}
-                className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-all ${
-                  role === "student"
-                    ? "border-gold bg-gold/10 text-gold shadow-gold"
-                    : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
-                }`}
-              >
-                <GraduationCap className="h-4 w-4" /> I'm a Student
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole("parent")}
-                className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-3 text-sm font-medium transition-all ${
-                  role === "parent"
-                    ? "border-gold bg-gold/10 text-gold shadow-gold"
-                    : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
-                }`}
-              >
-                <Users className="h-4 w-4" /> I'm a Parent
-              </button>
-            </div>
-          </div>
+            <Tabs value={mode} onValueChange={(v) => setMode(v as "signin" | "signup")}>
+              <TabsList className="grid w-full grid-cols-2 bg-secondary">
+                <TabsTrigger value="signin">Sign in</TabsTrigger>
+                <TabsTrigger value="signup">Sign up</TabsTrigger>
+              </TabsList>
 
-          <Tabs value={mode} onValueChange={(v) => setMode(v as "signin" | "signup")}>
-            <TabsList className="grid w-full grid-cols-2 bg-secondary">
-              <TabsTrigger value="signin">Sign in</TabsTrigger>
-              <TabsTrigger value="signup">Sign up</TabsTrigger>
-            </TabsList>
+              <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+                <TabsContent value="signup" className="m-0 space-y-4">
+                  <div>
+                    <Label htmlFor="name">Full name</Label>
+                    <Input
+                      id="name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Alex Johnson"
+                      required={mode === "signup"}
+                    />
+                  </div>
+                </TabsContent>
 
-            <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-              <TabsContent value="signup" className="m-0 space-y-4">
                 <div>
-                  <Label htmlFor="name">Full name</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
-                    id="name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Alex Johnson"
-                    required={mode === "signup"}
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@school.edu"
+                    required
                   />
                 </div>
-              </TabsContent>
+                <div>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    minLength={6}
+                    required
+                  />
+                </div>
 
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@school.edu"
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  minLength={6}
-                  required
-                />
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gradient-gold text-primary-foreground shadow-gold hover:opacity-95"
+                >
+                  {loading ? "Please wait…" : mode === "signup" ? `Create ${role} account` : "Sign in"}
+                </Button>
+              </form>
+            </Tabs>
+          </div>
+        </div>
+
+        {/* RIGHT: Live preview */}
+        <div className="hidden lg:block">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={role}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="relative overflow-hidden rounded-2xl border border-gold/30 bg-card p-6 shadow-gold"
+            >
+              <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${preview.accent}`} />
+
+              {/* Mock window chrome */}
+              <div className="mb-4 flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+                <span className="ml-3 text-xs text-muted-foreground">
+                  theplug.app / {role}
+                </span>
               </div>
 
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-gold text-primary-foreground shadow-gold hover:opacity-95"
-              >
-                {loading ? "Please wait…" : mode === "signup" ? `Create ${role} account` : "Sign in"}
-              </Button>
-            </form>
-          </Tabs>
+              <div className="mb-1 flex items-center gap-2 text-xs uppercase tracking-wider text-gold">
+                {role === "student" ? <GraduationCap className="h-3.5 w-3.5" /> : <Users className="h-3.5 w-3.5" />}
+                {preview.label}
+              </div>
+              <h2 className="font-display text-2xl font-bold">{preview.tagline}</h2>
+
+              {/* Stats row */}
+              <div className="mt-5 grid grid-cols-3 gap-3">
+                {preview.stats.map((s) => (
+                  <div
+                    key={s.v}
+                    className="rounded-lg border border-border bg-background/40 p-3 text-center"
+                  >
+                    <div className="font-display text-xl font-bold text-gold">{s.k}</div>
+                    <div className="mt-0.5 text-[11px] text-muted-foreground">{s.v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Highlight tiles */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                {preview.highlights.map(({ icon: Icon, title, body }, i) => (
+                  <motion.div
+                    key={title}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08 + i * 0.06 }}
+                    className="group rounded-xl border border-border bg-background/40 p-3 transition-colors hover:border-gold/50"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gold/10 text-gold">
+                        <Icon className="h-3.5 w-3.5" />
+                      </div>
+                      <div className="text-sm font-semibold">{title}</div>
+                    </div>
+                    <p className="mt-1.5 text-xs text-muted-foreground">{body}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="mt-5 text-center text-xs text-muted-foreground">
+                Toggle <span className="text-gold">Student</span> /{" "}
+                <span className="text-gold">Parent</span> to preview your dashboard.
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
