@@ -350,7 +350,7 @@ function AuthPage() {
 
               {/* Highlight tiles */}
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {preview.highlights.map(({ icon: Icon, title, body }, i) => (
+                {preview.highlights.map(({ icon: Icon, title, body, shortcuts }, i) => (
                   <motion.div
                     key={title}
                     initial={{ opacity: 0, y: 10 }}
@@ -364,7 +364,18 @@ function AuthPage() {
                       </div>
                       <div className="text-sm font-semibold">{title}</div>
                     </div>
-                    <p className="mt-1.5 text-xs text-muted-foreground">{body}</p>
+                    <p className="mt-1.5 text-[11px] text-muted-foreground leading-relaxed">{body}</p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {shortcuts.map(({ icon: SIcon, label }) => (
+                        <span
+                          key={label}
+                          className="inline-flex items-center gap-1 rounded-md bg-gold/10 px-1.5 py-0.5 text-[10px] font-medium text-gold"
+                        >
+                          <SIcon className="h-2.5 w-2.5" />
+                          {label}
+                        </span>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>
