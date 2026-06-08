@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-sans: "Syne", system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -33,8 +34,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-gold: var(--gold);
-  --color-gold-muted: var(--gold-muted);
+  --color-burnt: var(--burnt);
+  --color-maroon: var(--maroon);
+  --color-navy: var(--navy);
+  --color-surface: var(--surface);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -48,55 +54,61 @@
 :root {
   --radius: 0.75rem;
 
-  /* The Plug — black & gold */
-  --background: oklch(0.12 0.005 60);
-  --foreground: oklch(0.97 0.01 90);
+  /* The Plug — Southern Collegiate palette
+     UT Austin / Texas A&M / Florida / SMU inspired */
+  --background: #0A0A0A;
+  --foreground: #F0EDE6;
 
-  --card: oklch(0.16 0.008 70);
-  --card-foreground: oklch(0.97 0.01 90);
+  --card: #161616;
+  --card-foreground: #F0EDE6;
+  --surface: #161616;
 
-  --popover: oklch(0.16 0.008 70);
-  --popover-foreground: oklch(0.97 0.01 90);
+  --popover: #161616;
+  --popover-foreground: #F0EDE6;
 
-  --primary: oklch(0.82 0.16 88);            /* gold */
-  --primary-foreground: oklch(0.14 0.01 60);
+  --primary: #BF5700;            /* burnt orange */
+  --primary-foreground: #F0EDE6;
 
-  --secondary: oklch(0.22 0.01 70);
-  --secondary-foreground: oklch(0.97 0.01 90);
+  --secondary: #500000;          /* maroon */
+  --secondary-foreground: #F0EDE6;
 
-  --muted: oklch(0.2 0.008 70);
-  --muted-foreground: oklch(0.7 0.02 85);
+  --muted: #1a1a1a;
+  --muted-foreground: #9b958a;
 
-  --accent: oklch(0.82 0.16 88);
-  --accent-foreground: oklch(0.14 0.01 60);
+  --accent: #C9A84C;             /* gold */
+  --accent-foreground: #0A0A0A;
 
   --destructive: oklch(0.6 0.22 27);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive-foreground: #F0EDE6;
 
-  --border: oklch(0.28 0.015 75 / 60%);
-  --input: oklch(0.22 0.01 70);
-  --ring: oklch(0.82 0.16 88);
+  --border: #2C2C2C;
+  --input: #1a1a1a;
+  --ring: #BF5700;
 
-  --gold: oklch(0.82 0.16 88);
-  --gold-muted: oklch(0.62 0.12 85);
+  --burnt: #BF5700;
+  --maroon: #500000;
+  --navy: #1B2A4A;
+  --gold: #C9A84C;
 
-  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.16 92), oklch(0.7 0.15 75));
-  --gradient-night: linear-gradient(180deg, oklch(0.13 0.005 60), oklch(0.09 0.005 60));
-  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, var(--gold) 35%, transparent);
+  --gradient-burnt: linear-gradient(135deg, #BF5700, #8a3e00);
+  --gradient-gold: linear-gradient(135deg, #d8bb63, #a8862e);
+  --gradient-rule: linear-gradient(90deg, #BF5700, #500000, #1B2A4A, #C9A84C);
+  --shadow-burnt: 0 10px 40px -10px color-mix(in oklab, #BF5700 45%, transparent);
+  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, #C9A84C 35%, transparent);
 
-  --sidebar: oklch(0.14 0.008 70);
-  --sidebar-foreground: oklch(0.95 0.01 90);
-  --sidebar-primary: oklch(0.82 0.16 88);
-  --sidebar-primary-foreground: oklch(0.14 0.01 60);
-  --sidebar-accent: oklch(0.2 0.008 70);
-  --sidebar-accent-foreground: oklch(0.95 0.01 90);
-  --sidebar-border: oklch(0.25 0.01 75 / 50%);
-  --sidebar-ring: oklch(0.82 0.16 88);
+  --sidebar: #0F0F0F;
+  --sidebar-foreground: #F0EDE6;
+  --sidebar-primary: #BF5700;
+  --sidebar-primary-foreground: #F0EDE6;
+  --sidebar-accent: #161616;
+  --sidebar-accent-foreground: #F0EDE6;
+  --sidebar-border: #2C2C2C;
+  --sidebar-ring: #BF5700;
 }
 
 .dark {
-  --background: oklch(0.1 0.005 60);
-  --foreground: oklch(0.97 0.01 90);
+  --background: #0A0A0A;
+  --foreground: #F0EDE6;
 }
 
 @layer base {
@@ -113,15 +125,28 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
 }
 
 @layer utilities {
+  .font-mono { font-family: var(--font-mono); }
   .text-gold { color: var(--gold); }
+  .text-burnt { color: var(--burnt); }
+  .text-maroon { color: var(--maroon); }
+  .text-navy { color: var(--navy); }
   .bg-gold { background-color: var(--gold); }
+  .bg-burnt { background-color: var(--burnt); }
+  .bg-maroon { background-color: var(--maroon); }
+  .bg-navy { background-color: var(--navy); }
+  .bg-surface { background-color: var(--surface); }
   .border-gold { border-color: var(--gold); }
+  .border-burnt { border-color: var(--burnt); }
+  .border-maroon { border-color: var(--maroon); }
+  .border-navy { border-color: var(--navy); }
+  .bg-gradient-burnt { background-image: var(--gradient-burnt); }
   .bg-gradient-gold { background-image: var(--gradient-gold); }
-  .bg-gradient-night { background: var(--gradient-night); }
+  .bg-gradient-rule { background-image: var(--gradient-rule); }
+  .shadow-burnt { box-shadow: var(--shadow-burnt); }
   .shadow-gold { box-shadow: var(--shadow-gold); }
 }
