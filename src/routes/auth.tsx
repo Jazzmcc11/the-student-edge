@@ -18,6 +18,18 @@ import {
   Bell,
   ShieldCheck,
   LineChart,
+  FileText,
+  ClipboardList,
+  Search,
+  PenTool,
+  PartyPopper,
+  Megaphone,
+  Clock,
+  Target,
+  Wallet,
+  Mail,
+  BadgeCheck,
+  Lightbulb,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
