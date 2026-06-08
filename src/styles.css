@@ -121,7 +121,7 @@
   .text-gold { color: var(--gold); }
   .bg-gold { background-color: var(--gold); }
   .border-gold { border-color: var(--gold); }
-  .bg-gradient-gold { background: var(--gradient-gold); }
+  .bg-gradient-gold { background-image: var(--gradient-gold); }
   .bg-gradient-night { background: var(--gradient-night); }
   .shadow-gold { box-shadow: var(--shadow-gold); }
 }
