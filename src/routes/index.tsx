@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Sparkles, Users, BookOpen, ArrowRight, Zap, Trophy, Calendar } from "lucide-react";
+import { GraduationCap, Sparkles, Users, BookOpen, ArrowRight, Zap, Trophy, Calendar, Music2, VolumeX, Volume2 } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -14,14 +14,52 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
+// Royalty-free upbeat marching-band-ish track (Pixabay CDN). Swap freely.
+const MUSIC_URL = "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946bc6c4b8.mp3?filename=marching-band-sport-intro-122222.mp3";
+
 function Landing() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
+
+  const toggleMusic = async () => {
+    if (!audioRef.current) {
+      const a = new Audio(MUSIC_URL);
+      a.loop = true;
+      a.volume = 0.5;
+      audioRef.current = a;
+    }
+    try {
+      if (playing) {
+        audioRef.current.pause();
+        setPlaying(false);
+      } else {
+        await audioRef.current.play();
+        setPlaying(true);
+      }
+    } catch (e) {
+      console.error("Music playback failed", e);
+    }
+  };
+
+  // Floating music notes
+  const notes = useMemo(
+    () =>
+      Array.from({ length: 14 }).map((_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        delay: Math.random() * 8,
+        duration: 10 + Math.random() * 10,
+        size: 14 + Math.random() * 22,
+      })),
+    []
+  );
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-night">
@@ -33,6 +71,45 @@ function Landing() {
           transform: `translate(${mouse.x - 250}px, ${mouse.y - 250}px)`,
         }}
       />
+
+      {/* Pulsing stadium spotlights */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-gold/20 blur-3xl"
+        animate={{ opacity: [0.15, 0.45, 0.15], scale: [1, 1.15, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 top-40 h-96 w-96 rounded-full bg-primary/30 blur-3xl"
+        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.2, 1] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      />
+
+      {/* Floating music notes */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {notes.map((n) => (
+          <motion.div
+            key={n.id}
+            className="absolute text-gold/40"
+            style={{ left: `${n.left}%`, bottom: -40, fontSize: n.size }}
+            animate={{
+              y: [0, -window.innerHeight - 80],
+              x: [0, 30, -30, 0],
+              opacity: [0, 1, 1, 0],
+              rotate: [0, 15, -15, 0],
+            }}
+            transition={{
+              duration: n.duration,
+              delay: n.delay,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            <Music2 size={n.size} />
+          </motion.div>
+        ))}
+      </div>
 
       {/* Grid backdrop */}
       <div
@@ -58,11 +135,27 @@ function Landing() {
             </div>
             <span className="font-display text-xl font-bold tracking-tight">The Plug</span>
           </motion.div>
-          <Link to="/auth">
-            <Button variant="ghost" className="text-foreground hover:text-gold">
-              Sign in
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleMusic}
+              className="group border-gold/40 bg-card/40 hover:bg-gold/10 hover:text-gold"
+              aria-label={playing ? "Pause music" : "Play hype music"}
+            >
+              {playing ? (
+                <Volume2 className="mr-1 h-4 w-4 animate-pulse text-gold" />
+              ) : (
+                <VolumeX className="mr-1 h-4 w-4" />
+              )}
+              {playing ? "Hype: ON" : "Play hype music"}
             </Button>
-          </Link>
+            <Link to="/auth">
+              <Button variant="ghost" className="text-foreground hover:text-gold">
+                Sign in
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
