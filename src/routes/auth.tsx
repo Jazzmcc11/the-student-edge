@@ -98,7 +98,7 @@ function AuthPage() {
                     : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
                 }`}
               >
-                <GraduationCap className="h-4 w-4" /> Student
+                <GraduationCap className="h-4 w-4" /> I'm a Student
               </button>
               <button
                 type="button"
@@ -109,7 +109,7 @@ function AuthPage() {
                     : "border-border bg-secondary text-muted-foreground hover:border-gold/40"
                 }`}
               >
-                <Users className="h-4 w-4" /> Parent
+                <Users className="h-4 w-4" /> I'm a Parent
               </button>
             </div>
           </div>
