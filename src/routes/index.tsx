@@ -94,7 +94,7 @@ function Landing() {
             className="absolute text-gold/40"
             style={{ left: `${n.left}%`, bottom: -40, fontSize: n.size }}
             animate={{
-              y: [0, -window.innerHeight - 80],
+              y: [0, typeof window !== "undefined" ? -window.innerHeight - 80 : -900],
               x: [0, 30, -30, 0],
               opacity: [0, 1, 1, 0],
               rotate: [0, 15, -15, 0],
