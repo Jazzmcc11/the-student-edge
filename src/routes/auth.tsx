@@ -18,6 +18,18 @@ import {
   Bell,
   ShieldCheck,
   LineChart,
+  FileText,
+  ClipboardList,
+  Search,
+  PenTool,
+  PartyPopper,
+  Megaphone,
+  Clock,
+  Target,
+  Wallet,
+  Mail,
+  BadgeCheck,
+  Lightbulb,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -39,10 +51,46 @@ const PREVIEW = {
     tagline: "Crush high school. On your terms.",
     accent: "from-amber-300 to-yellow-500",
     highlights: [
-      { icon: BookOpen, title: "AI tutor on call", body: "Stuck on calc at 1am? Claude has you." },
-      { icon: Trophy, title: "Scholarship matches", body: "New matches every week, sorted by fit." },
-      { icon: Sparkles, title: "Senior year guide", body: "HOCO, prom, grad templates ready to go." },
-      { icon: MessageCircle, title: "Community", body: "Spaces by topic — AP, sports, college life." },
+      {
+        icon: BookOpen,
+        title: "Academic Support",
+        body: "AI tutor, resource library, and study guides.",
+        shortcuts: [
+          { icon: Lightbulb, label: "Ask Claude" },
+          { icon: FileText, label: "Study guides" },
+          { icon: Clock, label: "SAT prep" },
+        ],
+      },
+      {
+        icon: Trophy,
+        title: "College & Career",
+        body: "Apps, scholarships, and FAFSA deadlines tracked.",
+        shortcuts: [
+          { icon: ClipboardList, label: "App tracker" },
+          { icon: Search, label: "Scholarships" },
+          { icon: Calendar, label: "FAFSA calendar" },
+        ],
+      },
+      {
+        icon: Sparkles,
+        title: "Creative Resources",
+        body: "Grad templates, senior year guide, and event ideas.",
+        shortcuts: [
+          { icon: PenTool, label: "Grad designs" },
+          { icon: PartyPopper, label: "HOCO planner" },
+          { icon: Megaphone, label: "Senior guide" },
+        ],
+      },
+      {
+        icon: MessageCircle,
+        title: "Community",
+        body: "Join spaces by topic — AP, sports, college life.",
+        shortcuts: [
+          { icon: Target, label: "AP study group" },
+          { icon: Trophy, label: "Athletes" },
+          { icon: Megaphone, label: "College talk" },
+        ],
+      },
     ],
     stats: [
       { k: "12", v: "Tasks this week" },
@@ -55,10 +103,46 @@ const PREVIEW = {
     tagline: "Be in the loop. Without hovering.",
     accent: "from-yellow-500 to-amber-700",
     highlights: [
-      { icon: Bell, title: "Deadline alerts", body: "FAFSA, apps, scholarships — never missed." },
-      { icon: LineChart, title: "Progress view", body: "See where your student stands at a glance." },
-      { icon: ShieldCheck, title: "Verified resources", body: "Curated for parents, no rabbit holes." },
-      { icon: Calendar, title: "Family calendar", body: "Sync key high-school dates in one place." },
+      {
+        icon: Bell,
+        title: "Deadline & Alerts",
+        body: "FAFSA, applications, and scholarship deadlines.",
+        shortcuts: [
+          { icon: Calendar, label: "Family calendar" },
+          { icon: Mail, label: "Alert prefs" },
+          { icon: BadgeCheck, label: "Verified dates" },
+        ],
+      },
+      {
+        icon: LineChart,
+        title: "Progress View",
+        body: "See where your student stands at a glance.",
+        shortcuts: [
+          { icon: ClipboardList, label: "App status" },
+          { icon: Target, label: "Milestones" },
+          { icon: Trophy, label: "Awards tracker" },
+        ],
+      },
+      {
+        icon: ShieldCheck,
+        title: "Verified Resources",
+        body: "Curated guides and tools, no rabbit holes.",
+        shortcuts: [
+          { icon: FileText, label: "Parent guides" },
+          { icon: Wallet, label: "FAFSA walkthrough" },
+          { icon: Search, label: "Trusted tools" },
+        ],
+      },
+      {
+        icon: Users,
+        title: "Parent Community",
+        body: "Connect with other parents navigating high school.",
+        shortcuts: [
+          { icon: MessageCircle, label: "Parent chat" },
+          { icon: Megaphone, label: "Q&A forum" },
+          { icon: Calendar, label: "Event meetups" },
+        ],
+      },
     ],
     stats: [
       { k: "5", v: "Upcoming deadlines" },
@@ -266,7 +350,7 @@ function AuthPage() {
 
               {/* Highlight tiles */}
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {preview.highlights.map(({ icon: Icon, title, body }, i) => (
+                {preview.highlights.map(({ icon: Icon, title, body, shortcuts }, i) => (
                   <motion.div
                     key={title}
                     initial={{ opacity: 0, y: 10 }}
@@ -280,7 +364,18 @@ function AuthPage() {
                       </div>
                       <div className="text-sm font-semibold">{title}</div>
                     </div>
-                    <p className="mt-1.5 text-xs text-muted-foreground">{body}</p>
+                    <p className="mt-1.5 text-[11px] text-muted-foreground leading-relaxed">{body}</p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {shortcuts.map(({ icon: SIcon, label }) => (
+                        <span
+                          key={label}
+                          className="inline-flex items-center gap-1 rounded-md bg-gold/10 px-1.5 py-0.5 text-[10px] font-medium text-gold"
+                        >
+                          <SIcon className="h-2.5 w-2.5" />
+                          {label}
+                        </span>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>
