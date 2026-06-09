@@ -1,16 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ArrowRight,
-  Music2,
-  Volume2,
-  VolumeX,
-  SkipForward,
-  Zap,
-  Check,
-} from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useMemo, useState } from "react";
+import { ArrowRight, Music2, Zap, Check, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,62 +18,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-// HBCU Battle of the Bands inspired playlist.
-// Royalty-free marching/brass tracks as placeholders — drop in real cuts when licensed.
-const PLAYLIST = [
-  {
-    title: "Swag Surfin'",
-    band: "The Crowd Mover",
-    url: "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946bc6c4b8.mp3?filename=marching-band-sport-intro-122222.mp3",
-  },
-  {
-    title: "Neck",
-    band: "Drumline Throwdown",
-    url: "https://cdn.pixabay.com/download/audio/2023/11/22/audio_4f1d6a9b35.mp3?filename=marching-snare-drum-180085.mp3",
-  },
-  {
-    title: "Knuck If You Buck",
-    band: "Brass Battery",
-    url: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c5b8f3c7e.mp3?filename=epic-cinematic-trailer-15094.mp3",
-  },
-];
+// HBCU Battle of the Bands — Spotify playlist (Southern University Human Jukebox / Fabulous Dancing Dolls)
+const SPOTIFY_PLAYLIST_ID = "3C0Bd8qAYTczNcjtS7sy2V";
+const SPOTIFY_PLAYLIST_NAME = "thee human jukebox hbcu";
 
 function Landing() {
-  // -------- Music player --------
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [trackIdx, setTrackIdx] = useState(0);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    const a = new Audio(PLAYLIST[trackIdx].url);
-    a.loop = false;
-    a.volume = 0.55;
-    a.onended = () => setTrackIdx((i) => (i + 1) % PLAYLIST.length);
-    audioRef.current = a;
-    if (playing) a.play().catch(() => setPlaying(false));
-    return () => {
-      a.pause();
-      audioRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackIdx]);
-
-  const togglePlay = async () => {
-    if (!audioRef.current) return;
-    try {
-      if (playing) {
-        audioRef.current.pause();
-        setPlaying(false);
-      } else {
-        await audioRef.current.play();
-        setPlaying(true);
-      }
-    } catch {
-      setPlaying(false);
-    }
-  };
-  const skip = () => setTrackIdx((i) => (i + 1) % PLAYLIST.length);
-
   // -------- Floating notes --------
   const notes = useMemo(
     () =>
@@ -123,51 +64,22 @@ function Landing() {
         ))}
       </div>
 
-      {/* ============== NAV ============== */}
-      <Nav
-        playing={playing}
-        track={PLAYLIST[trackIdx]}
-        togglePlay={togglePlay}
-        skip={skip}
-      />
-
-      {/* ============== HERO ============== */}
+      <Nav />
       <Hero />
-
-      {/* ============== WIN BOARD ============== */}
       <WinBoard />
-
-      {/* ============== MODULES ============== */}
       <Modules />
-
-      {/* ============== MEET P ============== */}
       <MeetP />
-
-      {/* ============== STUDENT VS PARENT ============== */}
       <SplitSection />
-
-      {/* ============== PRICING ============== */}
       <Pricing />
-
-      {/* ============== FOOTER ============== */}
       <Footer />
+      <SpotifyPlayer />
     </div>
   );
 }
 
 /* ----------------- Sub-sections ----------------- */
 
-function Nav({
-  playing,
-  track,
-  togglePlay,
-  skip,
-}: {
-  playing: boolean;
-  track: { title: string; band: string };
-  togglePlay: () => void;
-  skip: () => void;
-}) {
+function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-maroon/40 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -193,31 +105,92 @@ function Nav({
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Music HUD */}
-          <div className="hidden items-center gap-1 rounded-full border border-gold/30 bg-surface/70 px-2 py-1 lg:flex">
-            <button
-              onClick={togglePlay}
-              aria-label={playing ? "Pause band" : "Play band"}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-burnt text-primary-foreground transition hover:opacity-90"
-            >
-              {playing ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
-            </button>
-            <div className="px-2 text-[10px] uppercase tracking-widest text-muted-foreground">
-              <div className="font-mono text-gold">{track.band}</div>
-              <div className="truncate text-foreground/70">♪ {track.title}</div>
-            </div>
-            <button
-              onClick={skip}
-              aria-label="Next track"
-              className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/70 hover:bg-maroon/30 hover:text-gold"
-            >
-              <SkipForward className="h-3.5 w-3.5" />
-            </button>
-          </div>
-
           <Link to="/auth">
             <Button
               variant="outline"
+              className="border-burnt text-burnt hover:bg-burnt hover:text-primary-foreground"
+            >
+              Log In
+            </Button>
+          </Link>
+          <Link to="/auth">
+            <Button className="bg-burnt text-primary-foreground shadow-burnt hover:bg-burnt/90">
+              Get Started
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ----------------- Spotify Floating Player ----------------- */
+function SpotifyPlayer() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="fixed bottom-4 right-4 z-50">
+      <AnimatePresence mode="wait">
+        {open ? (
+          <motion.div
+            key="open"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="overflow-hidden rounded-2xl border border-gold/40 bg-surface shadow-gold"
+            style={{ width: 340 }}
+          >
+            <div className="flex items-center justify-between border-b border-border bg-background/60 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-burnt" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-gold">
+                  Now playing · BOTB
+                </span>
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded p-1 text-foreground/60 hover:bg-maroon/30 hover:text-gold"
+                aria-label="Close player"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <iframe
+              title={SPOTIFY_PLAYLIST_NAME}
+              src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
+              width="100%"
+              height="380"
+              frameBorder={0}
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              style={{ borderRadius: 0, display: "block" }}
+            />
+          </motion.div>
+        ) : (
+          <motion.button
+            key="closed"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            onClick={() => setOpen(true)}
+            className="flex items-center gap-2 rounded-full bg-burnt px-4 py-3 font-mono text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-burnt"
+            aria-label="Open HBCU Battle of the Bands player"
+          >
+            <motion.span
+              animate={{ rotate: [0, 12, -12, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity }}
+            >
+              <Music2 className="h-4 w-4" />
+            </motion.span>
+            Play the band
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+
               className="border-burnt text-burnt hover:bg-burnt hover:text-primary-foreground"
             >
               Log In
