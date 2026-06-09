@@ -191,21 +191,6 @@ function SpotifyPlayer() {
 }
 
 
-              className="border-burnt text-burnt hover:bg-burnt hover:text-primary-foreground"
-            >
-              Log In
-            </Button>
-          </Link>
-          <Link to="/auth">
-            <Button className="bg-burnt text-primary-foreground shadow-burnt hover:bg-burnt/90">
-              Get Started
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function Hero() {
   return (
