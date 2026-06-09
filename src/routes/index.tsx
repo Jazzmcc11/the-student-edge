@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
 import { useMemo, useState } from "react";
 import { ArrowRight, Music2, Zap, Check, X } from "lucide-react";
+import studentsHero from "@/assets/students-hero.jpg";
+import familiesImg from "@/assets/families.jpg";
+import bandImg from "@/assets/band.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -310,6 +313,26 @@ function Hero() {
         <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           Southern. Scholarly. Unbought.
         </p>
+
+        {/* Hero portrait */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85, duration: 0.7 }}
+          className="relative mx-auto mt-16 max-w-4xl"
+        >
+          <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-burnt/30 via-maroon/20 to-gold/30 blur-2xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-gold/30 shadow-burnt">
+            <img
+              src={studentsHero}
+              alt="A diverse group of high school students from every background — Black, white, Hispanic, and Asian — smiling in collegiate colors"
+              width={1280}
+              height={896}
+              className="h-auto w-full object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -344,8 +367,17 @@ function WinBoard() {
     },
   ];
   return (
-    <section className="border-y border-border bg-[#0F0F0F] py-20">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative border-y border-border bg-[#0F0F0F] py-20">
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, rgba(15,15,15,0.7), rgba(15,15,15,0.95)), url(${bandImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="mb-12 text-center">
           <h2 className="font-display text-4xl font-bold md:text-5xl">
             The wins are <span className="italic text-burnt">real.</span>
@@ -554,6 +586,16 @@ function SplitSection() {
         className="border-t-4 border-navy p-12 lg:p-16"
         style={{ background: "#0F0A0A" }}
       >
+        <div className="mb-8 overflow-hidden rounded-xl border border-navy/40">
+          <img
+            src={familiesImg}
+            alt="Diverse families — African American, Hispanic, white, and Asian — celebrating with their graduating students"
+            width={1280}
+            height={896}
+            loading="lazy"
+            className="h-56 w-full object-cover md:h-64"
+          />
+        </div>
         <h3 className="font-display text-3xl font-bold text-navy md:text-4xl">
           <span style={{ color: "#4a6fb0" }}>
             Built for the parent who wants to help but doesn't know how.
