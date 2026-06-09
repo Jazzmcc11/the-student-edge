@@ -6,6 +6,7 @@ import { ArrowRight, Music2, Zap, Check, X } from "lucide-react";
 import studentsHero from "@/assets/students-hero.jpg";
 import familiesImg from "@/assets/families.jpg";
 import bandImg from "@/assets/band.jpg";
+import plugLogo from "@/assets/plug-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -87,9 +88,7 @@ function Nav() {
     <header className="sticky top-0 z-40 border-b border-maroon/40 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-gold/50 bg-background">
-            <span className="font-display text-xl font-black text-gold">P</span>
-          </div>
+          <img src={plugLogo.url} alt="The Plug logo" className="h-10 w-10 rounded-lg object-contain" />
           <span className="font-display text-2xl font-bold tracking-tight text-gold">
             The Plug
           </span>
@@ -749,9 +748,7 @@ function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50">
-                <span className="font-display text-xl font-black text-gold">P</span>
-              </div>
+              <img src={plugLogo.url} alt="The Plug logo" className="h-10 w-10 rounded-lg object-contain" />
               <span className="font-display text-2xl font-bold text-gold">The Plug</span>
             </div>
             <p className="mt-3 font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground">
