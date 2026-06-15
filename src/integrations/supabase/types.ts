@@ -47,6 +47,57 @@ export type Database = {
         }
         Relationships: []
       }
+      parent_invites: {
+        Row: {
+          code: string
+          created_at: string
+          expires_at: string
+          id: string
+          student_id: string
+          used_at: string | null
+          used_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          student_id: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          student_id?: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Relationships: []
+      }
+      parent_student_links: {
+        Row: {
+          created_at: string
+          id: string
+          parent_id: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          parent_id: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          parent_id?: string
+          student_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -199,6 +250,11 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_linked_parent: {
+        Args: { _parent: string; _student: string }
+        Returns: boolean
+      }
+      redeem_parent_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
