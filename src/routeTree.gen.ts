@@ -16,10 +16,19 @@ import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
 import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
+import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
 import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
 import { Route as AuthenticatedTrackerCollegesRouteImport } from './routes/_authenticated/tracker.colleges'
 import { Route as AuthenticatedScholarshipsIdRouteImport } from './routes/_authenticated/scholarships.$id'
+import { Route as AuthenticatedCommunityWinsRouteImport } from './routes/_authenticated/community.wins'
+import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/_authenticated/community.discussions'
+import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
+import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
+import { Route as AuthenticatedCommunityThreadsIdRouteImport } from './routes/_authenticated/community.threads.$id'
+import { Route as AuthenticatedCommunityDiscussionsSlugRouteImport } from './routes/_authenticated/community.discussions.$slug'
+import { Route as AuthenticatedCommunityAdviceIdRouteImport } from './routes/_authenticated/community.advice.$id'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -56,11 +65,22 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedScholarshipsIndexRoute =
   AuthenticatedScholarshipsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedScholarshipsRoute,
+  } as any)
+const AuthenticatedCommunityIndexRoute =
+  AuthenticatedCommunityIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCommunityRoute,
   } as any)
 const AuthenticatedTrackerScholarshipsRoute =
   AuthenticatedTrackerScholarshipsRouteImport.update({
@@ -80,18 +100,69 @@ const AuthenticatedScholarshipsIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedScholarshipsRoute,
   } as any)
+const AuthenticatedCommunityWinsRoute =
+  AuthenticatedCommunityWinsRouteImport.update({
+    id: '/wins',
+    path: '/wins',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityDiscussionsRoute =
+  AuthenticatedCommunityDiscussionsRouteImport.update({
+    id: '/discussions',
+    path: '/discussions',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityBuddiesRoute =
+  AuthenticatedCommunityBuddiesRouteImport.update({
+    id: '/buddies',
+    path: '/buddies',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityAdviceRoute =
+  AuthenticatedCommunityAdviceRouteImport.update({
+    id: '/advice',
+    path: '/advice',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityThreadsIdRoute =
+  AuthenticatedCommunityThreadsIdRouteImport.update({
+    id: '/threads/$id',
+    path: '/threads/$id',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityDiscussionsSlugRoute =
+  AuthenticatedCommunityDiscussionsSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => AuthenticatedCommunityDiscussionsRoute,
+  } as any)
+const AuthenticatedCommunityAdviceIdRoute =
+  AuthenticatedCommunityAdviceIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedCommunityAdviceRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/community': typeof AuthenticatedCommunityRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
+  '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
+  '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
+  '/community/wins': typeof AuthenticatedCommunityWinsRoute
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/community/': typeof AuthenticatedCommunityIndexRoute
   '/scholarships/': typeof AuthenticatedScholarshipsIndexRoute
+  '/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
+  '/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
+  '/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,38 +170,64 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
+  '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
+  '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
+  '/community/wins': typeof AuthenticatedCommunityWinsRoute
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/community': typeof AuthenticatedCommunityIndexRoute
   '/scholarships': typeof AuthenticatedScholarshipsIndexRoute
+  '/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
+  '/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
+  '/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/_authenticated/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
+  '/_authenticated/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
+  '/_authenticated/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
+  '/_authenticated/community/wins': typeof AuthenticatedCommunityWinsRoute
   '/_authenticated/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/_authenticated/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/_authenticated/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/_authenticated/community/': typeof AuthenticatedCommunityIndexRoute
   '/_authenticated/scholarships/': typeof AuthenticatedScholarshipsIndexRoute
+  '/_authenticated/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
+  '/_authenticated/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
+  '/_authenticated/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/community'
     | '/dashboard'
     | '/family'
     | '/scholarships'
     | '/tracker'
+    | '/community/advice'
+    | '/community/buddies'
+    | '/community/discussions'
+    | '/community/wins'
     | '/scholarships/$id'
     | '/tracker/colleges'
     | '/tracker/scholarships'
+    | '/community/'
     | '/scholarships/'
+    | '/community/advice/$id'
+    | '/community/discussions/$slug'
+    | '/community/threads/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -138,23 +235,40 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/family'
     | '/tracker'
+    | '/community/advice'
+    | '/community/buddies'
+    | '/community/discussions'
+    | '/community/wins'
     | '/scholarships/$id'
     | '/tracker/colleges'
     | '/tracker/scholarships'
+    | '/community'
     | '/scholarships'
+    | '/community/advice/$id'
+    | '/community/discussions/$slug'
+    | '/community/threads/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/community'
     | '/_authenticated/dashboard'
     | '/_authenticated/family'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
+    | '/_authenticated/community/advice'
+    | '/_authenticated/community/buddies'
+    | '/_authenticated/community/discussions'
+    | '/_authenticated/community/wins'
     | '/_authenticated/scholarships/$id'
     | '/_authenticated/tracker/colleges'
     | '/_authenticated/tracker/scholarships'
+    | '/_authenticated/community/'
     | '/_authenticated/scholarships/'
+    | '/_authenticated/community/advice/$id'
+    | '/_authenticated/community/discussions/$slug'
+    | '/_authenticated/community/threads/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -214,12 +328,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/community': {
+      id: '/_authenticated/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/scholarships/': {
       id: '/_authenticated/scholarships/'
       path: '/'
       fullPath: '/scholarships/'
       preLoaderRoute: typeof AuthenticatedScholarshipsIndexRouteImport
       parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
+    '/_authenticated/community/': {
+      id: '/_authenticated/community/'
+      path: '/'
+      fullPath: '/community/'
+      preLoaderRoute: typeof AuthenticatedCommunityIndexRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
     }
     '/_authenticated/tracker/scholarships': {
       id: '/_authenticated/tracker/scholarships'
@@ -242,8 +370,112 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedScholarshipsIdRouteImport
       parentRoute: typeof AuthenticatedScholarshipsRoute
     }
+    '/_authenticated/community/wins': {
+      id: '/_authenticated/community/wins'
+      path: '/wins'
+      fullPath: '/community/wins'
+      preLoaderRoute: typeof AuthenticatedCommunityWinsRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/discussions': {
+      id: '/_authenticated/community/discussions'
+      path: '/discussions'
+      fullPath: '/community/discussions'
+      preLoaderRoute: typeof AuthenticatedCommunityDiscussionsRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/buddies': {
+      id: '/_authenticated/community/buddies'
+      path: '/buddies'
+      fullPath: '/community/buddies'
+      preLoaderRoute: typeof AuthenticatedCommunityBuddiesRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/advice': {
+      id: '/_authenticated/community/advice'
+      path: '/advice'
+      fullPath: '/community/advice'
+      preLoaderRoute: typeof AuthenticatedCommunityAdviceRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/threads/$id': {
+      id: '/_authenticated/community/threads/$id'
+      path: '/threads/$id'
+      fullPath: '/community/threads/$id'
+      preLoaderRoute: typeof AuthenticatedCommunityThreadsIdRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/discussions/$slug': {
+      id: '/_authenticated/community/discussions/$slug'
+      path: '/$slug'
+      fullPath: '/community/discussions/$slug'
+      preLoaderRoute: typeof AuthenticatedCommunityDiscussionsSlugRouteImport
+      parentRoute: typeof AuthenticatedCommunityDiscussionsRoute
+    }
+    '/_authenticated/community/advice/$id': {
+      id: '/_authenticated/community/advice/$id'
+      path: '/$id'
+      fullPath: '/community/advice/$id'
+      preLoaderRoute: typeof AuthenticatedCommunityAdviceIdRouteImport
+      parentRoute: typeof AuthenticatedCommunityAdviceRoute
+    }
   }
 }
+
+interface AuthenticatedCommunityAdviceRouteChildren {
+  AuthenticatedCommunityAdviceIdRoute: typeof AuthenticatedCommunityAdviceIdRoute
+}
+
+const AuthenticatedCommunityAdviceRouteChildren: AuthenticatedCommunityAdviceRouteChildren =
+  {
+    AuthenticatedCommunityAdviceIdRoute: AuthenticatedCommunityAdviceIdRoute,
+  }
+
+const AuthenticatedCommunityAdviceRouteWithChildren =
+  AuthenticatedCommunityAdviceRoute._addFileChildren(
+    AuthenticatedCommunityAdviceRouteChildren,
+  )
+
+interface AuthenticatedCommunityDiscussionsRouteChildren {
+  AuthenticatedCommunityDiscussionsSlugRoute: typeof AuthenticatedCommunityDiscussionsSlugRoute
+}
+
+const AuthenticatedCommunityDiscussionsRouteChildren: AuthenticatedCommunityDiscussionsRouteChildren =
+  {
+    AuthenticatedCommunityDiscussionsSlugRoute:
+      AuthenticatedCommunityDiscussionsSlugRoute,
+  }
+
+const AuthenticatedCommunityDiscussionsRouteWithChildren =
+  AuthenticatedCommunityDiscussionsRoute._addFileChildren(
+    AuthenticatedCommunityDiscussionsRouteChildren,
+  )
+
+interface AuthenticatedCommunityRouteChildren {
+  AuthenticatedCommunityAdviceRoute: typeof AuthenticatedCommunityAdviceRouteWithChildren
+  AuthenticatedCommunityBuddiesRoute: typeof AuthenticatedCommunityBuddiesRoute
+  AuthenticatedCommunityDiscussionsRoute: typeof AuthenticatedCommunityDiscussionsRouteWithChildren
+  AuthenticatedCommunityWinsRoute: typeof AuthenticatedCommunityWinsRoute
+  AuthenticatedCommunityIndexRoute: typeof AuthenticatedCommunityIndexRoute
+  AuthenticatedCommunityThreadsIdRoute: typeof AuthenticatedCommunityThreadsIdRoute
+}
+
+const AuthenticatedCommunityRouteChildren: AuthenticatedCommunityRouteChildren =
+  {
+    AuthenticatedCommunityAdviceRoute:
+      AuthenticatedCommunityAdviceRouteWithChildren,
+    AuthenticatedCommunityBuddiesRoute: AuthenticatedCommunityBuddiesRoute,
+    AuthenticatedCommunityDiscussionsRoute:
+      AuthenticatedCommunityDiscussionsRouteWithChildren,
+    AuthenticatedCommunityWinsRoute: AuthenticatedCommunityWinsRoute,
+    AuthenticatedCommunityIndexRoute: AuthenticatedCommunityIndexRoute,
+    AuthenticatedCommunityThreadsIdRoute: AuthenticatedCommunityThreadsIdRoute,
+  }
+
+const AuthenticatedCommunityRouteWithChildren =
+  AuthenticatedCommunityRoute._addFileChildren(
+    AuthenticatedCommunityRouteChildren,
+  )
 
 interface AuthenticatedScholarshipsRouteChildren {
   AuthenticatedScholarshipsIdRoute: typeof AuthenticatedScholarshipsIdRoute
@@ -275,6 +507,7 @@ const AuthenticatedTrackerRouteWithChildren =
   AuthenticatedTrackerRoute._addFileChildren(AuthenticatedTrackerRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
@@ -282,6 +515,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,

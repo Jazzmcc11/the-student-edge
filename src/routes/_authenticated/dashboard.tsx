@@ -120,12 +120,11 @@ function Dashboard() {
             tags={["Colleges", "Scholarships"]}
           />
           <ModuleCard
-            to="/dashboard"
-            icon={BookOpen}
-            title="Academic Support"
-            description="Resource library and 24/7 AI tutoring. Coming soon."
-            tags={["Coming soon"]}
-            disabled
+            to="/community/wins"
+            icon={Users}
+            title="Community"
+            description="Wins wall, study buddies, advice library, and discussion boards."
+            tags={["Wins", "Buddies", "Advice", "Discussions"]}
           />
           <ModuleCard
             to="/family"
