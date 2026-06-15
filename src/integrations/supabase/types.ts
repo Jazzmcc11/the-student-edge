@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      college_applications: {
+        Row: {
+          accepted: boolean | null
+          college_name: string
+          created_at: string
+          id: string
+          notes: string | null
+          submitted: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          accepted?: boolean | null
+          college_name: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          submitted?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          accepted?: boolean | null
+          college_name?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          submitted?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -41,14 +74,134 @@ export type Database = {
         }
         Relationships: []
       }
+      scholarship_applications: {
+        Row: {
+          amount: number | null
+          created_at: string
+          date_applied: string | null
+          id: string
+          name: string
+          notes: string | null
+          received: boolean
+          scholarship_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          date_applied?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          received?: boolean
+          scholarship_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          date_applied?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          received?: boolean
+          scholarship_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scholarship_applications_scholarship_id_fkey"
+            columns: ["scholarship_id"]
+            isOneToOne: false
+            referencedRelation: "scholarships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scholarships: {
+        Row: {
+          amount: number | null
+          apply_url: string | null
+          category: string | null
+          created_at: string
+          created_by: string | null
+          deadline: string | null
+          description: string | null
+          eligibility: string | null
+          id: string
+          name: string
+          provider: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount?: number | null
+          apply_url?: string | null
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          deadline?: string | null
+          description?: string | null
+          eligibility?: string | null
+          id?: string
+          name: string
+          provider?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number | null
+          apply_url?: string | null
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          deadline?: string | null
+          description?: string | null
+          eligibility?: string | null
+          id?: string
+          name?: string
+          provider?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
+      app_role: "admin" | "user"
       user_type: "student" | "parent"
     }
     CompositeTypes: {
@@ -177,6 +330,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "user"],
       user_type: ["student", "parent"],
     },
   },
