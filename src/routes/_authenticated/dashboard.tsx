@@ -128,12 +128,13 @@ function Dashboard() {
             disabled
           />
           <ModuleCard
-            to="/dashboard"
+            to="/family"
             icon={Users}
-            title="Community"
-            description="Discussion spaces organized by topic. Coming soon."
-            tags={["Coming soon"]}
-            disabled
+            title={profile?.user_type === "parent" ? "Your students" : "Family access"}
+            description={profile?.user_type === "parent"
+              ? "Link to your student's account and follow their progress."
+              : "Invite a parent with a code. Read-only — you stay in control."}
+            tags={profile?.user_type === "parent" ? ["Link", "Read-only"] : ["Invite", "Read-only"]}
           />
         </div>
       </main>
