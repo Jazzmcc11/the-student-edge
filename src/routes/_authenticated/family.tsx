@@ -14,7 +14,6 @@ export const Route = createFileRoute("/_authenticated/family")({
 
 type Profile = { id: string; full_name: string | null; email: string | null; user_type: "student" | "parent" };
 type Invite = { id: string; code: string; expires_at: string; used_at: string | null };
-type Link = { id: string; parent_id: string; student_id: string; created_at: string };
 
 function randomCode() {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
