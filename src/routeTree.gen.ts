@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
+import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
 import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
@@ -45,6 +46,11 @@ const AuthenticatedScholarshipsRoute =
     path: '/scholarships',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
+  id: '/family',
+  path: '/family',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/family': typeof AuthenticatedFamilyRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/family': typeof AuthenticatedFamilyRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/_authenticated/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/family'
     | '/scholarships'
     | '/tracker'
     | '/scholarships/$id'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/family'
     | '/tracker'
     | '/scholarships/$id'
     | '/tracker/colleges'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/family'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
     | '/_authenticated/scholarships/$id'
@@ -186,6 +198,13 @@ declare module '@tanstack/react-router' {
       path: '/scholarships'
       fullPath: '/scholarships'
       preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/family': {
+      id: '/_authenticated/family'
+      path: '/family'
+      fullPath: '/family'
+      preLoaderRoute: typeof AuthenticatedFamilyRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -257,12 +276,14 @@ const AuthenticatedTrackerRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
 }
@@ -278,13 +299,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
