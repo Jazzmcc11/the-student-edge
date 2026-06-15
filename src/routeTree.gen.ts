@@ -12,7 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
+import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
+import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
+import { Route as AuthenticatedTrackerCollegesRouteImport } from './routes/_authenticated/tracker.colleges'
+import { Route as AuthenticatedScholarshipsIdRouteImport } from './routes/_authenticated/scholarships.$id'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -28,21 +34,67 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedScholarshipsRoute =
+  AuthenticatedScholarshipsRouteImport.update({
+    id: '/scholarships',
+    path: '/scholarships',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedScholarshipsIndexRoute =
+  AuthenticatedScholarshipsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedScholarshipsRoute,
+  } as any)
+const AuthenticatedTrackerScholarshipsRoute =
+  AuthenticatedTrackerScholarshipsRouteImport.update({
+    id: '/scholarships',
+    path: '/scholarships',
+    getParentRoute: () => AuthenticatedTrackerRoute,
+  } as any)
+const AuthenticatedTrackerCollegesRoute =
+  AuthenticatedTrackerCollegesRouteImport.update({
+    id: '/colleges',
+    path: '/colleges',
+    getParentRoute: () => AuthenticatedTrackerRoute,
+  } as any)
+const AuthenticatedScholarshipsIdRoute =
+  AuthenticatedScholarshipsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedScholarshipsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
+  '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
+  '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
+  '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/scholarships/': typeof AuthenticatedScholarshipsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
+  '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
+  '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/scholarships': typeof AuthenticatedScholarshipsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -50,18 +102,47 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
+  '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/_authenticated/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
+  '/_authenticated/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
+  '/_authenticated/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
+  '/_authenticated/scholarships/': typeof AuthenticatedScholarshipsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/scholarships'
+    | '/tracker'
+    | '/scholarships/$id'
+    | '/tracker/colleges'
+    | '/tracker/scholarships'
+    | '/scholarships/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/tracker'
+    | '/scholarships/$id'
+    | '/tracker/colleges'
+    | '/tracker/scholarships'
+    | '/scholarships'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/scholarships'
+    | '/_authenticated/tracker'
+    | '/_authenticated/scholarships/$id'
+    | '/_authenticated/tracker/colleges'
+    | '/_authenticated/tracker/scholarships'
+    | '/_authenticated/scholarships/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,6 +174,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/tracker': {
+      id: '/_authenticated/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof AuthenticatedTrackerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scholarships': {
+      id: '/_authenticated/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -100,15 +195,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/scholarships/': {
+      id: '/_authenticated/scholarships/'
+      path: '/'
+      fullPath: '/scholarships/'
+      preLoaderRoute: typeof AuthenticatedScholarshipsIndexRouteImport
+      parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
+    '/_authenticated/tracker/scholarships': {
+      id: '/_authenticated/tracker/scholarships'
+      path: '/scholarships'
+      fullPath: '/tracker/scholarships'
+      preLoaderRoute: typeof AuthenticatedTrackerScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedTrackerRoute
+    }
+    '/_authenticated/tracker/colleges': {
+      id: '/_authenticated/tracker/colleges'
+      path: '/colleges'
+      fullPath: '/tracker/colleges'
+      preLoaderRoute: typeof AuthenticatedTrackerCollegesRouteImport
+      parentRoute: typeof AuthenticatedTrackerRoute
+    }
+    '/_authenticated/scholarships/$id': {
+      id: '/_authenticated/scholarships/$id'
+      path: '/$id'
+      fullPath: '/scholarships/$id'
+      preLoaderRoute: typeof AuthenticatedScholarshipsIdRouteImport
+      parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
   }
 }
 
+interface AuthenticatedScholarshipsRouteChildren {
+  AuthenticatedScholarshipsIdRoute: typeof AuthenticatedScholarshipsIdRoute
+  AuthenticatedScholarshipsIndexRoute: typeof AuthenticatedScholarshipsIndexRoute
+}
+
+const AuthenticatedScholarshipsRouteChildren: AuthenticatedScholarshipsRouteChildren =
+  {
+    AuthenticatedScholarshipsIdRoute: AuthenticatedScholarshipsIdRoute,
+    AuthenticatedScholarshipsIndexRoute: AuthenticatedScholarshipsIndexRoute,
+  }
+
+const AuthenticatedScholarshipsRouteWithChildren =
+  AuthenticatedScholarshipsRoute._addFileChildren(
+    AuthenticatedScholarshipsRouteChildren,
+  )
+
+interface AuthenticatedTrackerRouteChildren {
+  AuthenticatedTrackerCollegesRoute: typeof AuthenticatedTrackerCollegesRoute
+  AuthenticatedTrackerScholarshipsRoute: typeof AuthenticatedTrackerScholarshipsRoute
+}
+
+const AuthenticatedTrackerRouteChildren: AuthenticatedTrackerRouteChildren = {
+  AuthenticatedTrackerCollegesRoute: AuthenticatedTrackerCollegesRoute,
+  AuthenticatedTrackerScholarshipsRoute: AuthenticatedTrackerScholarshipsRoute,
+}
+
+const AuthenticatedTrackerRouteWithChildren =
+  AuthenticatedTrackerRoute._addFileChildren(AuthenticatedTrackerRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
+  AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
+  AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -122,13 +278,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
