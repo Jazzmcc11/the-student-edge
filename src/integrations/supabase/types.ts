@@ -14,6 +14,81 @@ export type Database = {
   }
   public: {
     Tables: {
+      advice_posts: {
+        Row: {
+          audience: Database["public"]["Enums"]["advice_audience"]
+          author_id: string | null
+          body: string
+          category: string | null
+          created_at: string
+          id: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          audience?: Database["public"]["Enums"]["advice_audience"]
+          author_id?: string | null
+          body: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          audience?: Database["public"]["Enums"]["advice_audience"]
+          author_id?: string | null
+          body?: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      buddy_profiles: {
+        Row: {
+          bio: string | null
+          colleges: string | null
+          contact: string | null
+          created_at: string
+          display_name: string
+          grade_level: string | null
+          scholarships: string | null
+          updated_at: string
+          user_id: string
+          visible: boolean
+        }
+        Insert: {
+          bio?: string | null
+          colleges?: string | null
+          contact?: string | null
+          created_at?: string
+          display_name: string
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string
+          user_id: string
+          visible?: boolean
+        }
+        Update: {
+          bio?: string | null
+          colleges?: string | null
+          contact?: string | null
+          created_at?: string
+          display_name?: string
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string
+          user_id?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
       college_applications: {
         Row: {
           accepted: boolean | null
@@ -44,6 +119,106 @@ export type Database = {
           submitted?: boolean
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      discussion_replies: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          thread_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          thread_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          thread_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_replies_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "discussion_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussion_threads: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          title: string
+          topic_id: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          title: string
+          topic_id: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          title?: string
+          topic_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_threads_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "discussion_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussion_topics: {
+        Row: {
+          audience: Database["public"]["Enums"]["advice_audience"]
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          audience?: Database["public"]["Enums"]["advice_audience"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          audience?: Database["public"]["Enums"]["advice_audience"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
         }
         Relationships: []
       }
@@ -238,6 +413,39 @@ export type Database = {
         }
         Relationships: []
       }
+      wins: {
+        Row: {
+          amount: number | null
+          anonymous: boolean
+          created_at: string
+          display_name: string | null
+          id: string
+          note: string | null
+          scholarship_name: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number | null
+          anonymous?: boolean
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          note?: string | null
+          scholarship_name: string
+          user_id: string
+        }
+        Update: {
+          amount?: number | null
+          anonymous?: boolean
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          note?: string | null
+          scholarship_name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -257,6 +465,7 @@ export type Database = {
       redeem_parent_invite: { Args: { _code: string }; Returns: string }
     }
     Enums: {
+      advice_audience: "student" | "parent" | "both"
       app_role: "admin" | "user"
       user_type: "student" | "parent"
     }
@@ -386,6 +595,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      advice_audience: ["student", "parent", "both"],
       app_role: ["admin", "user"],
       user_type: ["student", "parent"],
     },
