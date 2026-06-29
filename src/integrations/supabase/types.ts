@@ -419,6 +419,7 @@ export type Database = {
           created_at: string
           display_name: string | null
           email: string | null
+          email_reminders: boolean
           full_name: string | null
           grade_level: number | null
           id: string
@@ -432,6 +433,7 @@ export type Database = {
           parent_update_freq: string | null
           playlist_pref: string | null
           pronouns: string | null
+          reminder_lead_days: number[]
           school: string | null
           state: string | null
           theme_mode: string | null
@@ -445,6 +447,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          email_reminders?: boolean
           full_name?: string | null
           grade_level?: number | null
           id: string
@@ -458,6 +461,7 @@ export type Database = {
           parent_update_freq?: string | null
           playlist_pref?: string | null
           pronouns?: string | null
+          reminder_lead_days?: number[]
           school?: string | null
           state?: string | null
           theme_mode?: string | null
@@ -471,6 +475,7 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
+          email_reminders?: boolean
           full_name?: string | null
           grade_level?: number | null
           id?: string
@@ -484,6 +489,7 @@ export type Database = {
           parent_update_freq?: string | null
           playlist_pref?: string | null
           pronouns?: string | null
+          reminder_lead_days?: number[]
           school?: string | null
           state?: string | null
           theme_mode?: string | null
@@ -491,6 +497,56 @@ export type Database = {
           user_type?: Database["public"]["Enums"]["user_type"]
         }
         Relationships: []
+      }
+      reminders: {
+        Row: {
+          body: string | null
+          created_at: string
+          days_out: number
+          due_date: string
+          emailed_at: string | null
+          id: string
+          key_date_id: string | null
+          read_at: string | null
+          title: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          days_out: number
+          due_date: string
+          emailed_at?: string | null
+          id?: string
+          key_date_id?: string | null
+          read_at?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          days_out?: number
+          due_date?: string
+          emailed_at?: string | null
+          id?: string
+          key_date_id?: string | null
+          read_at?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reminders_key_date_id_fkey"
+            columns: ["key_date_id"]
+            isOneToOne: false
+            referencedRelation: "key_dates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       scholarship_applications: {
         Row: {

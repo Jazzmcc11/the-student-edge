@@ -33,6 +33,7 @@ import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/
 import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
 import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
 import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
+import { Route as ApiPublicHooksCheckDeadlinesRouteImport } from './routes/api/public/hooks/check-deadlines'
 import { Route as AuthenticatedCommunityThreadsIdRouteImport } from './routes/_authenticated/community.threads.$id'
 import { Route as AuthenticatedCommunityDiscussionsSlugRouteImport } from './routes/_authenticated/community.discussions.$slug'
 import { Route as AuthenticatedCommunityAdviceIdRouteImport } from './routes/_authenticated/community.advice.$id'
@@ -168,6 +169,12 @@ const AuthenticatedAdminFeedbackRoute =
     path: '/admin/feedback',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicHooksCheckDeadlinesRoute =
+  ApiPublicHooksCheckDeadlinesRouteImport.update({
+    id: '/api/public/hooks/check-deadlines',
+    path: '/api/public/hooks/check-deadlines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedCommunityThreadsIdRoute =
   AuthenticatedCommunityThreadsIdRouteImport.update({
     id: '/threads/$id',
@@ -214,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
   '/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
   '/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
+  '/api/public/hooks/check-deadlines': typeof ApiPublicHooksCheckDeadlinesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -240,6 +248,7 @@ export interface FileRoutesByTo {
   '/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
   '/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
   '/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
+  '/api/public/hooks/check-deadlines': typeof ApiPublicHooksCheckDeadlinesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -270,6 +279,7 @@ export interface FileRoutesById {
   '/_authenticated/community/advice/$id': typeof AuthenticatedCommunityAdviceIdRoute
   '/_authenticated/community/discussions/$slug': typeof AuthenticatedCommunityDiscussionsSlugRoute
   '/_authenticated/community/threads/$id': typeof AuthenticatedCommunityThreadsIdRoute
+  '/api/public/hooks/check-deadlines': typeof ApiPublicHooksCheckDeadlinesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -300,6 +310,7 @@ export interface FileRouteTypes {
     | '/community/advice/$id'
     | '/community/discussions/$slug'
     | '/community/threads/$id'
+    | '/api/public/hooks/check-deadlines'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -326,6 +337,7 @@ export interface FileRouteTypes {
     | '/community/advice/$id'
     | '/community/discussions/$slug'
     | '/community/threads/$id'
+    | '/api/public/hooks/check-deadlines'
   id:
     | '__root__'
     | '/'
@@ -355,12 +367,14 @@ export interface FileRouteTypes {
     | '/_authenticated/community/advice/$id'
     | '/_authenticated/community/discussions/$slug'
     | '/_authenticated/community/threads/$id'
+    | '/api/public/hooks/check-deadlines'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ApiPublicHooksCheckDeadlinesRoute: typeof ApiPublicHooksCheckDeadlinesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -533,6 +547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFeedbackRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/hooks/check-deadlines': {
+      id: '/api/public/hooks/check-deadlines'
+      path: '/api/public/hooks/check-deadlines'
+      fullPath: '/api/public/hooks/check-deadlines'
+      preLoaderRoute: typeof ApiPublicHooksCheckDeadlinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/community/threads/$id': {
       id: '/_authenticated/community/threads/$id'
       path: '/threads/$id'
@@ -678,6 +699,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ApiPublicHooksCheckDeadlinesRoute: ApiPublicHooksCheckDeadlinesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

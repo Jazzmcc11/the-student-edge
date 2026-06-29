@@ -12,6 +12,7 @@ import {
   Calendar, Trophy, ClipboardList, Search, Inbox, Flame, Settings, Sparkles, History,
   Heart, MessageSquare, BookOpen,
 } from "lucide-react";
+import { RemindersBell } from "@/components/reminders-bell";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -82,6 +83,7 @@ function Dashboard() {
             )}
           </div>
           <div className="flex items-center gap-2">
+            <RemindersBell />
             {isAdmin && (
               <Link to="/admin/feedback">
                 <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-gold">
