@@ -73,9 +73,18 @@ function Dashboard() {
               </span>
             )}
           </div>
-          <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-gold">
-            <LogOut className="mr-2 h-4 w-4" /> Sign out
-          </Button>
+          <div className="flex items-center gap-2">
+            {isAdmin && (
+              <Link to="/admin/feedback">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-gold">
+                  <Inbox className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Feedback</span>
+                </Button>
+              </Link>
+            )}
+            <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-gold">
+              <LogOut className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Sign out</span>
+            </Button>
+          </div>
         </div>
       </header>
 
