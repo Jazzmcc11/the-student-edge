@@ -145,39 +145,37 @@ function ProfilePage() {
     setSaving(true);
     const splitCsv = (s: string) => s.split(",").map((x) => x.trim()).filter(Boolean);
 
-    const update: Record<string, unknown> = {
+    const update = {
       display_name: base.display_name || null,
       pronouns: base.pronouns || null,
       bio: base.bio || null,
+      ...(userType === "parent"
+        ? {
+            parent_relationship: parent.relationship || null,
+            parent_household_students: parent.household_students ? Number(parent.household_students) : null,
+            parent_focus: parent.focus,
+            parent_style: parent.style || null,
+            parent_update_freq: parent.update_freq || null,
+          }
+        : {
+            school: student.school || null,
+            grade_level: student.grade_level ? Number(student.grade_level) : null,
+            playlist_pref: student.playlist_pref,
+          }),
     };
 
-    if (userType === "parent") {
-      update.parent_relationship = parent.relationship || null;
-      update.parent_household_students = parent.household_students ? Number(parent.household_students) : null;
-      update.parent_focus = parent.focus;
-      update.parent_style = parent.style || null;
-      update.parent_update_freq = parent.update_freq || null;
-    } else {
-      update.school = student.school || null;
-      update.grade_level = student.grade_level ? Number(student.grade_level) : null;
-      update.playlist_pref = student.playlist_pref;
-    }
-
-    const ops: Promise<{ error: unknown }>[] = [
-      supabase.from("profiles").update(update).eq("id", userId),
-    ];
-    if (userType === "student") {
-      ops.push(
-        supabase.from("user_goals").upsert({
-          user_id: userId,
-          target_colleges: splitCsv(goals.target_colleges),
-          intended_majors: splitCsv(goals.intended_majors),
-          interests: splitCsv(goals.interests),
-          career_paths: splitCsv(goals.career_paths),
-        })
-      );
-    }
-    const results = await Promise.all(ops);
+    const profileRes = await supabase.from("profiles").update(update).eq("id", userId);
+    const goalsRes =
+      userType === "student"
+        ? await supabase.from("user_goals").upsert({
+            user_id: userId,
+            target_colleges: splitCsv(goals.target_colleges),
+            intended_majors: splitCsv(goals.intended_majors),
+            interests: splitCsv(goals.interests),
+            career_paths: splitCsv(goals.career_paths),
+          })
+        : { error: null };
+    const results = [profileRes, goalsRes];
     setSaving(false);
     if (results.some((r) => r.error)) return toast.error("Couldn't save. Try again.");
     toast.success("Profile saved");
