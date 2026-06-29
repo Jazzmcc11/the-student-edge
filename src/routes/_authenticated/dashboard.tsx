@@ -408,7 +408,10 @@ function StudentSnapshot({ student, parentId }: { student: LinkedStudent; parent
           </div>
           {student.latestWin ? (
             <>
-              <p className="text-base">{student.latestWin.headline}</p>
+              <p className="text-base">
+                {student.latestWin.scholarship_name}
+                {student.latestWin.amount ? <span className="ml-2 text-gold">${Number(student.latestWin.amount).toLocaleString()}</span> : null}
+              </p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {new Date(student.latestWin.created_at).toLocaleDateString()}
               </p>
