@@ -88,9 +88,21 @@ function ProfilePage() {
       setUserId(user.id);
       setEmail(user.email || "");
 
-      const { data: prof } = await supabase.from("profiles").select("*").eq("id", user.id).maybeSingle();
+      // Fallback to auth metadata so the right view shows even if the profile row is missing/blocked
+      const metaType = (user.user_metadata?.user_type as "student" | "parent" | undefined);
+      if (metaType === "parent" || metaType === "student") setUserType(metaType);
+
+      const { data: prof, error: profErr } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (profErr) console.warn("profile fetch error", profErr);
+      const resolvedType: "student" | "parent" =
+        (prof?.user_type as "student" | "parent") || metaType || "student";
+      setUserType(resolvedType);
+
       if (prof) {
-        setUserType((prof.user_type as "student" | "parent") || "student");
         setBase({
           display_name: prof.display_name || prof.full_name || "",
           pronouns: prof.pronouns || "",
@@ -108,28 +120,29 @@ function ProfilePage() {
           style: prof.parent_style || "",
           update_freq: prof.parent_update_freq || "Weekly digest",
         });
+      }
 
-        if (prof.user_type === "parent") {
-          const { count } = await supabase
-            .from("parent_student_links")
-            .select("*", { count: "exact", head: true })
-            .eq("parent_id", user.id);
-          setLinkedCount(count || 0);
-        } else {
-          const { data: g } = await supabase.from("user_goals").select("*").eq("user_id", user.id).maybeSingle();
-          if (g) {
-            setGoals({
-              target_colleges: (g.target_colleges || []).join(", "),
-              intended_majors: (g.intended_majors || []).join(", "),
-              interests: (g.interests || []).join(", "),
-              career_paths: (g.career_paths || []).join(", "),
-            });
-          }
+      if (resolvedType === "parent") {
+        const { count } = await supabase
+          .from("parent_student_links")
+          .select("*", { count: "exact", head: true })
+          .eq("parent_id", user.id);
+        setLinkedCount(count || 0);
+      } else {
+        const { data: g } = await supabase.from("user_goals").select("*").eq("user_id", user.id).maybeSingle();
+        if (g) {
+          setGoals({
+            target_colleges: (g.target_colleges || []).join(", "),
+            intended_majors: (g.intended_majors || []).join(", "),
+            interests: (g.interests || []).join(", "),
+            career_paths: (g.career_paths || []).join(", "),
+          });
         }
       }
       setLoading(false);
     })();
   }, []);
+
 
   async function save() {
     if (!userId) return;
