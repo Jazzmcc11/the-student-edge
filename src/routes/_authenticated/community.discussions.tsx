@@ -69,6 +69,7 @@ function TopicsList() {
           </Link>
         ))}
       </div>
+      )}
     </div>
   );
 }
