@@ -395,7 +395,7 @@ function StudentSnapshot({ student, parentId }: { student: LinkedStudent; parent
             icon={Calendar}
             label="Next deadline"
             value={student.nextDeadline ? `${student.nextDeadline.name.slice(0, 18)}${student.nextDeadline.name.length > 18 ? "…" : ""}` : "—"}
-            sub={student.nextDeadline ? new Date(student.nextDeadline.deadline).toLocaleDateString() : undefined}
+            sub={student.nextDeadline?.deadline ? new Date(student.nextDeadline.deadline).toLocaleDateString() : undefined}
           />
         </div>
       </div>
