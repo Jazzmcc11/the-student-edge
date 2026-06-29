@@ -267,6 +267,33 @@ export type Database = {
         }
         Relationships: []
       }
+      nudges: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          parent_id: string
+          read_at: string | null
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          parent_id: string
+          read_at?: string | null
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          parent_id?: string
+          read_at?: string | null
+          student_id?: string
+        }
+        Relationships: []
+      }
       parent_invites: {
         Row: {
           code: string
