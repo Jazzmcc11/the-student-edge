@@ -23,8 +23,16 @@ function TopicsList() {
 
   useEffect(() => {
     (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      let role: "student" | "parent" = "student";
+      if (user) {
+        const { data: prof } = await supabase.from("profiles").select("user_type").eq("id", user.id).maybeSingle();
+        if (prof?.user_type) role = prof.user_type as "student" | "parent";
+      }
       const { data } = await supabase.from("discussion_topics").select("*").order("sort_order");
-      const t = (data as Topic[]) || [];
+      const all = (data as Topic[]) || [];
+      // Show topics tagged for "both" plus the viewer's own audience
+      const t = all.filter((x) => x.audience === "both" || x.audience === role);
       setTopics(t);
       const { data: threads } = await supabase.from("discussion_threads").select("topic_id");
       const c: Record<string, number> = {};
