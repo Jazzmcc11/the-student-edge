@@ -217,3 +217,33 @@ function DateRow({ d }: { d: KeyDate }) {
     </Wrap>
   );
 }
+
+function RefreshRemindersButton() {
+  const refresh = useServerFn(refreshMyReminders);
+  const [busy, setBusy] = useState(false);
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      disabled={busy}
+      onClick={async () => {
+        setBusy(true);
+        try {
+          const res = await refresh({ data: undefined } as any);
+          toast.success(
+            res?.created
+              ? `Queued ${res.created} new reminder${res.created === 1 ? "" : "s"}`
+              : "You're all caught up",
+          );
+        } catch (e: any) {
+          toast.error(e?.message ?? "Couldn't refresh reminders");
+        } finally {
+          setBusy(false);
+        }
+      }}
+    >
+      <BellRing className="mr-2 h-4 w-4" />
+      {busy ? "Refreshing…" : "Refresh reminders"}
+    </Button>
+  );
+}
