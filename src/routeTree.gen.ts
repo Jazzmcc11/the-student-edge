@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
   id: '/tracker',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/tutor': typeof AuthenticatedTutorRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
@@ -195,6 +202,7 @@ export interface FileRoutesByTo {
   '/personality': typeof AuthenticatedPersonalityRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/tutor': typeof AuthenticatedTutorRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/_authenticated/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/scholarships'
     | '/tracker'
+    | '/tutor'
     | '/admin/feedback'
     | '/community/advice'
     | '/community/buddies'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/personality'
     | '/profile'
     | '/tracker'
+    | '/tutor'
     | '/admin/feedback'
     | '/community/advice'
     | '/community/buddies'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
+    | '/_authenticated/tutor'
     | '/_authenticated/admin/feedback'
     | '/_authenticated/community/advice'
     | '/_authenticated/community/buddies'
@@ -337,6 +349,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tracker': {
       id: '/_authenticated/tracker'
@@ -573,6 +592,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
+  AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
 }
 
@@ -584,6 +604,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
+  AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
 }
 
