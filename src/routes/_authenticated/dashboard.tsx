@@ -37,12 +37,26 @@ function Dashboard() {
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      const { data: prof } = await supabase
+      const { data: prof, error } = await supabase
         .from("profiles")
         .select("id, full_name, display_name, email, user_type, last_visited_module")
         .eq("id", user.id)
         .maybeSingle();
-      if (prof) setProfile(prof as Profile);
+      if (error) console.error("profile fetch error", error);
+      if (prof) {
+        setProfile(prof as Profile);
+      } else {
+        // Fallback to auth metadata so the dashboard never hangs on "Loading…"
+        const meta = (user.user_metadata || {}) as Record<string, string>;
+        setProfile({
+          id: user.id,
+          full_name: meta.full_name || null,
+          display_name: null,
+          email: user.email ?? null,
+          user_type: (meta.user_type as "student" | "parent") || "student",
+          last_visited_module: null,
+        });
+      }
     })();
   }, []);
 
