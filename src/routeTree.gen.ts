@@ -14,6 +14,8 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
 import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
@@ -54,6 +56,17 @@ const AuthenticatedScholarshipsRoute =
   AuthenticatedScholarshipsRouteImport.update({
     id: '/scholarships',
     path: '/scholarships',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPersonalityRoute =
+  AuthenticatedPersonalityRouteImport.update({
+    id: '/personality',
+    path: '/personality',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
@@ -156,6 +169,8 @@ export interface FileRoutesByFullPath {
   '/community': typeof AuthenticatedCommunityRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
+  '/personality': typeof AuthenticatedPersonalityRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -177,6 +192,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
+  '/personality': typeof AuthenticatedPersonalityRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
@@ -200,6 +217,8 @@ export interface FileRoutesById {
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
+  '/_authenticated/personality': typeof AuthenticatedPersonalityRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -224,6 +243,8 @@ export interface FileRouteTypes {
     | '/community'
     | '/dashboard'
     | '/family'
+    | '/personality'
+    | '/profile'
     | '/scholarships'
     | '/tracker'
     | '/admin/feedback'
@@ -245,6 +266,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/family'
+    | '/personality'
+    | '/profile'
     | '/tracker'
     | '/admin/feedback'
     | '/community/advice'
@@ -267,6 +290,8 @@ export interface FileRouteTypes {
     | '/_authenticated/community'
     | '/_authenticated/dashboard'
     | '/_authenticated/family'
+    | '/_authenticated/personality'
+    | '/_authenticated/profile'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
     | '/_authenticated/admin/feedback'
@@ -325,6 +350,20 @@ declare module '@tanstack/react-router' {
       path: '/scholarships'
       fullPath: '/scholarships'
       preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/personality': {
+      id: '/_authenticated/personality'
+      path: '/personality'
+      fullPath: '/personality'
+      preLoaderRoute: typeof AuthenticatedPersonalityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/family': {
@@ -530,6 +569,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
+  AuthenticatedPersonalityRoute: typeof AuthenticatedPersonalityRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
@@ -539,6 +580,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
+  AuthenticatedPersonalityRoute: AuthenticatedPersonalityRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,

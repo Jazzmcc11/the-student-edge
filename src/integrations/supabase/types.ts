@@ -14,6 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_pings: {
+        Row: {
+          day: string
+          user_id: string
+        }
+        Insert: {
+          day?: string
+          user_id: string
+        }
+        Update: {
+          day?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       advice_posts: {
         Row: {
           audience: Database["public"]["Enums"]["advice_audience"]
@@ -303,31 +318,91 @@ export type Database = {
         }
         Relationships: []
       }
+      personality_results: {
+        Row: {
+          answers: Json
+          archetype: string
+          axes: Json
+          id: string
+          taken_at: string
+          user_id: string
+        }
+        Insert: {
+          answers: Json
+          archetype: string
+          axes: Json
+          id?: string
+          taken_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          archetype?: string
+          axes?: Json
+          id?: string
+          taken_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
+          accent: string | null
+          avatar_url: string | null
+          bio: string | null
           created_at: string
+          display_name: string | null
           email: string | null
           full_name: string | null
+          grade_level: number | null
           id: string
+          last_visited_at: string | null
+          last_visited_module: string | null
           onboarded_at: string | null
+          playlist_pref: string | null
+          pronouns: string | null
+          school: string | null
+          theme_mode: string | null
           updated_at: string
           user_type: Database["public"]["Enums"]["user_type"]
         }
         Insert: {
+          accent?: string | null
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
           full_name?: string | null
+          grade_level?: number | null
           id: string
+          last_visited_at?: string | null
+          last_visited_module?: string | null
           onboarded_at?: string | null
+          playlist_pref?: string | null
+          pronouns?: string | null
+          school?: string | null
+          theme_mode?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
         }
         Update: {
+          accent?: string | null
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
           full_name?: string | null
+          grade_level?: number | null
           id?: string
+          last_visited_at?: string | null
+          last_visited_module?: string | null
           onboarded_at?: string | null
+          playlist_pref?: string | null
+          pronouns?: string | null
+          school?: string | null
+          theme_mode?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
         }
@@ -422,6 +497,36 @@ export type Database = {
           name?: string
           provider?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      user_goals: {
+        Row: {
+          career_paths: string[]
+          created_at: string
+          intended_majors: string[]
+          interests: string[]
+          target_colleges: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          career_paths?: string[]
+          created_at?: string
+          intended_majors?: string[]
+          interests?: string[]
+          target_colleges?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          career_paths?: string[]
+          created_at?: string
+          intended_majors?: string[]
+          interests?: string[]
+          target_colleges?: string[]
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
