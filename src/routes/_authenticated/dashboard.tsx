@@ -233,7 +233,7 @@ type LinkedStudent = {
   wonAmount: number;
   pending: number;
   colleges: number;
-  latestWin: { headline: string; created_at: string } | null;
+  latestWin: { headline: string; amount: number | null; created_at: string } | null;
   nextDeadline: { name: string; deadline: string } | null;
   unreadNudges: number;
 };
@@ -266,7 +266,7 @@ function ParentDashboard({ profile }: { profile: Profile }) {
           const [{ data: apps }, { data: colleges }, { data: wins }, { data: upcoming }, { data: unread }] = await Promise.all([
             supabase.from("scholarship_applications").select("received, amount").eq("user_id", p.id),
             supabase.from("college_applications").select("id", { count: "exact", head: true }).eq("user_id", p.id),
-            supabase.from("wins").select("headline, created_at").eq("user_id", p.id).order("created_at", { ascending: false }).limit(1),
+            supabase.from("wins").select("scholarship_name, amount, created_at").eq("user_id", p.id).order("created_at", { ascending: false }).limit(1),
             supabase.from("scholarships").select("name, deadline").gte("deadline", new Date().toISOString().slice(0, 10)).order("deadline").limit(1),
             supabase.from("nudges").select("id", { count: "exact", head: true }).eq("parent_id", profile.id).eq("student_id", p.id).is("read_at", null),
           ]);
