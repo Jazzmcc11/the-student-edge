@@ -225,6 +225,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         <ModuleCard to="/tracker/scholarships" icon={Trophy} title="My Application Tracker"
           description="Track colleges and scholarships you've applied to. Log what you've won."
           tags={["Colleges", "Scholarships"]} />
+        <ModuleCard to="/creative" icon={Sparkles} title="Creative Resources"
+          description="Grad templates, senior year guide, HOCO + event inspo — curated boards."
+          tags={["Pinterest", "Grad", "HOCO"]} />
         <ModuleCard to="/community/wins" icon={Users} title="Community"
           description="Wins wall, study buddies, advice library, and discussion boards."
           tags={["Wins", "Buddies", "Advice", "Discussions"]} />
