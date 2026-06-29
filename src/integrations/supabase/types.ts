@@ -267,6 +267,45 @@ export type Database = {
         }
         Relationships: []
       }
+      key_dates: {
+        Row: {
+          category: string
+          created_at: string
+          date: string
+          description: string | null
+          id: string
+          source: string | null
+          state: string | null
+          title: string
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          date: string
+          description?: string | null
+          id?: string
+          source?: string | null
+          state?: string | null
+          title: string
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          date?: string
+          description?: string | null
+          id?: string
+          source?: string | null
+          state?: string | null
+          title?: string
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       nudges: {
         Row: {
           created_at: string
@@ -394,6 +433,7 @@ export type Database = {
           playlist_pref: string | null
           pronouns: string | null
           school: string | null
+          state: string | null
           theme_mode: string | null
           updated_at: string
           user_type: Database["public"]["Enums"]["user_type"]
@@ -419,6 +459,7 @@ export type Database = {
           playlist_pref?: string | null
           pronouns?: string | null
           school?: string | null
+          state?: string | null
           theme_mode?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
@@ -444,6 +485,7 @@ export type Database = {
           playlist_pref?: string | null
           pronouns?: string | null
           school?: string | null
+          state?: string | null
           theme_mode?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
