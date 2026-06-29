@@ -1,10 +1,11 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsAdmin } from "@/hooks/use-admin";
 import { Button } from "@/components/ui/button";
 import {
   BookOpen, GraduationCap, Sparkles, Users, LogOut, ArrowRight,
-  Calendar, Trophy, ClipboardList, Search,
+  Calendar, Trophy, ClipboardList, Search, Inbox,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -17,6 +18,7 @@ interface Profile { full_name: string | null; email: string | null; user_type: "
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { isAdmin } = useIsAdmin();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState({ wonAmount: 0, pending: 0, colleges: 0, nextDeadline: null as string | null, nextDeadlineName: "" });
 
@@ -71,9 +73,18 @@ function Dashboard() {
               </span>
             )}
           </div>
-          <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-gold">
-            <LogOut className="mr-2 h-4 w-4" /> Sign out
-          </Button>
+          <div className="flex items-center gap-2">
+            {isAdmin && (
+              <Link to="/admin/feedback">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-gold">
+                  <Inbox className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Feedback</span>
+                </Button>
+              </Link>
+            )}
+            <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-gold">
+              <LogOut className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Sign out</span>
+            </Button>
+          </div>
         </div>
       </header>
 
