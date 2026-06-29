@@ -231,6 +231,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         <ModuleCard to="/creative" icon={Sparkles} title="Creative Resources"
           description="Grad templates, senior year guide, HOCO + event inspo — curated boards."
           tags={["Pinterest", "Grad", "HOCO"]} />
+        <ModuleCard to="/calendar" icon={Calendar} title="Deadline Calendar"
+          description="FAFSA, college, test, and state aid deadlines — filtered to your state."
+          tags={["FAFSA", "SAT/ACT", "State aid"]} />
         <ModuleCard to="/community/wins" icon={Users} title="Community"
           description="Wins wall, study buddies, advice library, and discussion boards."
           tags={["Wins", "Buddies", "Advice", "Discussions"]} />
