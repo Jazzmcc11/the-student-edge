@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { BookOpen, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { useIsAdmin } from "@/hooks/use-admin";
+import { EmptyState } from "@/components/empty-state";
+import { CardGridSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/community/advice")({
   component: AdviceLayout,
@@ -32,17 +34,20 @@ function AdviceLayout() {
 function AdviceList() {
   const { isAdmin } = useIsAdmin();
   const [rows, setRows] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
   const [aud, setAud] = useState<"all" | "student" | "parent">("all");
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ title: "", body: "", audience: "both" as Post["audience"], category: "" });
 
   async function load() {
+    setLoading(true);
     const { data, error } = await supabase
       .from("advice_posts")
       .select("id, title, body, audience, category, created_at")
       .order("created_at", { ascending: false });
     if (error) toast.error(error.message);
     setRows((data as Post[]) || []);
+    setLoading(false);
   }
   useEffect(() => { load(); }, []);
 
@@ -109,11 +114,18 @@ function AdviceList() {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border p-10 text-center">
-          <BookOpen className="mx-auto h-8 w-8 text-gold" />
-          <p className="mt-3 font-display text-lg">No posts yet.</p>
-        </div>
+      {loading ? (
+        <CardGridSkeleton count={4} />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={BookOpen}
+          title={rows.length === 0 ? "Advice library is on its way." : "Nothing in this filter yet."}
+          description={
+            rows.length === 0
+              ? "We’re seeding 10 starter guides for students and 10 for parents. Check back soon — or switch to discussions for live conversation."
+              : "Try a different audience filter."
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {filtered.map((p) => (

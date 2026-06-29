@@ -9,8 +9,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter,
 } from "@/components/ui/dialog";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Trophy } from "lucide-react";
 import { toast } from "sonner";
+import { EmptyState } from "@/components/empty-state";
+import { TableSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/tracker/scholarships")({
   head: () => ({ meta: [{ title: "My scholarships — The Plug" }] }),
@@ -71,11 +73,13 @@ function ScholarshipTracker() {
       </div>
 
       {loading ? (
-        <p className="text-muted-foreground">Loading…</p>
+        <TableSkeleton rows={5} />
       ) : rows.length === 0 ? (
-        <div className="rounded-xl border border-border bg-card p-10 text-center">
-          <p className="text-muted-foreground">No scholarships yet. Add one or save from the database.</p>
-        </div>
+        <EmptyState
+          icon={Trophy}
+          title="Start tracking your scholarship apps."
+          description="Add one you’re working on, or browse the database and save scholarships straight into your tracker."
+        />
       ) : (
         <div className="overflow-hidden rounded-xl border border-border bg-card">
           <table className="w-full text-sm">

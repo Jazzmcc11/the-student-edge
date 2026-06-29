@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, Trophy } from "lucide-react";
 import { toast } from "sonner";
+import { EmptyState } from "@/components/empty-state";
+import { CardGridSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/community/wins")({
   component: WinsWall,
@@ -107,13 +109,18 @@ function WinsWall() {
       </div>
 
       {loading ? (
-        <p className="text-muted-foreground">Loading…</p>
+        <CardGridSkeleton count={4} />
       ) : rows.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border p-10 text-center">
-          <Trophy className="mx-auto h-8 w-8 text-gold" />
-          <p className="mt-3 font-display text-lg">Be the first to post a win.</p>
-          <p className="text-sm text-muted-foreground">Even $250 counts — it inspires the next person.</p>
-        </div>
+        <EmptyState
+          icon={Trophy}
+          title="Be the first to post a win."
+          description="Even $250 counts — it inspires the next person to apply. Hit ‘Post a win’ to start the wall."
+          action={
+            <Button onClick={() => setOpen(true)} className="bg-gold text-primary-foreground hover:bg-gold/90">
+              <Plus className="mr-2 h-4 w-4" />Post a win
+            </Button>
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {rows.map((w) => (
