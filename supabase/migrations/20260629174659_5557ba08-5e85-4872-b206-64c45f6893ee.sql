@@ -1,0 +1,2 @@
+GRANT UPDATE ON public.feedback TO authenticated;
+CREATE POLICY "Admins update feedback" ON public.feedback FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
