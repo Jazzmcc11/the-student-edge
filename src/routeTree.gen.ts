@@ -19,6 +19,7 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
 import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
 import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
@@ -83,6 +84,11 @@ const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCreativeRoute = AuthenticatedCreativeRouteImport.update({
+  id: '/creative',
+  path: '/creative',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/community': typeof AuthenticatedCommunityRouteWithChildren
+  '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/personality': typeof AuthenticatedPersonalityRoute
@@ -197,6 +204,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/personality': typeof AuthenticatedPersonalityRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
+  '/_authenticated/creative': typeof AuthenticatedCreativeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/personality': typeof AuthenticatedPersonalityRoute
@@ -250,6 +259,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/community'
+    | '/creative'
     | '/dashboard'
     | '/family'
     | '/personality'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/creative'
     | '/dashboard'
     | '/family'
     | '/personality'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/community'
+    | '/_authenticated/creative'
     | '/_authenticated/dashboard'
     | '/_authenticated/family'
     | '/_authenticated/personality'
@@ -397,6 +409,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/creative': {
+      id: '/_authenticated/creative'
+      path: '/creative'
+      fullPath: '/creative'
+      preLoaderRoute: typeof AuthenticatedCreativeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/community': {
@@ -586,6 +605,7 @@ const AuthenticatedTrackerRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
+  AuthenticatedCreativeRoute: typeof AuthenticatedCreativeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedPersonalityRoute: typeof AuthenticatedPersonalityRoute
@@ -598,6 +618,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
+  AuthenticatedCreativeRoute: AuthenticatedCreativeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedPersonalityRoute: AuthenticatedPersonalityRoute,
