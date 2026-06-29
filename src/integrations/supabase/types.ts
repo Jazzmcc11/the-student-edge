@@ -386,6 +386,11 @@ export type Database = {
           last_visited_at: string | null
           last_visited_module: string | null
           onboarded_at: string | null
+          parent_focus: string[] | null
+          parent_household_students: number | null
+          parent_relationship: string | null
+          parent_style: string | null
+          parent_update_freq: string | null
           playlist_pref: string | null
           pronouns: string | null
           school: string | null
@@ -406,6 +411,11 @@ export type Database = {
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
+          parent_focus?: string[] | null
+          parent_household_students?: number | null
+          parent_relationship?: string | null
+          parent_style?: string | null
+          parent_update_freq?: string | null
           playlist_pref?: string | null
           pronouns?: string | null
           school?: string | null
@@ -426,6 +436,11 @@ export type Database = {
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
+          parent_focus?: string[] | null
+          parent_household_students?: number | null
+          parent_relationship?: string | null
+          parent_style?: string | null
+          parent_update_freq?: string | null
           playlist_pref?: string | null
           pronouns?: string | null
           school?: string | null
