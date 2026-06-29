@@ -39,7 +39,7 @@ export const askTutor = createServerFn({ method: "POST" })
 
     try {
       const { text } = await generateText({
-        model: gateway("anthropic/claude-sonnet-4-5"),
+        model: gateway("google/gemini-3-flash-preview"),
         system: SYSTEM_PROMPT + subjectLine,
         messages: data.messages,
       });
