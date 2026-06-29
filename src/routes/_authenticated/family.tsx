@@ -43,10 +43,10 @@ function FamilyPage() {
           </Link>
         </div>
       </header>
-      <main className="mx-auto max-w-4xl px-6 py-10">
+      <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10">
         <div className="mb-8">
           <p className="text-sm text-gold">Family</p>
-          <h1 className="mt-1 font-display text-4xl font-bold tracking-tight">
+          <h1 className="mt-1 font-display text-3xl font-bold tracking-tight sm:text-4xl">
             {me?.user_type === "parent" ? "Your students" : "Share with a parent"}
           </h1>
           <p className="mt-2 max-w-xl text-muted-foreground">
@@ -143,13 +143,13 @@ function StudentView({ onChange }: { onChange: () => void }) {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-2xl border border-border bg-card p-6">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <h2 className="font-display text-xl font-semibold">Generate an invite code</h2>
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <h2 className="font-display text-lg font-semibold sm:text-xl">Generate an invite code</h2>
             <p className="text-sm text-muted-foreground">Codes expire after 7 days and work once.</p>
           </div>
-          <Button onClick={generateInvite} disabled={busy} className="bg-gradient-gold text-primary-foreground shadow-gold">
+          <Button onClick={generateInvite} disabled={busy} className="shrink-0 bg-gradient-gold text-primary-foreground shadow-gold">
             New code
           </Button>
         </div>
@@ -157,19 +157,19 @@ function StudentView({ onChange }: { onChange: () => void }) {
         {activeInvites.length > 0 && (
           <ul className="mt-5 space-y-2">
             {activeInvites.map((inv) => (
-              <li key={inv.id} className="flex items-center justify-between rounded-lg border border-gold/30 bg-gold/5 p-3">
-                <div>
-                  <div className="font-mono text-2xl font-bold tracking-[0.3em] text-gold">{inv.code}</div>
+              <li key={inv.id} className="flex flex-col gap-3 rounded-lg border border-gold/30 bg-gold/5 p-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <div className="font-mono text-xl font-bold tracking-[0.25em] text-gold sm:text-2xl sm:tracking-[0.3em]">{inv.code}</div>
                   <p className="text-xs text-muted-foreground">
                     Expires {new Date(inv.expires_at).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" onClick={() => copy(inv.code)}>
+                  <Button size="sm" variant="outline" onClick={() => copy(inv.code)} className="flex-1 sm:flex-none">
                     <Copy className="mr-1.5 h-3.5 w-3.5" /> Copy
                   </Button>
-                  <Button size="sm" variant="ghost" onClick={() => revokeInvite(inv.id)}>
-                    <Trash2 className="h-3.5 w-3.5" />
+                  <Button size="sm" variant="ghost" onClick={() => revokeInvite(inv.id)} aria-label="Revoke code">
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </li>
@@ -185,18 +185,18 @@ function StudentView({ onChange }: { onChange: () => void }) {
         ) : (
           <ul className="space-y-2">
             {parents.map((p: any) => (
-              <li key={p.id} className="flex items-center justify-between rounded-lg border border-border bg-card p-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/10 text-gold">
+              <li key={p.id} className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card p-4">
+                <div className="flex min-w-0 items-center gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold">
                     <Users className="h-4 w-4" />
                   </div>
-                  <div>
-                    <div className="font-medium">{p.full_name || "Parent"}</div>
-                    <div className="text-xs text-muted-foreground">{p.email}</div>
+                  <div className="min-w-0">
+                    <div className="truncate font-medium">{p.full_name || "Parent"}</div>
+                    <div className="truncate text-xs text-muted-foreground">{p.email}</div>
                   </div>
                 </div>
-                <Button size="sm" variant="ghost" onClick={() => revokeLink(p.__linkId)}>
-                  <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Unlink
+                <Button size="sm" variant="ghost" onClick={() => revokeLink(p.__linkId)} className="shrink-0">
+                  <Trash2 className="h-4 w-4 sm:mr-1.5" /> <span className="hidden sm:inline">Unlink</span>
                 </Button>
               </li>
             ))}
@@ -271,10 +271,10 @@ function ParentView({ onChange }: { onChange: () => void }) {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-2xl border border-border bg-card p-6">
-        <h2 className="font-display text-xl font-semibold">Link a student</h2>
+      <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <h2 className="font-display text-lg font-semibold sm:text-xl">Link a student</h2>
         <p className="text-sm text-muted-foreground">Ask your student to generate a code from their Family page.</p>
-        <form onSubmit={redeem} className="mt-4 flex items-end gap-3">
+        <form onSubmit={redeem} className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex-1">
             <Label htmlFor="code">Invite code</Label>
             <Input
@@ -299,19 +299,19 @@ function ParentView({ onChange }: { onChange: () => void }) {
         ) : (
           <div className="space-y-4">
             {students.map((s) => (
-              <div key={s.id} className="rounded-2xl border border-border bg-card p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10 text-gold">
+              <div key={s.id} className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold">
                       <GraduationCap className="h-5 w-5" />
                     </div>
-                    <div>
-                      <div className="font-display text-lg font-semibold">{s.full_name || "Student"}</div>
-                      <div className="text-xs text-muted-foreground">{s.email}</div>
+                    <div className="min-w-0">
+                      <div className="truncate font-display text-lg font-semibold">{s.full_name || "Student"}</div>
+                      <div className="truncate text-xs text-muted-foreground">{s.email}</div>
                     </div>
                   </div>
-                  <Button size="sm" variant="ghost" onClick={() => unlink(s.linkId)}>
-                    <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Unlink
+                  <Button size="sm" variant="ghost" onClick={() => unlink(s.linkId)} className="shrink-0">
+                    <Trash2 className="h-4 w-4 sm:mr-1.5" /> <span className="hidden sm:inline">Unlink</span>
                   </Button>
                 </div>
 
