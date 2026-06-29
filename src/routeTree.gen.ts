@@ -22,6 +22,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedCollegesRouteImport } from './routes/_authenticated/colleges'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
 import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
 import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
@@ -100,6 +101,11 @@ const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
 const AuthenticatedCollegesRoute = AuthenticatedCollegesRouteImport.update({
   id: '/colleges',
   path: '/colleges',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedScholarshipsIndexRoute =
@@ -184,6 +190,7 @@ const AuthenticatedCommunityAdviceIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/colleges': typeof AuthenticatedCollegesRoute
   '/community': typeof AuthenticatedCommunityRouteWithChildren
   '/creative': typeof AuthenticatedCreativeRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/colleges': typeof AuthenticatedCollegesRoute
   '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/colleges': typeof AuthenticatedCollegesRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
   '/_authenticated/creative': typeof AuthenticatedCreativeRoute
@@ -267,6 +276,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/calendar'
     | '/colleges'
     | '/community'
     | '/creative'
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/calendar'
     | '/colleges'
     | '/creative'
     | '/dashboard'
@@ -320,6 +331,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/calendar'
     | '/_authenticated/colleges'
     | '/_authenticated/community'
     | '/_authenticated/creative'
@@ -442,6 +454,13 @@ declare module '@tanstack/react-router' {
       path: '/colleges'
       fullPath: '/colleges'
       preLoaderRoute: typeof AuthenticatedCollegesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/scholarships/': {
@@ -623,6 +642,7 @@ const AuthenticatedTrackerRouteWithChildren =
   AuthenticatedTrackerRoute._addFileChildren(AuthenticatedTrackerRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCollegesRoute: typeof AuthenticatedCollegesRoute
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
   AuthenticatedCreativeRoute: typeof AuthenticatedCreativeRoute
@@ -637,6 +657,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCollegesRoute: AuthenticatedCollegesRoute,
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
   AuthenticatedCreativeRoute: AuthenticatedCreativeRoute,
