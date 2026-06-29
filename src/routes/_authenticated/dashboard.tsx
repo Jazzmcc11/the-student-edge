@@ -234,7 +234,7 @@ type LinkedStudent = {
   pending: number;
   colleges: number;
   latestWin: { scholarship_name: string; amount: number | null; created_at: string } | null;
-  nextDeadline: { name: string; deadline: string } | null;
+  nextDeadline: { name: string; deadline: string | null } | null;
   unreadNudges: number;
 };
 
