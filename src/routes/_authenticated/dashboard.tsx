@@ -1,10 +1,11 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsAdmin } from "@/hooks/use-admin";
 import { Button } from "@/components/ui/button";
 import {
   BookOpen, GraduationCap, Sparkles, Users, LogOut, ArrowRight,
-  Calendar, Trophy, ClipboardList, Search,
+  Calendar, Trophy, ClipboardList, Search, Inbox,
 } from "lucide-react";
 import { toast } from "sonner";
 
