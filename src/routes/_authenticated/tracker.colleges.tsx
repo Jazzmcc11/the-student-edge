@@ -9,8 +9,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter,
 } from "@/components/ui/dialog";
-import { Plus, Trash2, Check, X } from "lucide-react";
+import { Plus, Trash2, Check, X, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
+import { EmptyState } from "@/components/empty-state";
+import { TableSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/tracker/colleges")({
   head: () => ({ meta: [{ title: "My colleges — The Plug" }] }),
@@ -70,7 +72,7 @@ function CollegesTracker() {
       </div>
 
       {loading ? (
-        <p className="text-muted-foreground">Loading…</p>
+        <TableSkeleton rows={5} />
       ) : rows.length === 0 ? (
         <Empty />
       ) : (
@@ -131,9 +133,11 @@ function Stat({ label, value }: { label: string; value: number }) {
 
 function Empty() {
   return (
-    <div className="rounded-xl border border-border bg-card p-10 text-center">
-      <p className="text-muted-foreground">No colleges yet. Add your first one.</p>
-    </div>
+    <EmptyState
+      icon={GraduationCap}
+      title="Build your college list."
+      description="Add the colleges you’re applying to. Track what’s submitted, what came back, and notes for each one."
+    />
   );
 }
 

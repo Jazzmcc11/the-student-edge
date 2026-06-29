@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Users, Pencil } from "lucide-react";
 import { toast } from "sonner";
+import { EmptyState } from "@/components/empty-state";
+import { CardGridSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/community/buddies")({
   component: Buddies,
@@ -32,6 +34,7 @@ const empty: Buddy = {
 };
 
 function Buddies() {
+  const [loading, setLoading] = useState(true);
   const [rows, setRows] = useState<Buddy[]>([]);
   const [me, setMe] = useState<string | null>(null);
   const [myProfile, setMyProfile] = useState<Buddy | null>(null);
@@ -40,9 +43,12 @@ function Buddies() {
   const [q, setQ] = useState("");
 
   async function load() {
+    setLoading(true);
     const { data } = await supabase.from("buddy_profiles").select("*").order("updated_at", { ascending: false });
     setRows((data as Buddy[]) || []);
+    setLoading(false);
   }
+
 
   useEffect(() => {
     (async () => {
@@ -122,12 +128,25 @@ function Buddies() {
 
       <Input placeholder="Search by name, college, scholarship…" value={q} onChange={(e) => setQ(e.target.value)} className="mb-5 max-w-md" />
 
-      {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border p-10 text-center">
-          <Users className="mx-auto h-8 w-8 text-gold" />
-          <p className="mt-3 font-display text-lg">No buddies yet.</p>
-          <p className="text-sm text-muted-foreground">Create your profile to be the first.</p>
-        </div>
+      {loading ? (
+        <CardGridSkeleton count={4} />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          title={rows.length === 0 ? "No buddies yet." : "No matches for that search."}
+          description={
+            rows.length === 0
+              ? "Create your profile and you’ll show up here for everyone working on the same colleges and scholarships."
+              : "Try a different college, scholarship, or name."
+          }
+          action={
+            rows.length === 0 ? (
+              <Button onClick={() => setOpen(true)} variant="outline">
+                <Pencil className="mr-2 h-4 w-4" />Create my profile
+              </Button>
+            ) : null
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {filtered.map((b) => (

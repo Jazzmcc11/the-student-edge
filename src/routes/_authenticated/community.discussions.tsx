@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-r
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { MessageSquare } from "lucide-react";
+import { CardGridSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/community/discussions")({
   component: DiscussionsLayout,
@@ -17,6 +18,7 @@ function DiscussionsLayout() {
 
 function TopicsList() {
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [loading, setLoading] = useState(true);
   const [counts, setCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -24,11 +26,11 @@ function TopicsList() {
       const { data } = await supabase.from("discussion_topics").select("*").order("sort_order");
       const t = (data as Topic[]) || [];
       setTopics(t);
-      // thread counts
       const { data: threads } = await supabase.from("discussion_threads").select("topic_id");
       const c: Record<string, number> = {};
       (threads || []).forEach((row: any) => { c[row.topic_id] = (c[row.topic_id] || 0) + 1; });
       setCounts(c);
+      setLoading(false);
     })();
   }, []);
 
@@ -39,6 +41,9 @@ function TopicsList() {
         <p className="mt-1 text-sm text-muted-foreground">Pick a topic. Start a thread. Help someone else.</p>
       </div>
 
+      {loading ? (
+        <CardGridSkeleton count={6} />
+      ) : (
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {topics.map((t) => (
           <Link key={t.id} to="/community/discussions/$slug" params={{ slug: t.slug }}
