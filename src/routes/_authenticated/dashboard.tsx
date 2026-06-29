@@ -202,6 +202,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
 
       <h2 className="mb-4 font-display text-2xl font-bold">Your modules</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ModuleCard to="/tutor" icon={Sparkles} title="AI Tutor"
+          description="Ask Claude anything — homework, essay feedback, study plans. 24/7."
+          tags={["Claude", "Homework", "Essays"]} />
         <ModuleCard to="/scholarships" icon={Search} title="Scholarship Database"
           description="Browse real scholarships, filter by category, save the ones you want."
           tags={["Browse", "Save"]} />
