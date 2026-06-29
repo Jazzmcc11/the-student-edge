@@ -21,6 +21,7 @@ import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
+import { Route as AuthenticatedCollegesRouteImport } from './routes/_authenticated/colleges'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
 import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
 import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
@@ -94,6 +95,11 @@ const AuthenticatedCreativeRoute = AuthenticatedCreativeRouteImport.update({
 const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
   id: '/community',
   path: '/community',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCollegesRoute = AuthenticatedCollegesRouteImport.update({
+  id: '/colleges',
+  path: '/colleges',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedScholarshipsIndexRoute =
@@ -178,6 +184,7 @@ const AuthenticatedCommunityAdviceIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/colleges': typeof AuthenticatedCollegesRoute
   '/community': typeof AuthenticatedCommunityRouteWithChildren
   '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/colleges': typeof AuthenticatedCollegesRoute
   '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
@@ -230,6 +238,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/colleges': typeof AuthenticatedCollegesRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
   '/_authenticated/creative': typeof AuthenticatedCreativeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -258,6 +267,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/colleges'
     | '/community'
     | '/creative'
     | '/dashboard'
@@ -284,6 +294,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/colleges'
     | '/creative'
     | '/dashboard'
     | '/family'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/colleges'
     | '/_authenticated/community'
     | '/_authenticated/creative'
     | '/_authenticated/dashboard'
@@ -423,6 +435,13 @@ declare module '@tanstack/react-router' {
       path: '/community'
       fullPath: '/community'
       preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/colleges': {
+      id: '/_authenticated/colleges'
+      path: '/colleges'
+      fullPath: '/colleges'
+      preLoaderRoute: typeof AuthenticatedCollegesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/scholarships/': {
@@ -604,6 +623,7 @@ const AuthenticatedTrackerRouteWithChildren =
   AuthenticatedTrackerRoute._addFileChildren(AuthenticatedTrackerRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCollegesRoute: typeof AuthenticatedCollegesRoute
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
   AuthenticatedCreativeRoute: typeof AuthenticatedCreativeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
@@ -617,6 +637,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCollegesRoute: AuthenticatedCollegesRoute,
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
   AuthenticatedCreativeRoute: AuthenticatedCreativeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,

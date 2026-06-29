@@ -222,6 +222,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         <ModuleCard to="/scholarships" icon={Search} title="Scholarship Database"
           description="Browse real scholarships, filter by category, save the ones you want."
           tags={["Browse", "Save"]} />
+        <ModuleCard to="/colleges" icon={GraduationCap} title="Explore Colleges"
+          description="Search real US colleges — admit rate, cost, HBCU filter. Add to your tracker."
+          tags={["Scorecard", "HBCU"]} />
         <ModuleCard to="/tracker/scholarships" icon={Trophy} title="My Application Tracker"
           description="Track colleges and scholarships you've applied to. Log what you've won."
           tags={["Colleges", "Scholarships"]} />
