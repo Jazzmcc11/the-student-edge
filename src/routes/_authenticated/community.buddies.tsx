@@ -95,9 +95,9 @@ function Buddies() {
 
   return (
     <div>
-      <div className="mb-6 flex items-end justify-between gap-4">
-        <div>
-          <h1 className="font-display text-3xl font-bold">Study Buddies</h1>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="font-display text-2xl font-bold sm:text-3xl">Study Buddies</h1>
           <p className="mt-1 text-sm text-muted-foreground">Find students working on the same colleges or scholarships.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>

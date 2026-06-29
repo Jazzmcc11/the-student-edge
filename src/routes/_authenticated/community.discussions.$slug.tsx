@@ -65,9 +65,9 @@ function TopicView() {
       <Link to="/community/discussions" className="inline-flex items-center text-sm text-muted-foreground hover:text-gold">
         <ArrowLeft className="mr-1 h-4 w-4" /> All topics
       </Link>
-      <div className="mt-4 mb-6 flex items-end justify-between gap-4">
-        <div>
-          <h1 className="font-display text-3xl font-bold">{topic.name}</h1>
+      <div className="mt-4 mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="font-display text-2xl font-bold sm:text-3xl">{topic.name}</h1>
           {topic.description && <p className="mt-1 text-sm text-muted-foreground">{topic.description}</p>}
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
