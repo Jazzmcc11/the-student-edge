@@ -222,6 +222,36 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          message: string
+          path: string | null
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          message: string
+          path?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          message?: string
+          path?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       parent_invites: {
         Row: {
           code: string
@@ -279,6 +309,7 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          onboarded_at: string | null
           updated_at: string
           user_type: Database["public"]["Enums"]["user_type"]
         }
@@ -287,6 +318,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          onboarded_at?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
         }
@@ -295,6 +327,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          onboarded_at?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"]
         }
