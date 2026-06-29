@@ -111,6 +111,28 @@
   --foreground: #F0EDE6;
 }
 
+/* Accent switching — overrides --primary / --ring / --accent */
+:root[data-accent="gold"] {
+  --primary: #C9A84C;
+  --ring: #C9A84C;
+  --accent: #C9A84C;
+}
+:root[data-accent="burnt"] {
+  --primary: #BF5700;
+  --ring: #BF5700;
+  --accent: #BF5700;
+}
+:root[data-accent="maroon"] {
+  --primary: #7a1a1a;
+  --ring: #7a1a1a;
+  --accent: #7a1a1a;
+}
+:root[data-accent="navy"] {
+  --primary: #1B2A4A;
+  --ring: #1B2A4A;
+  --accent: #2a3d6b;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
