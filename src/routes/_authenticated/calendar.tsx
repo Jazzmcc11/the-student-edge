@@ -3,9 +3,11 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Calendar as CalendarIcon, ExternalLink, MapPin } from "lucide-react";
+import { ArrowLeft, Calendar as CalendarIcon, ExternalLink, MapPin, BellRing } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { refreshMyReminders } from "@/lib/reminders.functions";
 
 export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({ meta: [{ title: "Deadline Calendar — The Plug" }] }),
@@ -107,10 +109,15 @@ function CalendarPage() {
 
       <main className="mx-auto max-w-5xl px-6 py-10">
         <div className="mb-2 text-sm text-gold">Deadlines</div>
-        <h1 className="font-display text-4xl font-bold tracking-tight">Key Dates Calendar</h1>
-        <p className="mt-2 max-w-2xl text-muted-foreground">
-          FAFSA, college application milestones, SAT/ACT test dates, and state financial aid deadlines — all in one place.
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="font-display text-4xl font-bold tracking-tight">Key Dates Calendar</h1>
+            <p className="mt-2 max-w-2xl text-muted-foreground">
+              FAFSA, college application milestones, SAT/ACT test dates, and state financial aid deadlines — all in one place.
+            </p>
+          </div>
+          <RefreshRemindersButton />
+        </div>
 
         {/* Filters */}
         <div className="mt-6 flex flex-wrap items-center gap-3">
