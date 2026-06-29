@@ -26,6 +26,7 @@ import { Route as AuthenticatedCommunityWinsRouteImport } from './routes/_authen
 import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/_authenticated/community.discussions'
 import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
 import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
+import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
 import { Route as AuthenticatedCommunityThreadsIdRouteImport } from './routes/_authenticated/community.threads.$id'
 import { Route as AuthenticatedCommunityDiscussionsSlugRouteImport } from './routes/_authenticated/community.discussions.$slug'
 import { Route as AuthenticatedCommunityAdviceIdRouteImport } from './routes/_authenticated/community.advice.$id'
@@ -124,6 +125,12 @@ const AuthenticatedCommunityAdviceRoute =
     path: '/advice',
     getParentRoute: () => AuthenticatedCommunityRoute,
   } as any)
+const AuthenticatedAdminFeedbackRoute =
+  AuthenticatedAdminFeedbackRouteImport.update({
+    id: '/admin/feedback',
+    path: '/admin/feedback',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCommunityThreadsIdRoute =
   AuthenticatedCommunityThreadsIdRouteImport.update({
     id: '/threads/$id',
@@ -151,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/family': typeof AuthenticatedFamilyRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -170,6 +178,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/family': typeof AuthenticatedFamilyRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -193,6 +202,7 @@ export interface FileRoutesById {
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
+  '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/_authenticated/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/_authenticated/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/family'
     | '/scholarships'
     | '/tracker'
+    | '/admin/feedback'
     | '/community/advice'
     | '/community/buddies'
     | '/community/discussions'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/family'
     | '/tracker'
+    | '/admin/feedback'
     | '/community/advice'
     | '/community/buddies'
     | '/community/discussions'
@@ -257,6 +269,7 @@ export interface FileRouteTypes {
     | '/_authenticated/family'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
+    | '/_authenticated/admin/feedback'
     | '/_authenticated/community/advice'
     | '/_authenticated/community/buddies'
     | '/_authenticated/community/discussions'
@@ -398,6 +411,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunityAdviceRouteImport
       parentRoute: typeof AuthenticatedCommunityRoute
     }
+    '/_authenticated/admin/feedback': {
+      id: '/_authenticated/admin/feedback'
+      path: '/admin/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AuthenticatedAdminFeedbackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/community/threads/$id': {
       id: '/_authenticated/community/threads/$id'
       path: '/threads/$id'
@@ -512,6 +532,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
+  AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -520,6 +541,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
+  AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -533,13 +555,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
