@@ -18,6 +18,7 @@ interface Profile { full_name: string | null; email: string | null; user_type: "
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { isAdmin } = useIsAdmin();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState({ wonAmount: 0, pending: 0, colleges: 0, nextDeadline: null as string | null, nextDeadlineName: "" });
 
