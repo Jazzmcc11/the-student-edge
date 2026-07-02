@@ -149,10 +149,17 @@ function Colleges() {
                     <Stat icon={DollarSign} label="Cost/yr" value={fmtMoney(c.cost ?? c.tuitionIn)} />
                   </div>
 
-                  <div className="mt-auto flex items-center gap-2">
+                  <div className="mt-auto flex flex-wrap items-center gap-2">
                     <Button size="sm" onClick={() => addToList(c)} disabled={adding === c.id} className="flex-1">
                       <Plus className="mr-1 h-4 w-4" /> {adding === c.id ? "Adding…" : "Add to my list"}
                     </Button>
+                    <a
+                      href={`https://www.commonapp.org/explore?search=${encodeURIComponent(c.name)}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="inline-flex h-9 items-center gap-1 rounded-md border border-gold/40 bg-gold/5 px-3 text-xs text-gold hover:bg-gold/10"
+                    >
+                      Common App <ExternalLink className="h-3 w-3" />
+                    </a>
                     {c.url && (
                       <a href={c.url.startsWith("http") ? c.url : `https://${c.url}`} target="_blank" rel="noopener noreferrer"
                          className="inline-flex h-9 items-center gap-1 rounded-md border border-input px-3 text-xs hover:bg-accent">
