@@ -108,30 +108,54 @@ export type Database = {
         Row: {
           accepted: boolean | null
           college_name: string
+          common_app_submitted: boolean
           created_at: string
+          deadline_date: string | null
+          deadline_type: string | null
+          essay_draft: string | null
           id: string
           notes: string | null
+          recs_submitted: boolean
+          scores_sent: boolean
           submitted: boolean
+          supplements_submitted: boolean
+          transcript_sent: boolean
           updated_at: string
           user_id: string
         }
         Insert: {
           accepted?: boolean | null
           college_name: string
+          common_app_submitted?: boolean
           created_at?: string
+          deadline_date?: string | null
+          deadline_type?: string | null
+          essay_draft?: string | null
           id?: string
           notes?: string | null
+          recs_submitted?: boolean
+          scores_sent?: boolean
           submitted?: boolean
+          supplements_submitted?: boolean
+          transcript_sent?: boolean
           updated_at?: string
           user_id: string
         }
         Update: {
           accepted?: boolean | null
           college_name?: string
+          common_app_submitted?: boolean
           created_at?: string
+          deadline_date?: string | null
+          deadline_type?: string | null
+          essay_draft?: string | null
           id?: string
           notes?: string | null
+          recs_submitted?: boolean
+          scores_sent?: boolean
           submitted?: boolean
+          supplements_submitted?: boolean
+          transcript_sent?: boolean
           updated_at?: string
           user_id?: string
         }
