@@ -10,7 +10,7 @@ import { pickArchetype, type Archetype } from "@/lib/personality";
 import {
   GraduationCap, Users, LogOut, ArrowRight,
   Calendar, Trophy, ClipboardList, Search, Inbox, Flame, Settings, Sparkles, History,
-  Heart, MessageSquare, BookOpen,
+  Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap,
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
 import { toast } from "sonner";
