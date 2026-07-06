@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_authenticated/essays")({
       { name: "description", content: "Draft your personal statement and supplements with an AI coach in your corner." },
     ],
   }),
-  component: () => { const { StudentOnly } = require("@/components/student-only"); return <StudentOnly><EssaysPage /></StudentOnly>; },
+  component: () => <StudentOnly><EssaysPage /></StudentOnly>,
 });
 
 type Essay = {
