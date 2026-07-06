@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/tracker")({

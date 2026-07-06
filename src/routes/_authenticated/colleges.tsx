@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { searchColleges, type CollegeResult } from "@/lib/colleges.functions";
