@@ -10,6 +10,8 @@ import { pingActivity } from "@/lib/personalization";
 import { ArrowLeft, ExternalLink, Sparkles, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 
+import { StudentOnly } from "@/components/student-only";
+
 export const Route = createFileRoute("/_authenticated/creative")({
   head: () => ({
     meta: [
@@ -17,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/creative")({
       { name: "description", content: "Grad templates, senior year inspo, HOCO and event ideas — curated boards from Pinterest." },
     ],
   }),
-  component: Creative,
+  component: () => <StudentOnly><Creative /></StudentOnly>,
 });
 
 type Board = { id: string; name: string; description: string | null; pinCount: number; cover: string | null };
