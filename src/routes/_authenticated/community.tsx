@@ -3,6 +3,7 @@ import { ArrowLeft, Trophy, Users, BookOpen, MessageSquare } from "lucide-react"
 import { useUserType } from "@/hooks/use-user-type";
 import { useGradeLevel } from "@/hooks/use-grade-level";
 import { FreshmanCommunityHub } from "@/components/freshman-community-hub";
+import { JuniorCommunityHub } from "@/components/junior-community-hub";
 
 
 export const Route = createFileRoute("/_authenticated/community")({
