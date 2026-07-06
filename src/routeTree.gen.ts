@@ -16,9 +16,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
+import { Route as AuthenticatedRecommendationsRouteImport } from './routes/_authenticated/recommendations'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
+import { Route as AuthenticatedFinaidRouteImport } from './routes/_authenticated/finaid'
 import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
+import { Route as AuthenticatedEssaysRouteImport } from './routes/_authenticated/essays'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
@@ -78,6 +81,12 @@ const AuthenticatedScholarshipsRoute =
     path: '/scholarships',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedRecommendationsRoute =
+  AuthenticatedRecommendationsRouteImport.update({
+    id: '/recommendations',
+    path: '/recommendations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -89,9 +98,19 @@ const AuthenticatedPersonalityRoute =
     path: '/personality',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedFinaidRoute = AuthenticatedFinaidRouteImport.update({
+  id: '/finaid',
+  path: '/finaid',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
   id: '/family',
   path: '/family',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEssaysRoute = AuthenticatedEssaysRouteImport.update({
+  id: '/essays',
+  path: '/essays',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -238,9 +257,12 @@ export interface FileRoutesByFullPath {
   '/community': typeof AuthenticatedCommunityRouteWithChildren
   '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/essays': typeof AuthenticatedEssaysRoute
   '/family': typeof AuthenticatedFamilyRoute
+  '/finaid': typeof AuthenticatedFinaidRoute
   '/personality': typeof AuthenticatedPersonalityRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/recommendations': typeof AuthenticatedRecommendationsRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRoute
@@ -271,9 +293,12 @@ export interface FileRoutesByTo {
   '/colleges': typeof AuthenticatedCollegesRoute
   '/creative': typeof AuthenticatedCreativeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/essays': typeof AuthenticatedEssaysRoute
   '/family': typeof AuthenticatedFamilyRoute
+  '/finaid': typeof AuthenticatedFinaidRoute
   '/personality': typeof AuthenticatedPersonalityRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/recommendations': typeof AuthenticatedRecommendationsRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -306,9 +331,12 @@ export interface FileRoutesById {
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
   '/_authenticated/creative': typeof AuthenticatedCreativeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/essays': typeof AuthenticatedEssaysRoute
   '/_authenticated/family': typeof AuthenticatedFamilyRoute
+  '/_authenticated/finaid': typeof AuthenticatedFinaidRoute
   '/_authenticated/personality': typeof AuthenticatedPersonalityRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/recommendations': typeof AuthenticatedRecommendationsRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
@@ -342,9 +370,12 @@ export interface FileRouteTypes {
     | '/community'
     | '/creative'
     | '/dashboard'
+    | '/essays'
     | '/family'
+    | '/finaid'
     | '/personality'
     | '/profile'
+    | '/recommendations'
     | '/scholarships'
     | '/tracker'
     | '/tutor'
@@ -375,9 +406,12 @@ export interface FileRouteTypes {
     | '/colleges'
     | '/creative'
     | '/dashboard'
+    | '/essays'
     | '/family'
+    | '/finaid'
     | '/personality'
     | '/profile'
+    | '/recommendations'
     | '/tracker'
     | '/tutor'
     | '/.lovable/oauth/consent'
@@ -409,9 +443,12 @@ export interface FileRouteTypes {
     | '/_authenticated/community'
     | '/_authenticated/creative'
     | '/_authenticated/dashboard'
+    | '/_authenticated/essays'
     | '/_authenticated/family'
+    | '/_authenticated/finaid'
     | '/_authenticated/personality'
     | '/_authenticated/profile'
+    | '/_authenticated/recommendations'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
     | '/_authenticated/tutor'
@@ -496,6 +533,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/recommendations': {
+      id: '/_authenticated/recommendations'
+      path: '/recommendations'
+      fullPath: '/recommendations'
+      preLoaderRoute: typeof AuthenticatedRecommendationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
       path: '/profile'
@@ -510,11 +554,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPersonalityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/finaid': {
+      id: '/_authenticated/finaid'
+      path: '/finaid'
+      fullPath: '/finaid'
+      preLoaderRoute: typeof AuthenticatedFinaidRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/family': {
       id: '/_authenticated/family'
       path: '/family'
       fullPath: '/family'
       preLoaderRoute: typeof AuthenticatedFamilyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/essays': {
+      id: '/_authenticated/essays'
+      path: '/essays'
+      fullPath: '/essays'
+      preLoaderRoute: typeof AuthenticatedEssaysRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -771,9 +829,12 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
   AuthenticatedCreativeRoute: typeof AuthenticatedCreativeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEssaysRoute: typeof AuthenticatedEssaysRoute
   AuthenticatedFamilyRoute: typeof AuthenticatedFamilyRoute
+  AuthenticatedFinaidRoute: typeof AuthenticatedFinaidRoute
   AuthenticatedPersonalityRoute: typeof AuthenticatedPersonalityRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedRecommendationsRoute: typeof AuthenticatedRecommendationsRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
@@ -786,9 +847,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
   AuthenticatedCreativeRoute: AuthenticatedCreativeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEssaysRoute: AuthenticatedEssaysRoute,
   AuthenticatedFamilyRoute: AuthenticatedFamilyRoute,
+  AuthenticatedFinaidRoute: AuthenticatedFinaidRoute,
   AuthenticatedPersonalityRoute: AuthenticatedPersonalityRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedRecommendationsRoute: AuthenticatedRecommendationsRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
