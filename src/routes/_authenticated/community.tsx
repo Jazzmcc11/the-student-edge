@@ -1,16 +1,17 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { ArrowLeft, Trophy, Users, BookOpen, MessageSquare } from "lucide-react";
+import { useUserType } from "@/hooks/use-user-type";
 
 export const Route = createFileRoute("/_authenticated/community")({
   head: () => ({ meta: [{ title: "Community — The Plug" }] }),
   component: CommunityLayout,
 });
 
-const tabs = [
-  { to: "/community/wins", label: "Wins", icon: Trophy },
-  { to: "/community/buddies", label: "Study buddies", icon: Users },
-  { to: "/community/advice", label: "Advice", icon: BookOpen },
-  { to: "/community/discussions", label: "Discussions", icon: MessageSquare },
+const ALL_TABS = [
+  { to: "/community/wins", label: "Wins", icon: Trophy, studentOnly: true },
+  { to: "/community/buddies", label: "Study buddies", icon: Users, studentOnly: true },
+  { to: "/community/advice", label: "Advice", icon: BookOpen, studentOnly: false },
+  { to: "/community/discussions", label: "Discussions", icon: MessageSquare, studentOnly: false },
 ] as const;
 
 function CommunityLayout() {
