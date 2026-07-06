@@ -243,30 +243,60 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         />
       </div>
 
+      {focus && (
+        <Link to={focus.href} className="mb-8 block">
+          <div className="group relative overflow-hidden rounded-2xl border border-gold/50 bg-gradient-to-br from-gold/15 via-gold/5 to-transparent p-6 transition hover:shadow-gold">
+            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gold/10 blur-3xl" />
+            <div className="relative flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/20">
+                  <Zap className="h-6 w-6 text-gold" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-gold">Focus for today</p>
+                  <h3 className="mt-1 font-display text-2xl font-bold">{focus.label}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{focus.sub}</p>
+                </div>
+              </div>
+              <ArrowRight className="h-5 w-5 text-gold transition-transform group-hover:translate-x-1" />
+            </div>
+          </div>
+        </Link>
+      )}
+
       <h2 className="mb-4 font-display text-2xl font-bold">Your modules</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ModuleCard to="/essays" icon={Feather} title="Essay Workshop"
+          description="Draft your personal statement and supplements with an AI coach that never writes for you."
+          tags={["Common App", "Coach", "Focus mode"]} />
         <ModuleCard to="/tutor" icon={Sparkles} title="AI Tutor"
-          description="Ask Claude anything — homework, essay feedback, study plans. 24/7."
-          tags={["Claude", "Homework", "Essays"]} />
+          description="Ask anything — homework, essay feedback, study plans. 24/7."
+          tags={["Homework", "Essays"]} />
+        <ModuleCard to="/tracker/colleges" icon={GraduationCap} title="College Tracker"
+          description="Common App checklist, deadlines, supplements — all in one place."
+          tags={["Common App", "Deadlines"]} />
+        <ModuleCard to="/recommendations" icon={HandHeart} title="Rec Letters"
+          description="Track who you asked, who confirmed, and who deserves a thank-you note."
+          tags={["Teachers", "Status", "Reminders"]} />
+        <ModuleCard to="/finaid" icon={PiggyBank} title="Financial Aid"
+          description="FAFSA + CSS checklist and side-by-side offer comparison. See what's actually a scholarship."
+          tags={["FAFSA", "CSS", "Compare offers"]} />
         <ModuleCard to="/scholarships" icon={Search} title="Scholarship Database"
           description="Browse real scholarships, filter by category, save the ones you want."
           tags={["Browse", "Save"]} />
         <ModuleCard to="/colleges" icon={GraduationCap} title="Explore Colleges"
-          description="Search real US colleges — admit rate, cost, HBCU filter. Add to your tracker."
+          description="Search real US colleges — admit rate, cost, HBCU filter."
           tags={["Scorecard", "HBCU"]} />
-        <ModuleCard to="/tracker/scholarships" icon={Trophy} title="My Application Tracker"
-          description="Track colleges and scholarships you've applied to. Log what you've won."
-          tags={["Colleges", "Scholarships"]} />
-        <ModuleCard to="/creative" icon={Sparkles} title="Creative Resources"
-          description="Grad templates, senior year guide, HOCO + event inspo — curated boards."
-          tags={["Pinterest", "Grad", "HOCO"]} />
         <ModuleCard to="/calendar" icon={Calendar} title="Deadline Calendar"
           description="FAFSA, college, test, and state aid deadlines — filtered to your state."
-          tags={["FAFSA", "SAT/ACT", "State aid"]} />
+          tags={["FAFSA", "SAT/ACT"]} />
+        <ModuleCard to="/creative" icon={Sparkles} title="Creative Resources"
+          description="Grad templates, senior year guide, HOCO + event inspo — curated boards."
+          tags={["Pinterest", "Grad"]} />
         <ModuleCard to="/community/wins" icon={Users} title="Community"
           description="Wins wall, study buddies, advice library, and discussion boards."
-          tags={["Wins", "Buddies", "Advice", "Discussions"]} />
-        <ModuleCard to="/family" icon={Users} title="Family access"
+          tags={["Wins", "Buddies", "Advice"]} />
+        <ModuleCard to="/family" icon={Heart} title="Family access"
           description="Invite a parent with a code. Read-only — you stay in control."
           tags={["Invite", "Read-only"]} />
       </div>
