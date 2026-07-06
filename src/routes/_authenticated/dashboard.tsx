@@ -429,20 +429,26 @@ function ParentDashboard({ profile }: { profile: Profile }) {
 
           {active && <StudentSnapshot student={active} parentId={profile.id} />}
 
-          <h2 className="mb-4 mt-10 font-display text-2xl font-bold">For parents</h2>
+          <h2 className="mb-4 mt-10 font-display text-2xl font-bold">Your parent toolkit</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <ModuleCard to="/parent/essays" icon={Feather} title="Read their essays"
+              description="See what they're writing, leave kind, focused comments — never rewrite it for them."
+              tags={["View", "Comment"]} />
+            <ModuleCard to="/parent/finaid" icon={PiggyBank} title="Financial aid together"
+              description="Track FAFSA/CSS progress and compare aid offers side-by-side. This is your part."
+              tags={["FAFSA", "Aid offers"]} />
+            <ModuleCard to="/parent/resources" icon={BookOpen} title="Parent resource library"
+              description="Grad party tips, aid guides, senior year survival — save what helps, skip the rest."
+              tags={["Read", "Save"]} />
+            <ModuleCard to="/parent/tasks" icon={ClipboardList} title="Your to-do list"
+              description="The stuff only you can do — FAFSA, party planning, appointments. Out of your head."
+              tags={["Personal", "Private"]} />
             <ModuleCard to="/family" icon={Users} title="Manage linked students"
               description="Add another student, or remove a link."
               tags={["Link", "Read-only"]} />
-            <ModuleCard to="/scholarships" icon={Search} title="Scholarship database"
-              description="Browse real scholarships you can share with your student."
-              tags={["Browse", "Share"]} />
             <ModuleCard to="/community/discussions" icon={MessageSquare} title="Parent Lounge"
-              description="Paying for college, senior year logistics, HBCU vs PWI, mental health check-ins."
-              tags={["Parent-only topics"]} />
-            <ModuleCard to="/community/advice" icon={BookOpen} title="Advice library"
-              description="Tips from other parents and students who've been there."
-              tags={["Read", "Share"]} />
+              description="Real talk with parents who are figuring it out alongside you."
+              tags={["Community"]} />
           </div>
         </>
       )}

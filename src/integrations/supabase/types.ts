@@ -317,6 +317,41 @@ export type Database = {
         }
         Relationships: []
       }
+      essay_comments: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          essay_id: string
+          id: string
+          student_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          essay_id: string
+          id?: string
+          student_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          essay_id?: string
+          id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "essay_comments_essay_id_fkey"
+            columns: ["essay_id"]
+            isOneToOne: false
+            referencedRelation: "essays"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       essays: {
         Row: {
           college_id: string | null
@@ -532,6 +567,27 @@ export type Database = {
         }
         Relationships: []
       }
+      parent_saved_articles: {
+        Row: {
+          article_slug: string
+          created_at: string
+          id: string
+          parent_id: string
+        }
+        Insert: {
+          article_slug: string
+          created_at?: string
+          id?: string
+          parent_id: string
+        }
+        Update: {
+          article_slug?: string
+          created_at?: string
+          id?: string
+          parent_id?: string
+        }
+        Relationships: []
+      }
       parent_student_links: {
         Row: {
           created_at: string
@@ -550,6 +606,45 @@ export type Database = {
           id?: string
           parent_id?: string
           student_id?: string
+        }
+        Relationships: []
+      }
+      parent_tasks: {
+        Row: {
+          category: string
+          created_at: string
+          done: boolean
+          due_date: string | null
+          id: string
+          notes: string | null
+          parent_id: string
+          student_id: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          done?: boolean
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          parent_id: string
+          student_id?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          done?: boolean
+          due_date?: string | null
+          id?: string
+          notes?: string | null
+          parent_id?: string
+          student_id?: string | null
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
