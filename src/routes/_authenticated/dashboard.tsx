@@ -16,7 +16,10 @@ import {
   Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap, Wand2,
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
+import { GradeLevelPanel } from "@/components/grade-level-panel";
+import { getGradePlan } from "@/lib/grade-plan";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — The Plug" }] }),
