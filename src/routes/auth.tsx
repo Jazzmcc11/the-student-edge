@@ -33,12 +33,21 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+function safeNext(next: string | undefined): string {
+  if (!next || typeof next !== "string") return "/dashboard";
+  if (!next.startsWith("/") || next.startsWith("//")) return "/dashboard";
+  return next;
+}
+
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — The Plug" },
       { name: "description", content: "Sign in or create your student or parent account on The Plug." },
     ],
+  }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : undefined,
   }),
   component: AuthPage,
 });
@@ -154,6 +163,8 @@ const PREVIEW = {
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
+  const target = safeNext(next);
   const [role, setRole] = useState<Role>("student");
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -163,9 +174,15 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/dashboard" });
+      if (data.session) {
+        if (target.startsWith("/") && !target.startsWith("//") && target !== "/dashboard") {
+          window.location.href = target;
+        } else {
+          navigate({ to: "/dashboard" });
+        }
+      }
     });
-  }, [navigate]);
+  }, [navigate, target]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -176,18 +193,18 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/dashboard`,
+            emailRedirectTo: `${window.location.origin}${target}`,
             data: { full_name: fullName, user_type: role },
           },
         });
         if (error) throw error;
         toast.success("Account created. Welcome to The Plug.");
-        navigate({ to: "/dashboard" });
+        window.location.href = target;
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success("Signed in.");
-        navigate({ to: "/dashboard" });
+        window.location.href = target;
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong";

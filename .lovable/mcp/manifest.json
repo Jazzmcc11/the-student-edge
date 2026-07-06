@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://ezttvkqrkvmyzenpohqu.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "the-plug-mcp",
+      "version": "0.1.0",
+      "title": "The Plug"
+    },
+    "tools": [
+      {
+        "name": "me",
+        "title": "Who am I",
+        "description": "Return the signed-in user's id and email.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_scholarship_apps",
+        "title": "List my scholarship applications",
+        "description": "List the signed-in user's scholarship applications from their tracker.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_scholarship_app",
+        "title": "Add a scholarship application",
+        "description": "Add a scholarship application to the signed-in user's tracker.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Scholarship name."
+            },
+            "date_applied": {
+              "description": "ISO date (YYYY-MM-DD) the user applied.",
+              "type": "string"
+            },
+            "amount": {
+              "description": "Award amount in USD, if won.",
+              "type": "number"
+            },
+            "received": {
+              "description": "Whether the award has been received.",
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_college_apps",
+        "title": "List my college applications",
+        "description": "List the signed-in user's college applications with Common App checklist status.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_college_app",
+        "title": "Add a college application",
+        "description": "Add a college to the signed-in user's application tracker.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "college_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "deadline_type": {
+              "description": "Application round.",
+              "type": "string",
+              "enum": [
+                "ED",
+                "EDII",
+                "EA",
+                "RA",
+                "RD",
+                "Rolling"
+              ]
+            },
+            "deadline_date": {
+              "description": "ISO date (YYYY-MM-DD).",
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "college_name"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_scholarships",
+        "title": "Search scholarships",
+        "description": "Search The Plug's scholarship database by keyword. Returns up to 20 matches.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Keyword to match name or field. Omit for latest.",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
