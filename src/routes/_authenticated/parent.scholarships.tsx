@@ -18,15 +18,17 @@ export const Route = createFileRoute("/_authenticated/parent/scholarships")({
 type Student = { id: string; full_name: string | null; display_name: string | null; email: string | null };
 type App = {
   id: string;
+  name: string;
   scholarship_id: string | null;
-  status: string | null;
   amount: number | null;
   received: boolean;
   notes: string | null;
+  date_applied: string | null;
   created_at: string;
   user_id: string;
 };
 type Scholarship = { id: string; name: string; amount: number | null; deadline: string | null; category: string | null; link: string | null };
+
 
 const STATUS_TONE: Record<string, string> = {
   interested: "bg-secondary text-muted-foreground",
