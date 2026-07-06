@@ -685,11 +685,14 @@ export type Database = {
           email: string | null
           email_reminders: boolean
           full_name: string | null
+          gpa: number | null
+          gpa_scale: string | null
           grade_level: number | null
           id: string
           last_visited_at: string | null
           last_visited_module: string | null
           onboarded_at: string | null
+          onboarding_checklist: Json | null
           parent_focus: string[] | null
           parent_household_students: number | null
           parent_relationship: string | null
@@ -713,11 +716,14 @@ export type Database = {
           email?: string | null
           email_reminders?: boolean
           full_name?: string | null
+          gpa?: number | null
+          gpa_scale?: string | null
           grade_level?: number | null
           id: string
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
+          onboarding_checklist?: Json | null
           parent_focus?: string[] | null
           parent_household_students?: number | null
           parent_relationship?: string | null
@@ -741,11 +747,14 @@ export type Database = {
           email?: string | null
           email_reminders?: boolean
           full_name?: string | null
+          gpa?: number | null
+          gpa_scale?: string | null
           grade_level?: number | null
           id?: string
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
+          onboarding_checklist?: Json | null
           parent_focus?: string[] | null
           parent_household_students?: number | null
           parent_relationship?: string | null
