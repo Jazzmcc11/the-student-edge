@@ -33,12 +33,21 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+function safeNext(next: string | undefined): string {
+  if (!next || typeof next !== "string") return "/dashboard";
+  if (!next.startsWith("/") || next.startsWith("//")) return "/dashboard";
+  return next;
+}
+
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — The Plug" },
       { name: "description", content: "Sign in or create your student or parent account on The Plug." },
     ],
+  }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : undefined,
   }),
   component: AuthPage,
 });
