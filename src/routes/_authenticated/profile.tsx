@@ -177,20 +177,26 @@ function ProfilePage() {
           }),
     };
 
-    const profileRes = await supabase.from("profiles").update(update).eq("id", userId);
-    const goalsRes =
-      userType === "student"
-        ? await supabase.from("user_goals").upsert({
-            user_id: userId,
-            target_colleges: splitCsv(goals.target_colleges),
-            intended_majors: splitCsv(goals.intended_majors),
-            interests: splitCsv(goals.interests),
-            career_paths: splitCsv(goals.career_paths),
-          })
-        : { error: null };
-    const results = [profileRes, goalsRes];
+    const { error: profileErr } = await supabase.from("profiles").update(update).eq("id", userId);
+    if (profileErr) {
+      console.error("profile save error", profileErr);
+      setSaving(false);
+      toast.error(profileErr.message || "Couldn't save your profile.");
+      return;
+    }
+
+    if (userType === "student") {
+      const { error: goalsErr } = await supabase.from("user_goals").upsert({
+        user_id: userId,
+        target_colleges: splitCsv(goals.target_colleges),
+        intended_majors: splitCsv(goals.intended_majors),
+        interests: splitCsv(goals.interests),
+        career_paths: splitCsv(goals.career_paths),
+      });
+      if (goalsErr) console.warn("goals save error", goalsErr);
+    }
+
     setSaving(false);
-    if (results.some((r) => r.error)) return toast.error("Couldn't save. Try again.");
     toast.success("Profile saved");
   }
 
