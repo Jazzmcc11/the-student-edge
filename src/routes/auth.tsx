@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -214,6 +215,24 @@ function AuthPage() {
     }
   }
 
+  async function handleGoogle() {
+    setLoading(true);
+    try {
+      // Persist chosen role so profile trigger reads it if this is a new signup.
+      try { localStorage.setItem("pending_user_type", role); } catch {}
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) throw result.error;
+      if (result.redirected) return;
+      window.location.href = target;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Google sign-in failed";
+      toast.error(msg);
+      setLoading(false);
+    }
+  }
+
   const preview = PREVIEW[role];
 
   return (
@@ -273,7 +292,27 @@ function AuthPage() {
                 <TabsTrigger value="signup">Sign up</TabsTrigger>
               </TabsList>
 
-              <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+              <div className="mt-5 space-y-3">
+                <Button
+                  type="button"
+                  onClick={handleGoogle}
+                  disabled={loading}
+                  variant="outline"
+                  className="w-full border-border bg-background hover:border-gold/40"
+                >
+                  <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden>
+                    <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1.66 4.1-5.5 4.1-3.31 0-6-2.74-6-6.1s2.69-6.1 6-6.1c1.88 0 3.14.8 3.86 1.5l2.63-2.55C16.98 3.44 14.72 2.5 12 2.5 6.75 2.5 2.5 6.75 2.5 12S6.75 21.5 12 21.5c6.92 0 9.5-4.86 9.5-7.32 0-.49-.05-.87-.12-1.28H12z"/>
+                  </svg>
+                  Continue with Google
+                </Button>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="h-px flex-1 bg-border" />
+                  or with email
+                  <span className="h-px flex-1 bg-border" />
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                 <TabsContent value="signup" className="m-0 space-y-4">
                   <div>
                     <Label htmlFor="name">Full name</Label>
