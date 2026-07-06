@@ -1,16 +1,19 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin } from "@/hooks/use-admin";
 import { Button } from "@/components/ui/button";
 import { AvatarBadge } from "@/components/avatar-badge";
 import { NudgesPanel } from "@/components/nudges-panel";
+import { StudentAlerts } from "@/components/student-alerts";
+import { seedStudentSample } from "@/lib/seed-data";
 import { greeting, greetingEmoji, getStreak, MODULE_META } from "@/lib/personalization";
 import { pickArchetype, type Archetype } from "@/lib/personality";
 import {
   GraduationCap, Users, LogOut, ArrowRight,
   Calendar, Trophy, ClipboardList, Search, Inbox, Flame, Settings, Sparkles, History,
-  Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap,
+  Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap, Wand2,
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
 import { toast } from "sonner";
@@ -31,6 +34,7 @@ interface Profile {
 
 function Dashboard() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { isAdmin } = useIsAdmin();
   const [profile, setProfile] = useState<Profile | null>(null);
 
@@ -62,9 +66,11 @@ function Dashboard() {
   }, []);
 
   async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
     await supabase.auth.signOut();
     toast.success("Signed out");
-    navigate({ to: "/" });
+    navigate({ to: "/auth", replace: true });
   }
 
   return (
