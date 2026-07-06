@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +10,7 @@ import { QUESTIONS, scoreAxes, pickArchetype, type Answers, type Archetype } fro
 
 export const Route = createFileRoute("/_authenticated/personality")({
   head: () => ({ meta: [{ title: "Personality Test — The Plug" }] }),
-  component: PersonalityPage,
+  component: () => <StudentOnly><PersonalityPage /></StudentOnly>,
 });
 
 const LIKERT = [

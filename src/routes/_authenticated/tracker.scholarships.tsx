@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import { TableSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/tracker/scholarships")({
   head: () => ({ meta: [{ title: "My scholarships — The Plug" }] }),
-  component: ScholarshipTracker,
+  component: () => <StudentOnly><ScholarshipTracker /></StudentOnly>,
 });
 
 type Row = {

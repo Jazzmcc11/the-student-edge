@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/recommendations")({
       { name: "description", content: "Track your recommenders and letter requests without dropping the ball." },
     ],
   }),
-  component: RecommendationsPage,
+  component: () => <StudentOnly><RecommendationsPage /></StudentOnly>,
 });
 
 type Recommender = {

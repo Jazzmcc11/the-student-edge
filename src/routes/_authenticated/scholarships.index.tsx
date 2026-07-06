@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import { useIsAdmin } from "@/hooks/use-admin";
 
 export const Route = createFileRoute("/_authenticated/scholarships/")({
   head: () => ({ meta: [{ title: "Scholarships — The Plug" }] }),
-  component: ScholarshipsList,
+  component: () => <StudentOnly><ScholarshipsList /></StudentOnly>,
 });
 
 type Scholarship = {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { refreshMyReminders } from "@/lib/reminders.functions";
 
 export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({ meta: [{ title: "Deadline Calendar — The Plug" }] }),
-  component: CalendarPage,
+  component: () => <StudentOnly><CalendarPage /></StudentOnly>,
 });
 
 type KeyDate = {

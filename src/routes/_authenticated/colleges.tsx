@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { searchColleges, type CollegeResult } from "@/lib/colleges.functions";
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/colleges")({
       { name: "description", content: "Search real US colleges with admit rates, cost, and size from the Dept of Education." },
     ],
   }),
-  component: Colleges,
+  component: () => <StudentOnly><Colleges /></StudentOnly>,
 });
 
 const STATES = ["", "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];

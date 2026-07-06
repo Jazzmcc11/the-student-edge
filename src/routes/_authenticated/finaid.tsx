@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { StudentOnly } from "@/components/student-only";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/finaid")({
       { name: "description", content: "FAFSA checklist, CSS Profile tracker, and side-by-side aid award comparison." },
     ],
   }),
-  component: FinAidPage,
+  component: () => <StudentOnly><FinAidPage /></StudentOnly>,
 });
 
 const FAFSA_TASKS = [
