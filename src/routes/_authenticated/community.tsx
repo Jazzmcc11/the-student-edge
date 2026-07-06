@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_authenticated/community")({
 });
 
 const ALL_TABS = [
-  { to: "/community/wins", label: "Wins", icon: Trophy, studentOnly: true },
+  { to: "/community/wins", label: "Wins", icon: Trophy, studentOnly: false },
   { to: "/community/buddies", label: "Study buddies", icon: Users, studentOnly: true },
   { to: "/community/advice", label: "Advice", icon: BookOpen, studentOnly: false },
   { to: "/community/discussions", label: "Discussions", icon: MessageSquare, studentOnly: false },
