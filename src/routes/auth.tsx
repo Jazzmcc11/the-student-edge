@@ -174,13 +174,20 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        if (target.startsWith("/") && !target.startsWith("//") && target !== "/dashboard") {
-          window.location.href = target;
-        } else {
-          navigate({ to: "/dashboard" });
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (!data.session) return;
+      // If Google sign-in just created a profile, apply the pending role from localStorage.
+      try {
+        const pending = localStorage.getItem("pending_user_type") as Role | null;
+        if (pending === "student" || pending === "parent") {
+          await supabase.from("profiles").update({ user_type: pending }).eq("id", data.session.user.id);
+          localStorage.removeItem("pending_user_type");
         }
+      } catch {}
+      if (target.startsWith("/") && !target.startsWith("//") && target !== "/dashboard") {
+        window.location.href = target;
+      } else {
+        navigate({ to: "/dashboard" });
       }
     });
   }, [navigate, target]);
