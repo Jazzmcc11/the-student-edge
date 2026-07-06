@@ -92,11 +92,30 @@ export function GradeLevelPanel({ userId, gradeLevel, gpa, checklist, onProfileU
     <section className="mb-10 grid gap-4 md:grid-cols-3">
       {/* Grade banner */}
       <div className="md:col-span-2 rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/10 via-transparent to-transparent p-6">
-        <div className="flex items-center gap-2">
-          <span className={`text-xs font-semibold uppercase tracking-wider ${plan.color}`}>
-            {plan.label} · Grade {plan.grade}
-          </span>
-          <span className="text-xs text-muted-foreground">· {plan.phase}</span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className={`text-xs font-semibold uppercase tracking-wider ${plan.color}`}>
+              {plan.label} · Grade {plan.grade}
+            </span>
+            <span className="text-xs text-muted-foreground">· {plan.phase}</span>
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {[9, 10, 11, 12].map((g) => (
+              <button
+                key={g}
+                disabled={savingGrade || g === plan.grade}
+                onClick={() => saveGrade(g)}
+                className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition ${
+                  g === plan.grade
+                    ? "bg-gold/20 text-gold"
+                    : "text-muted-foreground hover:text-gold"
+                }`}
+                title={g === plan.grade ? "Current grade" : `Switch to ${g}th`}
+              >
+                {g}th
+              </button>
+            ))}
+          </div>
         </div>
         <h2 className="mt-2 font-display text-2xl font-bold">{plan.tagline}</h2>
         <div className="mt-4 flex items-center gap-3">
