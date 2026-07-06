@@ -16,7 +16,10 @@ import {
   Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap, Wand2,
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
+import { GradeLevelPanel } from "@/components/grade-level-panel";
+import { getGradePlan } from "@/lib/grade-plan";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — The Plug" }] }),
@@ -30,7 +33,11 @@ interface Profile {
   email: string | null;
   user_type: "student" | "parent";
   last_visited_module: string | null;
+  grade_level: number | string | null;
+  gpa: number | null;
+  onboarding_checklist: Record<string, boolean> | null;
 }
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -44,7 +51,7 @@ function Dashboard() {
       if (!user) return;
       const { data: prof, error } = await supabase
         .from("profiles")
-        .select("id, full_name, display_name, email, user_type, last_visited_module")
+        .select("id, full_name, display_name, email, user_type, last_visited_module, grade_level, gpa, onboarding_checklist")
         .eq("id", user.id)
         .maybeSingle();
       if (error) console.error("profile fetch error", error);
@@ -60,10 +67,14 @@ function Dashboard() {
           email: user.email ?? null,
           user_type: (meta.user_type as "student" | "parent") || "student",
           last_visited_module: null,
+          grade_level: null,
+          gpa: null,
+          onboarding_checklist: {},
         });
       }
     })();
   }, []);
+
 
   async function handleSignOut() {
     await queryClient.cancelQueries();
@@ -239,6 +250,13 @@ function StudentDashboard({ profile }: { profile: Profile }) {
 
       <StudentAlerts studentId={profile.id} />
 
+      <GradeLevelPanel
+        userId={profile.id}
+        gradeLevel={profile.grade_level}
+        gpa={profile.gpa}
+        checklist={profile.onboarding_checklist || {}}
+      />
+
       {stats.wonAmount === 0 && stats.pending === 0 && stats.colleges === 0 && (
         <EmptyStudentCTA userId={profile.id} />
       )}
@@ -276,45 +294,80 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         </Link>
       )}
 
-      <h2 className="mb-4 font-display text-2xl font-bold">Your modules</h2>
+      <StudentModules gradeLevel={profile.grade_level} />
+    </>
+  );
+}
+
+const ALL_MODULES = [
+  { key: "essays", to: "/essays", icon: Feather, title: "Essay Workshop",
+    description: "Draft your personal statement and supplements with an AI coach that never writes for you.",
+    tags: ["Common App", "Coach", "Focus mode"] },
+  { key: "tutor", to: "/tutor", icon: Sparkles, title: "AI Tutor",
+    description: "Ask anything — homework, essay feedback, study plans. 24/7.",
+    tags: ["Homework", "Essays"] },
+  { key: "tracker-colleges", to: "/tracker/colleges", icon: GraduationCap, title: "College Tracker",
+    description: "Common App checklist, deadlines, supplements — all in one place.",
+    tags: ["Common App", "Deadlines"] },
+  { key: "recommendations", to: "/recommendations", icon: HandHeart, title: "Rec Letters",
+    description: "Track who you asked, who confirmed, and who deserves a thank-you note.",
+    tags: ["Teachers", "Status", "Reminders"] },
+  { key: "finaid", to: "/finaid", icon: PiggyBank, title: "Financial Aid",
+    description: "FAFSA + CSS checklist and side-by-side offer comparison. See what's actually a scholarship.",
+    tags: ["FAFSA", "CSS", "Compare offers"] },
+  { key: "scholarships", to: "/scholarships", icon: Search, title: "Scholarship Database",
+    description: "Browse real scholarships, filter by category, save the ones you want.",
+    tags: ["Browse", "Save"] },
+  { key: "colleges", to: "/colleges", icon: GraduationCap, title: "Explore Colleges",
+    description: "Search real US colleges — admit rate, cost, HBCU filter.",
+    tags: ["Scorecard", "HBCU"] },
+  { key: "calendar", to: "/calendar", icon: Calendar, title: "Deadline Calendar",
+    description: "FAFSA, college, test, and state aid deadlines — filtered to your state.",
+    tags: ["FAFSA", "SAT/ACT"] },
+  { key: "creative", to: "/creative", icon: Sparkles, title: "Creative Resources",
+    description: "Grad templates, senior year guide, HOCO + event inspo — curated boards.",
+    tags: ["Pinterest", "Grad"] },
+  { key: "community", to: "/community/wins", icon: Users, title: "Community",
+    description: "Wins wall, study buddies, advice library, and discussion boards.",
+    tags: ["Wins", "Buddies", "Advice"] },
+  { key: "personality", to: "/personality", icon: Sparkles, title: "Personality Test",
+    description: "12 questions, an archetype, and a study plan built around how you actually work.",
+    tags: ["Archetype", "Study plan"] },
+  { key: "family", to: "/family", icon: Heart, title: "Family access",
+    description: "Invite a parent with a code. Read-only — you stay in control.",
+    tags: ["Invite", "Read-only"] },
+] as const;
+
+function StudentModules({ gradeLevel }: { gradeLevel: number | string | null }) {
+  const plan = getGradePlan(gradeLevel);
+  const hidden = new Set(plan?.hiddenModules || []);
+  const priority = plan?.priorityModules || [];
+
+  const visible = ALL_MODULES.filter(m => !hidden.has(m.key));
+  const sorted = [...visible].sort((a, b) => {
+    const ai = priority.indexOf(a.key);
+    const bi = priority.indexOf(b.key);
+    if (ai === -1 && bi === -1) return 0;
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+
+  return (
+    <>
+      <h2 className="mb-4 font-display text-2xl font-bold">
+        {plan ? `Recommended for ${plan.label.toLowerCase()} year` : "Your modules"}
+      </h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <ModuleCard to="/essays" icon={Feather} title="Essay Workshop"
-          description="Draft your personal statement and supplements with an AI coach that never writes for you."
-          tags={["Common App", "Coach", "Focus mode"]} />
-        <ModuleCard to="/tutor" icon={Sparkles} title="AI Tutor"
-          description="Ask anything — homework, essay feedback, study plans. 24/7."
-          tags={["Homework", "Essays"]} />
-        <ModuleCard to="/tracker/colleges" icon={GraduationCap} title="College Tracker"
-          description="Common App checklist, deadlines, supplements — all in one place."
-          tags={["Common App", "Deadlines"]} />
-        <ModuleCard to="/recommendations" icon={HandHeart} title="Rec Letters"
-          description="Track who you asked, who confirmed, and who deserves a thank-you note."
-          tags={["Teachers", "Status", "Reminders"]} />
-        <ModuleCard to="/finaid" icon={PiggyBank} title="Financial Aid"
-          description="FAFSA + CSS checklist and side-by-side offer comparison. See what's actually a scholarship."
-          tags={["FAFSA", "CSS", "Compare offers"]} />
-        <ModuleCard to="/scholarships" icon={Search} title="Scholarship Database"
-          description="Browse real scholarships, filter by category, save the ones you want."
-          tags={["Browse", "Save"]} />
-        <ModuleCard to="/colleges" icon={GraduationCap} title="Explore Colleges"
-          description="Search real US colleges — admit rate, cost, HBCU filter."
-          tags={["Scorecard", "HBCU"]} />
-        <ModuleCard to="/calendar" icon={Calendar} title="Deadline Calendar"
-          description="FAFSA, college, test, and state aid deadlines — filtered to your state."
-          tags={["FAFSA", "SAT/ACT"]} />
-        <ModuleCard to="/creative" icon={Sparkles} title="Creative Resources"
-          description="Grad templates, senior year guide, HOCO + event inspo — curated boards."
-          tags={["Pinterest", "Grad"]} />
-        <ModuleCard to="/community/wins" icon={Users} title="Community"
-          description="Wins wall, study buddies, advice library, and discussion boards."
-          tags={["Wins", "Buddies", "Advice"]} />
-        <ModuleCard to="/family" icon={Heart} title="Family access"
-          description="Invite a parent with a code. Read-only — you stay in control."
-          tags={["Invite", "Read-only"]} />
+        {sorted.map(m => (
+          <ModuleCard key={m.key} to={m.to} icon={m.icon} title={m.title}
+            description={m.description} tags={[...m.tags]} />
+        ))}
       </div>
     </>
   );
 }
+
 
 /* ============================================================
    PARENT DASHBOARD
