@@ -30,7 +30,11 @@ interface Profile {
   email: string | null;
   user_type: "student" | "parent";
   last_visited_module: string | null;
+  grade_level: number | string | null;
+  gpa: number | null;
+  onboarding_checklist: Record<string, boolean> | null;
 }
+
 
 function Dashboard() {
   const navigate = useNavigate();
