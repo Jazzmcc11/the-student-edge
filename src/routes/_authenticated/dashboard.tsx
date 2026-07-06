@@ -434,6 +434,15 @@ function ParentDashboard({ profile }: { profile: Profile }) {
             <ModuleCard to="/parent/essays" icon={Feather} title="Read their essays"
               description="See what they're writing, leave kind, focused comments — never rewrite it for them."
               tags={["View", "Comment"]} />
+            <ModuleCard to="/parent/scholarships" icon={Search} title="What they're chasing"
+              description="Every scholarship your student saved or applied to. Cheer them on as they land wins."
+              tags={["Track", "Celebrate"]} />
+            <ModuleCard to="/community/wins" icon={Trophy} title="Wall of wins"
+              description="Every win your student and the community post. Send them love in one tap."
+              tags={["Celebrate", "Nudge"]} />
+            <ModuleCard to="/scholarships" icon={Sparkles} title="Browse scholarships"
+              description="See what's out there — send the ones you find their way as encouragement."
+              tags={["Discover", "Share"]} />
             <ModuleCard to="/parent/finaid" icon={PiggyBank} title="Financial aid together"
               description="Track FAFSA/CSS progress and compare aid offers side-by-side. This is your part."
               tags={["FAFSA", "Aid offers"]} />
