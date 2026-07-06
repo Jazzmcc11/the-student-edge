@@ -13,7 +13,7 @@ interface Props {
   gradeLevel: number | string | null;
   gpa: number | null;
   checklist: Record<string, boolean>;
-  onProfileUpdated?: (patch: { gpa?: number | null; onboarding_checklist?: Record<string, boolean> }) => void;
+  onProfileUpdated?: (patch: { gpa?: number | null; grade_level?: number | null; onboarding_checklist?: Record<string, boolean> }) => void;
 }
 
 export function GradeLevelPanel({ userId, gradeLevel, gpa, checklist, onProfileUpdated }: Props) {
@@ -22,17 +22,38 @@ export function GradeLevelPanel({ userId, gradeLevel, gpa, checklist, onProfileU
   const [gpaValue, setGpaValue] = useState<string>(gpa != null ? String(gpa) : "");
   const [editingGpa, setEditingGpa] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [savingGrade, setSavingGrade] = useState(false);
 
   useEffect(() => { setChecked(checklist || {}); }, [checklist]);
   useEffect(() => { setGpaValue(gpa != null ? String(gpa) : ""); }, [gpa]);
 
+  async function saveGrade(g: number) {
+    setSavingGrade(true);
+    const { error } = await supabase.from("profiles").update({ grade_level: g }).eq("id", userId);
+    setSavingGrade(false);
+    if (error) { toast.error(error.message || "Couldn't save grade"); return; }
+    toast.success("Grade saved");
+    onProfileUpdated?.({ grade_level: g });
+  }
+
   if (!plan) {
     return (
       <div className="mb-8 rounded-2xl border border-border bg-card p-6">
-        <p className="text-sm text-muted-foreground">
-          Add your grade level in your profile to get a personalized plan.
-        </p>
-        <Link to="/profile"><Button size="sm" variant="outline" className="mt-3">Update profile</Button></Link>
+        <p className="text-sm font-medium">What grade are you in?</p>
+        <p className="mt-1 text-xs text-muted-foreground">Pick one to unlock your personalized plan.</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {[9, 10, 11, 12].map((g) => (
+            <Button
+              key={g}
+              size="sm"
+              variant="outline"
+              disabled={savingGrade}
+              onClick={() => saveGrade(g)}
+            >
+              {g}th
+            </Button>
+          ))}
+        </div>
       </div>
     );
   }
