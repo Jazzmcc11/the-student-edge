@@ -237,6 +237,12 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         </div>
       </Link>
 
+      <StudentAlerts studentId={profile.id} />
+
+      {stats.wonAmount === 0 && stats.pending === 0 && stats.colleges === 0 && (
+        <EmptyStudentCTA userId={profile.id} />
+      )}
+
       <div className="mb-10 grid grid-cols-2 gap-3 md:grid-cols-4">
         <StatCard icon={Trophy} label="Won so far" value={`$${stats.wonAmount.toLocaleString()}`} highlight />
         <StatCard icon={ClipboardList} label="Pending apps" value={stats.pending.toString()} />
