@@ -10,7 +10,7 @@ import { QUESTIONS, scoreAxes, pickArchetype, type Answers, type Archetype } fro
 
 export const Route = createFileRoute("/_authenticated/personality")({
   head: () => ({ meta: [{ title: "Personality Test — The Plug" }] }),
-  component: PersonalityPage,
+  component: () => <StudentOnly><PersonalityPage /></StudentOnly>,
 });
 
 const LIKERT = [

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/recommendations")({
       { name: "description", content: "Track your recommenders and letter requests without dropping the ball." },
     ],
   }),
-  component: RecommendationsPage,
+  component: () => <StudentOnly><RecommendationsPage /></StudentOnly>,
 });
 
 type Recommender = {

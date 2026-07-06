@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/tutor")({
       { name: "description", content: "Ask Claude anything — homework help, essay feedback, study plans." },
     ],
   }),
-  component: TutorPage,
+  component: () => <StudentOnly><TutorPage /></StudentOnly>,
 });
 
 type Msg = { role: "user" | "assistant"; content: string };

@@ -23,7 +23,7 @@ export const Route = createFileRoute("/_authenticated/finaid")({
       { name: "description", content: "FAFSA checklist, CSS Profile tracker, and side-by-side aid award comparison." },
     ],
   }),
-  component: FinAidPage,
+  component: () => <StudentOnly><FinAidPage /></StudentOnly>,
 });
 
 const FAFSA_TASKS = [

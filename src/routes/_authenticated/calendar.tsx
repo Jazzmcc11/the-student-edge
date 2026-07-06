@@ -12,7 +12,7 @@ import { refreshMyReminders } from "@/lib/reminders.functions";
 
 export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({ meta: [{ title: "Deadline Calendar — The Plug" }] }),
-  component: CalendarPage,
+  component: () => <StudentOnly><CalendarPage /></StudentOnly>,
 });
 
 type KeyDate = {

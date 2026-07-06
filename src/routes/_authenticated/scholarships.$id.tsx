@@ -9,7 +9,7 @@ import { useIsAdmin } from "@/hooks/use-admin";
 
 export const Route = createFileRoute("/_authenticated/scholarships/$id")({
   head: () => ({ meta: [{ title: "Scholarship — The Plug" }] }),
-  component: ScholarshipDetail,
+  component: () => <StudentOnly><ScholarshipDetail /></StudentOnly>,
 });
 
 type Scholarship = {

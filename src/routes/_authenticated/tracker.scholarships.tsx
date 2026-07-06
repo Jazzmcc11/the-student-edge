@@ -17,7 +17,7 @@ import { TableSkeleton } from "@/components/skeletons";
 
 export const Route = createFileRoute("/_authenticated/tracker/scholarships")({
   head: () => ({ meta: [{ title: "My scholarships — The Plug" }] }),
-  component: ScholarshipTracker,
+  component: () => <StudentOnly><ScholarshipTracker /></StudentOnly>,
 });
 
 type Row = {
