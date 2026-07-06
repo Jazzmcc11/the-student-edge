@@ -18,6 +18,7 @@ import {
   ArrowLeft, Plus, Pencil, Trash2, Sparkles, Loader2, BookOpen, Feather, Target, Focus, X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { markEssayCommentsSeen } from "@/components/student-alerts";
 
 export const Route = createFileRoute("/_authenticated/essays")({
   head: () => ({
@@ -72,7 +73,12 @@ function EssaysPage() {
     setEssays((data as Essay[]) || []);
   }
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) markEssayCommentsSeen(user.id);
+    });
+  }, []);
 
   async function createEssay(payload: Partial<Essay>) {
     const { data: { user } } = await supabase.auth.getUser();

@@ -1,16 +1,19 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsAdmin } from "@/hooks/use-admin";
 import { Button } from "@/components/ui/button";
 import { AvatarBadge } from "@/components/avatar-badge";
 import { NudgesPanel } from "@/components/nudges-panel";
+import { StudentAlerts } from "@/components/student-alerts";
+import { seedStudentSample } from "@/lib/seed-data";
 import { greeting, greetingEmoji, getStreak, MODULE_META } from "@/lib/personalization";
 import { pickArchetype, type Archetype } from "@/lib/personality";
 import {
   GraduationCap, Users, LogOut, ArrowRight,
   Calendar, Trophy, ClipboardList, Search, Inbox, Flame, Settings, Sparkles, History,
-  Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap,
+  Heart, MessageSquare, BookOpen, Feather, HandHeart, PiggyBank, Zap, Wand2,
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
 import { toast } from "sonner";
@@ -31,6 +34,7 @@ interface Profile {
 
 function Dashboard() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { isAdmin } = useIsAdmin();
   const [profile, setProfile] = useState<Profile | null>(null);
 
@@ -62,9 +66,11 @@ function Dashboard() {
   }, []);
 
   async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
     await supabase.auth.signOut();
     toast.success("Signed out");
-    navigate({ to: "/" });
+    navigate({ to: "/auth", replace: true });
   }
 
   return (
@@ -230,6 +236,12 @@ function StudentDashboard({ profile }: { profile: Profile }) {
           <ArrowRight className="h-4 w-4 text-gold" />
         </div>
       </Link>
+
+      <StudentAlerts studentId={profile.id} />
+
+      {stats.wonAmount === 0 && stats.pending === 0 && stats.colleges === 0 && (
+        <EmptyStudentCTA userId={profile.id} />
+      )}
 
       <div className="mb-10 grid grid-cols-2 gap-3 md:grid-cols-4">
         <StatCard icon={Trophy} label="Won so far" value={`$${stats.wonAmount.toLocaleString()}`} highlight />
@@ -556,6 +568,47 @@ function EmptyParent() {
 /* ============================================================
    SHARED
    ============================================================ */
+function EmptyStudentCTA({ userId }: { userId: string }) {
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  if (done) return null;
+  async function loadSample() {
+    setBusy(true);
+    try {
+      const res = await seedStudentSample(userId);
+      if (res.skipped) toast("You already have data — skipping sample.");
+      else toast.success("Sample data loaded — poke around!");
+      setDone(true);
+      setTimeout(() => window.location.reload(), 400);
+    } catch (e: any) {
+      toast.error(e.message || "Couldn't load samples");
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <div className="mb-8 flex flex-col gap-3 rounded-2xl border border-dashed border-gold/30 bg-card p-6 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p className="text-xs uppercase tracking-wider text-gold">New account?</p>
+        <h3 className="mt-1 font-display text-lg font-semibold">Your dashboard's empty — for now.</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Add your first scholarship or college, or load a sample set to see how everything works.
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Button onClick={loadSample} disabled={busy} variant="outline" className="border-gold/40 text-gold hover:bg-gold hover:text-primary-foreground">
+          <Wand2 className="mr-1.5 h-4 w-4" /> {busy ? "Loading…" : "Load sample data"}
+        </Button>
+        <Link to="/tracker/scholarships">
+          <Button className="bg-gold text-primary-foreground hover:bg-gold/90">
+            Add your first <ArrowRight className="ml-1.5 h-4 w-4" />
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 function StatCard({ icon: Icon, label, value, sub, highlight }: { icon: React.ElementType; label: string; value: string; sub?: string; highlight?: boolean }) {
   return (
     <div className={`rounded-xl border p-4 ${highlight ? "border-gold/40 bg-gold/5" : "border-border bg-card"}`}>
