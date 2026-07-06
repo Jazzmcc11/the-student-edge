@@ -31,7 +31,6 @@ export async function seedStudentSample(userId: string) {
       scholarship_name: "Local community award",
       amount: 500,
       note: "First scholarship win — small but it counts!",
-      is_public: true,
     }),
     supabase.from("essays").insert({
       user_id: userId,
