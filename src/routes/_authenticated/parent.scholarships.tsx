@@ -87,7 +87,7 @@ function ParentScholarships() {
 
   const won = apps.filter(a => a.received);
   const wonTotal = won.reduce((s, a) => s + (Number(a.amount) || 0), 0);
-  const inFlight = apps.filter(a => !a.received && a.status !== "denied");
+  const inFlight = apps.filter(a => !a.received);
 
   return (
     <div className="min-h-screen bg-gradient-night">
