@@ -25,6 +25,7 @@ function CommunityLayout() {
   const tabs = ALL_TABS.filter((t) => !t.studentOnly || userType !== "parent");
   const isTopLevel = ["/community/wins", "/community/discussions", "/community/advice", "/community/buddies"].includes(pathname);
   const showFreshmanHub = userType !== "parent" && grade === 9 && isTopLevel;
+  const showJuniorHub = userType !== "parent" && grade === 11 && isTopLevel;
 
   return (
     <div className="min-h-screen bg-gradient-night">
