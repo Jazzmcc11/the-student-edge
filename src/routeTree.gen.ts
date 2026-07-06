@@ -34,6 +34,7 @@ import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
 import { Route as AuthenticatedTrackerCollegesRouteImport } from './routes/_authenticated/tracker.colleges'
 import { Route as AuthenticatedScholarshipsIdRouteImport } from './routes/_authenticated/scholarships.$id'
+import { Route as AuthenticatedParentTasksRouteImport } from './routes/_authenticated/parent.tasks'
 import { Route as AuthenticatedParentResourcesRouteImport } from './routes/_authenticated/parent.resources'
 import { Route as AuthenticatedParentFinaidRouteImport } from './routes/_authenticated/parent.finaid'
 import { Route as AuthenticatedParentEssaysRouteImport } from './routes/_authenticated/parent.essays'
@@ -183,6 +184,12 @@ const AuthenticatedScholarshipsIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedScholarshipsRoute,
   } as any)
+const AuthenticatedParentTasksRoute =
+  AuthenticatedParentTasksRouteImport.update({
+    id: '/parent/tasks',
+    path: '/parent/tasks',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedParentResourcesRoute =
   AuthenticatedParentResourcesRouteImport.update({
     id: '/parent/resources',
@@ -297,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/parent/essays': typeof AuthenticatedParentEssaysRoute
   '/parent/finaid': typeof AuthenticatedParentFinaidRoute
   '/parent/resources': typeof AuthenticatedParentResourcesRoute
+  '/parent/tasks': typeof AuthenticatedParentTasksRoute
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
@@ -335,6 +343,7 @@ export interface FileRoutesByTo {
   '/parent/essays': typeof AuthenticatedParentEssaysRoute
   '/parent/finaid': typeof AuthenticatedParentFinaidRoute
   '/parent/resources': typeof AuthenticatedParentResourcesRoute
+  '/parent/tasks': typeof AuthenticatedParentTasksRoute
   '/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
@@ -377,6 +386,7 @@ export interface FileRoutesById {
   '/_authenticated/parent/essays': typeof AuthenticatedParentEssaysRoute
   '/_authenticated/parent/finaid': typeof AuthenticatedParentFinaidRoute
   '/_authenticated/parent/resources': typeof AuthenticatedParentResourcesRoute
+  '/_authenticated/parent/tasks': typeof AuthenticatedParentTasksRoute
   '/_authenticated/scholarships/$id': typeof AuthenticatedScholarshipsIdRoute
   '/_authenticated/tracker/colleges': typeof AuthenticatedTrackerCollegesRoute
   '/_authenticated/tracker/scholarships': typeof AuthenticatedTrackerScholarshipsRoute
@@ -419,6 +429,7 @@ export interface FileRouteTypes {
     | '/parent/essays'
     | '/parent/finaid'
     | '/parent/resources'
+    | '/parent/tasks'
     | '/scholarships/$id'
     | '/tracker/colleges'
     | '/tracker/scholarships'
@@ -457,6 +468,7 @@ export interface FileRouteTypes {
     | '/parent/essays'
     | '/parent/finaid'
     | '/parent/resources'
+    | '/parent/tasks'
     | '/scholarships/$id'
     | '/tracker/colleges'
     | '/tracker/scholarships'
@@ -498,6 +510,7 @@ export interface FileRouteTypes {
     | '/_authenticated/parent/essays'
     | '/_authenticated/parent/finaid'
     | '/_authenticated/parent/resources'
+    | '/_authenticated/parent/tasks'
     | '/_authenticated/scholarships/$id'
     | '/_authenticated/tracker/colleges'
     | '/_authenticated/tracker/scholarships'
@@ -697,6 +710,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/scholarships/$id'
       preLoaderRoute: typeof AuthenticatedScholarshipsIdRouteImport
       parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
+    '/_authenticated/parent/tasks': {
+      id: '/_authenticated/parent/tasks'
+      path: '/parent/tasks'
+      fullPath: '/parent/tasks'
+      preLoaderRoute: typeof AuthenticatedParentTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/parent/resources': {
       id: '/_authenticated/parent/resources'
@@ -902,6 +922,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedParentEssaysRoute: typeof AuthenticatedParentEssaysRoute
   AuthenticatedParentFinaidRoute: typeof AuthenticatedParentFinaidRoute
   AuthenticatedParentResourcesRoute: typeof AuthenticatedParentResourcesRoute
+  AuthenticatedParentTasksRoute: typeof AuthenticatedParentTasksRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -923,6 +944,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedParentEssaysRoute: AuthenticatedParentEssaysRoute,
   AuthenticatedParentFinaidRoute: AuthenticatedParentFinaidRoute,
   AuthenticatedParentResourcesRoute: AuthenticatedParentResourcesRoute,
+  AuthenticatedParentTasksRoute: AuthenticatedParentTasksRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
