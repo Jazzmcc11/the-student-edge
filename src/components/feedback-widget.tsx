@@ -50,25 +50,26 @@ export function FeedbackWidget() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="font-display">Send feedback</DialogTitle>
+            <DialogTitle className="font-display">Help us make this better</DialogTitle>
             <DialogDescription>
-              Bug, idea, or something confusing — tell us. We're actively iterating.
+              You're one of the first to try The Plug. Tell us what confused you, what didn't work, or what you wish existed.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="general">General</SelectItem>
-                <SelectItem value="bug">Bug</SelectItem>
-                <SelectItem value="idea">Feature idea</SelectItem>
-                <SelectItem value="confusing">This is confusing</SelectItem>
+                <SelectItem value="confusing">Something confused me</SelectItem>
+                <SelectItem value="bug">Something's broken</SelectItem>
+                <SelectItem value="idea">I wish this existed</SelectItem>
+                <SelectItem value="love">I love this</SelectItem>
+                <SelectItem value="general">Just saying hi</SelectItem>
               </SelectContent>
             </Select>
             <Textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="What's on your mind?"
+              placeholder="What confused you? What did you expect to happen? What would make this a 10?"
               rows={5}
             />
             <p className="text-xs text-muted-foreground">Sending from: <span className="font-mono">{path}</span></p>
