@@ -31,7 +31,7 @@ const AVID_SKILLS = [
   {
     letter: "O",
     name: "Organization",
-    tip: "One binder or one folder-per-class in Drive. Cornell notes on everything.",
+    tip: "One binder or one folder-per-class in Drive. Focused notes on everything.",
   },
   {
     letter: "R",
@@ -42,7 +42,7 @@ const AVID_SKILLS = [
 
 const CONVO_PROMPTS = [
   { slug: "freshman-life", label: "What's the hardest adjustment from middle school?" },
-  { slug: "freshman-life", label: "Share a Cornell notes hack that actually works" },
+  { slug: "freshman-life", label: "Share a focused-notes hack that actually works" },
   { slug: "freshman-life", label: "How do you balance sports/clubs and homework?" },
 ];
 
@@ -103,20 +103,35 @@ export function FreshmanCommunityHub() {
       <div className="rounded-2xl border border-border bg-card p-5">
         <div className="flex items-center gap-2">
           <NotebookPen className="h-4 w-4 text-gold" />
-          <h3 className="font-display text-lg font-semibold">Try this: Cornell notes template</h3>
+          <h3 className="font-display text-lg font-semibold">Try this: Focused Notes system</h3>
         </div>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_2fr]">
+        <p className="mt-1 text-sm text-muted-foreground">
+          Four parts, one page. Here is how to build each section so your notes actually help you study.
+        </p>
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground">
-            <p className="font-semibold text-foreground">Questions / Cues</p>
-            <p className="mt-1">Write questions here as you review notes on the right.</p>
+            <p className="font-semibold text-foreground">1. Essential Question</p>
+            <p className="mt-1">
+              Write it at the very top. Every note you take should answer this question. If it doesn't, you are off topic.
+            </p>
           </div>
           <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground">
-            <p className="font-semibold text-foreground">Notes</p>
-            <p className="mt-1">Main ideas, examples, diagrams — one topic per page.</p>
+            <p className="font-semibold text-foreground">2. Notes (the big box)</p>
+            <p className="mt-1">
+              Abbreviate, skip lines, use symbols. Capture main ideas and key details — not every word the teacher says.
+            </p>
           </div>
-          <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground sm:col-span-2">
-            <p className="font-semibold text-foreground">Summary (2–3 sentences)</p>
-            <p className="mt-1">Write within 24 hours. If you can't summarize it, re-read it.</p>
+          <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground">
+            <p className="font-semibold text-foreground">3. Processing column</p>
+            <p className="mt-1">
+              In the left margin: underline key terms, draw arrows to the EQ, and write a question for anything confusing.
+            </p>
+          </div>
+          <div className="rounded-lg border border-dashed border-border p-3 text-xs text-muted-foreground">
+            <p className="font-semibold text-foreground">4. Summary</p>
+            <p className="mt-1">
+              Bottom of the page in your own words. 2–3 sentences. If you can't summarize it, you don't know it yet.
+            </p>
           </div>
         </div>
       </div>
