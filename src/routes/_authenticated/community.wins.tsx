@@ -14,10 +14,9 @@ import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
 import { CardGridSkeleton } from "@/components/skeletons";
 
-import { StudentOnly } from "@/components/student-only";
 
 export const Route = createFileRoute("/_authenticated/community/wins")({
-  component: () => <StudentOnly><WinsWall /></StudentOnly>,
+  component: () => <WinsWall />,
 });
 
 type Win = {
