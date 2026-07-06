@@ -16,6 +16,8 @@ const ALL_TABS = [
 
 function CommunityLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { userType } = useUserType();
+  const tabs = ALL_TABS.filter((t) => !t.studentOnly || userType !== "parent");
 
   return (
     <div className="min-h-screen bg-gradient-night">
