@@ -14,9 +14,9 @@ const STEPS: Record<UserType, { title: string; body: string; cta: { to: string; 
     { title: "Plug into the community", body: "Wins wall, study buddies, advice, and discussions — you're not doing this alone.", cta: { to: "/community/wins", label: "Open community" }, icon: Users },
   ],
   parent: [
-    { title: "Link to your student", body: "Get a 6-character code from your student. Read-only — they stay in control.", cta: { to: "/family", label: "Open family" }, icon: GraduationCap },
+    { title: "Grab a 6-character code from your student", body: "Ask them to open The Plug → Family → 'New code'. That code links you to their account (read-only — they stay in control).", cta: { to: "/family", label: "Enter code" }, icon: GraduationCap },
     { title: "Browse what's out there", body: "See the scholarship database so you can talk through options together.", cta: { to: "/scholarships", label: "Open database" }, icon: Search },
-    { title: "Read parent advice", body: "Articles written for parents navigating senior year with their student.", cta: { to: "/community/advice", label: "Open advice" }, icon: Users },
+    { title: "Read parent advice", body: "Articles written for parents navigating senior year with their student — grad parties, aid, honest talk.", cta: { to: "/community/advice", label: "Open advice" }, icon: Users },
   ],
 };
 
@@ -62,10 +62,12 @@ export function OnboardingModal() {
             <Sparkles className="h-3.5 w-3.5" /> Welcome to The Plug
           </div>
           <DialogTitle className="font-display text-2xl">
-            {userType === "student" ? "Let's get you plugged in." : "Here's how parents use The Plug."}
+            {userType === "student" ? "Let's get you plugged in." : "Here's how The Parent Plug works."}
           </DialogTitle>
           <DialogDescription>
-            Three quick stops. You can come back to any of these from your dashboard.
+            {userType === "parent"
+              ? "Three quick stops. Your view is read-only — you're here to support, not hover."
+              : "Three quick stops. You can come back to any of these from your dashboard."}
           </DialogDescription>
         </DialogHeader>
 
