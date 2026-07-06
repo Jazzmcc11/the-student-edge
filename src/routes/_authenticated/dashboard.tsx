@@ -123,19 +123,25 @@ function StudentDashboard({ profile }: { profile: Profile }) {
   const [streak, setStreak] = useState(0);
   const [archetype, setArchetype] = useState<Archetype | null>(null);
   const [stats, setStats] = useState({ wonAmount: 0, pending: 0, colleges: 0, nextDeadline: null as string | null, nextDeadlineName: "" });
+  const [focus, setFocus] = useState<{ label: string; sub: string; href: string; icon: any } | null>(null);
 
   useEffect(() => {
     (async () => {
-      const [{ data: apps }, { data: colleges }, { data: upcoming }, { data: pr }] = await Promise.all([
+      const today = new Date().toISOString().slice(0, 10);
+      const [{ data: apps }, { data: colleges }, { data: upcoming }, { data: pr }, { data: essays }, { data: recReqs }, { data: myColleges }] = await Promise.all([
         supabase.from("scholarship_applications").select("received, amount"),
         supabase.from("college_applications").select("id", { count: "exact" }),
-        supabase.from("scholarships").select("name, deadline").gte("deadline", new Date().toISOString().slice(0, 10)).order("deadline").limit(1),
+        supabase.from("scholarships").select("name, deadline").gte("deadline", today).order("deadline").limit(1),
         supabase.from("personality_results").select("axes").eq("user_id", profile.id).order("taken_at", { ascending: false }).limit(1).maybeSingle(),
+        supabase.from("essays").select("id, title, status, draft_content, word_limit, updated_at").order("updated_at", { ascending: false }).limit(1),
+        supabase.from("recommendation_requests").select("id, status, deadline").in("status", ["not_asked", "asked"]).order("deadline", { ascending: true, nullsFirst: false }).limit(1),
+        supabase.from("college_applications").select("college_name, deadline_date").not("deadline_date", "is", null).gte("deadline_date", today).order("deadline_date").limit(1),
       ]);
       if (pr) setArchetype(pickArchetype(pr.axes as any));
       const wonAmount = (apps || []).filter((a: any) => a.received).reduce((s: number, a: any) => s + (Number(a.amount) || 0), 0);
       const pending = (apps || []).filter((a: any) => !a.received).length;
       const next = upcoming?.[0];
+      const nextCollege = (myColleges as any)?.[0];
       setStats({
         wonAmount, pending,
         colleges: colleges?.length || 0,
@@ -143,6 +149,27 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         nextDeadlineName: next?.name || "",
       });
       setStreak(await getStreak(profile.id));
+
+      // pick the ONE most urgent thing
+      const candidates: Array<{ when: number; label: string; sub: string; href: string; icon: any }> = [];
+      if (nextCollege) {
+        const d = new Date(nextCollege.deadline_date);
+        const days = Math.ceil((d.getTime() - Date.now()) / 86400000);
+        candidates.push({ when: d.getTime(), label: `${nextCollege.college_name} deadline`, sub: `In ${days} day${days === 1 ? "" : "s"} — is your app ready?`, href: "/tracker/colleges", icon: GraduationCap });
+      }
+      if (recReqs?.[0]?.deadline) {
+        const d = new Date(recReqs[0].deadline);
+        const days = Math.ceil((d.getTime() - Date.now()) / 86400000);
+        candidates.push({ when: d.getTime(), label: `Rec letter needed`, sub: `Due in ${days} day${days === 1 ? "" : "s"} — nudge your teacher`, href: "/recommendations", icon: HandHeart });
+      }
+      if (essays?.[0]) {
+        const e: any = essays[0];
+        if (e.status !== "final") {
+          candidates.push({ when: Date.now() + 1, label: `Finish "${e.title}"`, sub: `${e.status} · pick it back up`, href: "/essays", icon: Feather });
+        }
+      }
+      candidates.sort((a, b) => a.when - b.when);
+      setFocus(candidates[0] || null);
     })();
   }, [profile.id]);
 
