@@ -1,6 +1,9 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { ArrowLeft, Trophy, Users, BookOpen, MessageSquare } from "lucide-react";
 import { useUserType } from "@/hooks/use-user-type";
+import { useGradeLevel } from "@/hooks/use-grade-level";
+import { FreshmanCommunityHub } from "@/components/freshman-community-hub";
+
 
 export const Route = createFileRoute("/_authenticated/community")({
   head: () => ({ meta: [{ title: "Community — The Plug" }] }),
@@ -17,7 +20,10 @@ const ALL_TABS = [
 function CommunityLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { userType } = useUserType();
+  const { grade } = useGradeLevel();
   const tabs = ALL_TABS.filter((t) => !t.studentOnly || userType !== "parent");
+  const isTopLevel = ["/community/wins", "/community/discussions", "/community/advice", "/community/buddies"].includes(pathname);
+  const showFreshmanHub = userType !== "parent" && grade === 9 && isTopLevel;
 
   return (
     <div className="min-h-screen bg-gradient-night">
@@ -52,6 +58,7 @@ function CommunityLayout() {
       </div>
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        {showFreshmanHub && <FreshmanCommunityHub />}
         <Outlet />
       </main>
     </div>
