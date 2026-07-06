@@ -11,14 +11,41 @@ export const Route = createFileRoute("/_authenticated/parent/finaid")({
 });
 
 type StudentLite = { id: string; full_name: string | null; display_name: string | null };
-type FinaidTask = { id: string; title: string; category: string | null; done: boolean; due_date: string | null };
-type AidAward = { id: string; college_name: string; total_cost: number | null; grants: number | null; scholarships: number | null; loans_subsidized: number | null; loans_unsubsidized: number | null; work_study: number | null; parent_plus: number | null };
+type TaskRow = { task_key: string; completed: boolean };
+type AidAward = {
+  id: string; college_name: string;
+  cost_of_attendance: number | null; grants: number | null; scholarships_amt: number | null;
+  loans: number | null; work_study: number | null; family_contribution: number | null;
+};
+
+const FAFSA_TASKS = [
+  { key: "fsa_id_student", cat: "Before filing", label: "Create your FSA ID (studentaid.gov)" },
+  { key: "fsa_id_parent", cat: "Before filing", label: "Parent creates their FSA ID" },
+  { key: "ssn", cat: "Before filing", label: "Have your Social Security number ready" },
+  { key: "tax_returns", cat: "Before filing", label: "Gather most recent tax returns (yours + parents)" },
+  { key: "w2", cat: "Before filing", label: "W-2s and untaxed income records" },
+  { key: "bank_records", cat: "Before filing", label: "Bank statements and investment records" },
+  { key: "school_list", cat: "Before filing", label: "List of colleges to send FAFSA to" },
+  { key: "fafsa_submitted", cat: "Filing", label: "Submit the FAFSA" },
+  { key: "fafsa_signed", cat: "Filing", label: "Both student and parent signed FAFSA" },
+  { key: "sar_review", cat: "After filing", label: "Review the Student Aid Report" },
+  { key: "corrections", cat: "After filing", label: "Make any corrections needed" },
+  { key: "verification", cat: "After filing", label: "Respond to verification requests" },
+];
+const CSS_TASKS = [
+  { key: "css_account", cat: "CSS Profile", label: "Create College Board account" },
+  { key: "css_parent_records", cat: "CSS Profile", label: "Gather parent income + assets" },
+  { key: "css_submit", cat: "CSS Profile", label: "Submit CSS Profile" },
+  { key: "css_idoc", cat: "CSS Profile", label: "Upload required docs to IDOC" },
+];
+const ALL_TASKS = [...FAFSA_TASKS, ...CSS_TASKS];
+const TASK_LABEL = Object.fromEntries(ALL_TASKS.map((t) => [t.key, t.label]));
 
 function ParentFinaidPage() {
   const navigate = useNavigate();
   const [students, setStudents] = useState<StudentLite[]>([]);
   const [active, setActive] = useState<string | null>(null);
-  const [tasks, setTasks] = useState<FinaidTask[]>([]);
+  const [tasks, setTasks] = useState<TaskRow[]>([]);
   const [awards, setAwards] = useState<AidAward[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,15 +69,17 @@ function ParentFinaidPage() {
     if (!active) return;
     (async () => {
       const [{ data: t }, { data: a }] = await Promise.all([
-        supabase.from("finaid_tasks").select("id, title, category, done, due_date").eq("user_id", active).order("due_date", { ascending: true, nullsFirst: false }),
-        supabase.from("aid_awards").select("id, college_name, total_cost, grants, scholarships, loans_subsidized, loans_unsubsidized, work_study, parent_plus").eq("user_id", active),
+        supabase.from("finaid_tasks").select("task_key, completed").eq("user_id", active),
+        supabase.from("aid_awards").select("id, college_name, cost_of_attendance, grants, scholarships_amt, loans, work_study, family_contribution").eq("user_id", active).order("college_name"),
       ]);
-      setTasks((t as FinaidTask[]) || []);
+      setTasks((t as TaskRow[]) || []);
       setAwards((a as AidAward[]) || []);
     })();
   }, [active]);
 
-  const doneCount = tasks.filter((t) => t.done).length;
+  const completedMap = new Map(tasks.map((t) => [t.task_key, t.completed]));
+  const doneCount = ALL_TASKS.filter((t) => completedMap.get(t.key)).length;
+  const pct = Math.round((doneCount / ALL_TASKS.length) * 100);
 
   return (
     <div className="min-h-screen bg-gradient-night">
@@ -88,41 +117,32 @@ function ParentFinaidPage() {
             )}
 
             <section className="mb-8 rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-gold">FAFSA & CSS progress</p>
-                  <h2 className="mt-1 font-display text-2xl font-bold">{doneCount} of {tasks.length || "—"} tasks done</h2>
+                  <h2 className="mt-1 font-display text-2xl font-bold">{doneCount} of {ALL_TASKS.length} done</h2>
                 </div>
-                <div className="text-right">
-                  <p className="text-xs text-muted-foreground">Your student manages this list.</p>
-                  <p className="text-xs text-muted-foreground">You can see it and step in.</p>
-                </div>
+                <p className="text-right text-xs text-muted-foreground">Your student manages this list.<br/>You can see it and step in.</p>
               </div>
-              {tasks.length > 0 && (
-                <div className="mt-4 h-2 overflow-hidden rounded-full bg-secondary">
-                  <div className="h-full bg-gradient-gold transition-all" style={{ width: `${(doneCount / tasks.length) * 100}%` }} />
-                </div>
-              )}
+              <div className="mt-4 h-2 overflow-hidden rounded-full bg-secondary">
+                <div className="h-full bg-gradient-gold transition-all" style={{ width: `${pct}%` }} />
+              </div>
             </section>
 
             <section className="mb-8">
               <h3 className="mb-3 font-display text-xl font-semibold">Checklist</h3>
-              {tasks.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No tasks logged yet. When they add FAFSA/CSS steps, they'll show up here.</p>
-              ) : (
-                <ul className="space-y-2">
-                  {tasks.map((t) => (
-                    <li key={t.id} className="flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3">
-                      {t.done ? <CheckCircle2 className="h-5 w-5 text-gold" /> : <Circle className="h-5 w-5 text-muted-foreground" />}
-                      <div className="min-w-0 flex-1">
-                        <p className={`text-sm ${t.done ? "line-through text-muted-foreground" : ""}`}>{t.title}</p>
-                        {t.due_date && <p className="text-xs text-muted-foreground">Due {new Date(t.due_date).toLocaleDateString()}</p>}
-                      </div>
-                      {t.category && <span className="rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">{t.category}</span>}
+              <ul className="space-y-2">
+                {ALL_TASKS.map((t) => {
+                  const done = completedMap.get(t.key);
+                  return (
+                    <li key={t.key} className="flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3">
+                      {done ? <CheckCircle2 className="h-5 w-5 text-gold" /> : <Circle className="h-5 w-5 text-muted-foreground" />}
+                      <p className={`flex-1 text-sm ${done ? "line-through text-muted-foreground" : ""}`}>{TASK_LABEL[t.key]}</p>
+                      <span className="rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">{t.cat}</span>
                     </li>
-                  ))}
-                </ul>
-              )}
+                  );
+                })}
+              </ul>
             </section>
 
             <section className="mb-8">
@@ -132,9 +152,9 @@ function ParentFinaidPage() {
               ) : (
                 <div className="grid gap-3 md:grid-cols-2">
                   {awards.map((a) => {
-                    const grants = Number(a.grants || 0) + Number(a.scholarships || 0);
-                    const selfHelp = Number(a.loans_subsidized || 0) + Number(a.loans_unsubsidized || 0) + Number(a.work_study || 0);
-                    const netCost = Number(a.total_cost || 0) - grants;
+                    const gift = Number(a.grants || 0) + Number(a.scholarships_amt || 0);
+                    const selfHelp = Number(a.loans || 0) + Number(a.work_study || 0);
+                    const net = a.cost_of_attendance ? Number(a.cost_of_attendance) - gift : null;
                     return (
                       <div key={a.id} className="rounded-2xl border border-border bg-card p-5">
                         <div className="flex items-center gap-2">
@@ -142,12 +162,13 @@ function ParentFinaidPage() {
                           <h4 className="font-display font-semibold">{a.college_name}</h4>
                         </div>
                         <div className="mt-4 space-y-1.5 text-sm">
-                          <Row label="Cost of attendance" value={`$${Number(a.total_cost || 0).toLocaleString()}`} />
-                          <Row label="Gift aid (grants + scholarships)" value={`-$${grants.toLocaleString()}`} accent />
+                          <Row label="Cost of attendance" value={a.cost_of_attendance != null ? `$${Number(a.cost_of_attendance).toLocaleString()}` : "—"} muted />
+                          <Row label="Grants" value={`$${Number(a.grants || 0).toLocaleString()}`} accent />
+                          <Row label="Scholarships" value={`$${Number(a.scholarships_amt || 0).toLocaleString()}`} accent />
                           <Row label="Loans + work-study" value={`$${selfHelp.toLocaleString()}`} muted />
-                          {Number(a.parent_plus || 0) > 0 && <Row label="Parent PLUS (your debt)" value={`$${Number(a.parent_plus).toLocaleString()}`} warn />}
+                          {a.family_contribution != null && <Row label="Expected family contribution" value={`$${Number(a.family_contribution).toLocaleString()}`} />}
                           <div className="mt-3 border-t border-border pt-3">
-                            <Row label="Net cost (your bill)" value={`$${netCost.toLocaleString()}`} big />
+                            <Row label="Net cost (your bill)" value={net != null ? `$${net.toLocaleString()}` : "—"} big />
                           </div>
                         </div>
                       </div>
@@ -178,11 +199,11 @@ function ParentFinaidPage() {
   );
 }
 
-function Row({ label, value, accent, muted, warn, big }: { label: string; value: string; accent?: boolean; muted?: boolean; warn?: boolean; big?: boolean }) {
+function Row({ label, value, accent, muted, big }: { label: string; value: string; accent?: boolean; muted?: boolean; big?: boolean }) {
   return (
     <div className="flex items-center justify-between">
       <span className={muted ? "text-muted-foreground" : ""}>{label}</span>
-      <span className={`font-mono ${big ? "font-display text-lg font-bold text-gold" : ""} ${accent ? "text-gold" : ""} ${warn ? "text-destructive" : ""}`}>{value}</span>
+      <span className={`font-mono ${big ? "font-display text-lg font-bold text-gold" : ""} ${accent ? "text-gold" : ""}`}>{value}</span>
     </div>
   );
 }
