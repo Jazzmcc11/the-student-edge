@@ -65,6 +65,62 @@ export type Database = {
         }
         Relationships: []
       }
+      aid_awards: {
+        Row: {
+          college_id: string | null
+          college_name: string
+          cost_of_attendance: number | null
+          created_at: string
+          family_contribution: number | null
+          grants: number
+          id: string
+          loans: number
+          notes: string | null
+          scholarships_amt: number
+          updated_at: string
+          user_id: string
+          work_study: number
+        }
+        Insert: {
+          college_id?: string | null
+          college_name: string
+          cost_of_attendance?: number | null
+          created_at?: string
+          family_contribution?: number | null
+          grants?: number
+          id?: string
+          loans?: number
+          notes?: string | null
+          scholarships_amt?: number
+          updated_at?: string
+          user_id: string
+          work_study?: number
+        }
+        Update: {
+          college_id?: string | null
+          college_name?: string
+          cost_of_attendance?: number | null
+          created_at?: string
+          family_contribution?: number | null
+          grants?: number
+          id?: string
+          loans?: number
+          notes?: string | null
+          scholarships_amt?: number
+          updated_at?: string
+          user_id?: string
+          work_study?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aid_awards_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "college_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       buddy_profiles: {
         Row: {
           bio: string | null
@@ -261,6 +317,59 @@ export type Database = {
         }
         Relationships: []
       }
+      essays: {
+        Row: {
+          college_id: string | null
+          created_at: string
+          draft_content: string
+          id: string
+          prompt: string | null
+          prompt_type: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+          version: number
+          word_limit: number | null
+        }
+        Insert: {
+          college_id?: string | null
+          created_at?: string
+          draft_content?: string
+          id?: string
+          prompt?: string | null
+          prompt_type?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+          version?: number
+          word_limit?: number | null
+        }
+        Update: {
+          college_id?: string | null
+          created_at?: string
+          draft_content?: string
+          id?: string
+          prompt?: string | null
+          prompt_type?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+          version?: number
+          word_limit?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "essays_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "college_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           category: string
@@ -288,6 +397,42 @@ export type Database = {
           path?: string | null
           status?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      finaid_tasks: {
+        Row: {
+          category: string
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          id: string
+          note: string | null
+          task_key: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          task_key: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          task_key?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -522,6 +667,105 @@ export type Database = {
         }
         Relationships: []
       }
+      recommendation_requests: {
+        Row: {
+          college_id: string | null
+          confirmed_at: string | null
+          created_at: string
+          deadline: string | null
+          id: string
+          notes: string | null
+          recommender_id: string
+          requested_at: string | null
+          status: string
+          submitted_at: string | null
+          thank_you_sent: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          college_id?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          notes?: string | null
+          recommender_id: string
+          requested_at?: string | null
+          status?: string
+          submitted_at?: string | null
+          thank_you_sent?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          college_id?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          deadline?: string | null
+          id?: string
+          notes?: string | null
+          recommender_id?: string
+          requested_at?: string | null
+          status?: string
+          submitted_at?: string | null
+          thank_you_sent?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recommendation_requests_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "college_applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recommendation_requests_recommender_id_fkey"
+            columns: ["recommender_id"]
+            isOneToOne: false
+            referencedRelation: "recommenders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recommenders: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          relationship: string | null
+          role: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          relationship?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          relationship?: string | null
+          role?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       reminders: {
         Row: {
           body: string | null
@@ -661,6 +905,115 @@ export type Database = {
           name?: string
           provider?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      tutor_messages: {
+        Row: {
+          attachment_url: string | null
+          content: string
+          created_at: string
+          id: string
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Insert: {
+          attachment_url?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Update: {
+          attachment_url?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          thread_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "tutor_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tutor_notes: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          subject: string | null
+          thread_id: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          subject?: string | null
+          thread_id?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          subject?: string | null
+          thread_id?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_notes_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "tutor_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tutor_threads: {
+        Row: {
+          created_at: string
+          id: string
+          level: string
+          subject: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          level?: string
+          subject?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level?: string
+          subject?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

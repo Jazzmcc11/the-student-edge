@@ -71,4 +71,7 @@ export const MODULE_META: Record<string, { label: string; to: string }> = {
   family: { label: "Family", to: "/family" },
   personality: { label: "Personality Test", to: "/personality" },
   profile: { label: "Profile", to: "/profile" },
+  essays: { label: "Essay Workshop", to: "/essays" },
+  recommendations: { label: "Rec Letters", to: "/recommendations" },
+  finaid: { label: "Financial Aid", to: "/finaid" },
 };
