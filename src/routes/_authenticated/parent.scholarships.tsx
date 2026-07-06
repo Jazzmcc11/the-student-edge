@@ -157,15 +157,16 @@ function ParentScholarships() {
           <div className="space-y-3">
             {apps.map((a) => {
               const s = a.scholarship_id ? scholarships[a.scholarship_id] : null;
-              const tone = STATUS_TONE[a.status || "interested"] || STATUS_TONE.interested;
+              const statusKey = a.received ? "won" : a.date_applied ? "submitted" : "interested";
+              const tone = STATUS_TONE[statusKey];
               return (
                 <div key={a.id} className="rounded-xl border border-border bg-card p-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-display text-lg font-semibold">{s?.name || "(scholarship removed)"}</h3>
+                        <h3 className="font-display text-lg font-semibold">{s?.name || a.name || "(scholarship)"}</h3>
                         {a.received && <Badge className="bg-emerald-500/20 text-emerald-300">Won 🎉</Badge>}
-                        <Badge variant="outline" className={tone}>{(a.status || "interested").replace("_", " ")}</Badge>
+                        <Badge variant="outline" className={tone}>{statusKey}</Badge>
                       </div>
                       <div className="mt-1 flex flex-wrap gap-3 text-xs text-muted-foreground">
                         {a.amount && <span>${Number(a.amount).toLocaleString()}</span>}
