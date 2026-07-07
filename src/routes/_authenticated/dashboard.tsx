@@ -17,7 +17,10 @@ import {
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
 import { GradeLevelPanel } from "@/components/grade-level-panel";
+import { WritingPromptCard } from "@/components/writing-prompt-card";
 import { getGradePlan } from "@/lib/grade-plan";
+import { useGradeLevel } from "@/hooks/use-grade-level";
+
 import { toast } from "sonner";
 
 
@@ -44,6 +47,8 @@ function Dashboard() {
   const queryClient = useQueryClient();
   const { isAdmin } = useIsAdmin();
   const [profile, setProfile] = useState<Profile | null>(null);
+
+
 
   useEffect(() => {
     (async () => {
@@ -137,10 +142,12 @@ function Dashboard() {
    STUDENT DASHBOARD
    ============================================================ */
 function StudentDashboard({ profile }: { profile: Profile }) {
+  const { grade: currentGrade } = useGradeLevel();
   const [streak, setStreak] = useState(0);
   const [archetype, setArchetype] = useState<Archetype | null>(null);
   const [stats, setStats] = useState({ wonAmount: 0, pending: 0, colleges: 0, nextDeadline: null as string | null, nextDeadlineName: "" });
   const [focus, setFocus] = useState<{ label: string; sub: string; href: string; icon: any } | null>(null);
+
 
   useEffect(() => {
     (async () => {
@@ -256,6 +263,11 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         gpa={profile.gpa}
         checklist={profile.onboarding_checklist || {}}
       />
+
+      {profile.user_type !== "parent" && (
+        <WritingPromptCard userId={profile.id} grade={currentGrade} />
+      )}
+
 
       {stats.wonAmount === 0 && stats.pending === 0 && stats.colleges === 0 && (
         <EmptyStudentCTA userId={profile.id} />
