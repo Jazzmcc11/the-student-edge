@@ -262,6 +262,11 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         checklist={profile.onboarding_checklist || {}}
       />
 
+      {profile.user_type !== "parent" && (
+        <WritingPromptCard userId={profile.id} grade={currentGrade} />
+      )}
+
+
       {stats.wonAmount === 0 && stats.pending === 0 && stats.colleges === 0 && (
         <EmptyStudentCTA userId={profile.id} />
       )}
