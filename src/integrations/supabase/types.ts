@@ -1207,7 +1207,72 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      buddy_profiles_public: {
+        Row: {
+          bio: string | null
+          colleges: string | null
+          created_at: string | null
+          display_name: string | null
+          grade_level: string | null
+          scholarships: string | null
+          updated_at: string | null
+          user_id: string | null
+          visible: boolean | null
+        }
+        Insert: {
+          bio?: string | null
+          colleges?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          visible?: boolean | null
+        }
+        Update: {
+          bio?: string | null
+          colleges?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          visible?: boolean | null
+        }
+        Relationships: []
+      }
+      wins_public: {
+        Row: {
+          amount: number | null
+          anonymous: boolean | null
+          created_at: string | null
+          display_name: string | null
+          id: string | null
+          scholarship_name: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          anonymous?: boolean | null
+          created_at?: string | null
+          display_name?: never
+          id?: string | null
+          scholarship_name?: string | null
+          user_id?: never
+        }
+        Update: {
+          amount?: number | null
+          anonymous?: boolean | null
+          created_at?: string | null
+          display_name?: never
+          id?: string | null
+          scholarship_name?: string | null
+          user_id?: never
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
