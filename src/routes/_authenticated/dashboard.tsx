@@ -142,10 +142,12 @@ function Dashboard() {
    STUDENT DASHBOARD
    ============================================================ */
 function StudentDashboard({ profile }: { profile: Profile }) {
+  const { grade: currentGrade } = useGradeLevel();
   const [streak, setStreak] = useState(0);
   const [archetype, setArchetype] = useState<Archetype | null>(null);
   const [stats, setStats] = useState({ wonAmount: 0, pending: 0, colleges: 0, nextDeadline: null as string | null, nextDeadlineName: "" });
   const [focus, setFocus] = useState<{ label: string; sub: string; href: string; icon: any } | null>(null);
+
 
   useEffect(() => {
     (async () => {
