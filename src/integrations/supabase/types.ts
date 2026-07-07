@@ -1207,9 +1207,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      buddy_profiles_public: {
+        Row: {
+          bio: string | null
+          colleges: string | null
+          created_at: string | null
+          display_name: string | null
+          grade_level: string | null
+          scholarships: string | null
+          updated_at: string | null
+          user_id: string | null
+          visible: boolean | null
+        }
+        Insert: {
+          bio?: string | null
+          colleges?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          visible?: boolean | null
+        }
+        Update: {
+          bio?: string | null
+          colleges?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          grade_level?: string | null
+          scholarships?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          visible?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      get_wins_feed: {
+        Args: never
+        Returns: {
+          amount: number
+          anonymous: boolean
+          created_at: string
+          display_name: string
+          id: string
+          note: string
+          scholarship_name: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

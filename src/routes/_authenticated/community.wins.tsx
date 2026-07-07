@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/community/wins")({
 
 type Win = {
   id: string;
-  user_id: string;
+  user_id: string | null;
   scholarship_name: string;
   amount: number | null;
   note: string | null;
@@ -39,13 +39,9 @@ function WinsWall() {
 
   async function load() {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("wins")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(100);
+    const { data, error } = await supabase.rpc("get_wins_feed");
     if (error) toast.error(error.message);
-    setRows((data as Win[]) || []);
+    setRows(((data as Win[]) || []).slice(0, 100));
     setLoading(false);
   }
 
