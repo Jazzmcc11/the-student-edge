@@ -13,6 +13,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedWritingRouteImport } from './routes/_authenticated/writing'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
@@ -69,6 +70,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedWritingRoute = AuthenticatedWritingRouteImport.update({
+  id: '/writing',
+  path: '/writing',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
   id: '/tutor',
@@ -301,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRoute
+  '/writing': typeof AuthenticatedWritingRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -341,6 +348,7 @@ export interface FileRoutesByTo {
   '/recommendations': typeof AuthenticatedRecommendationsRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRoute
+  '/writing': typeof AuthenticatedWritingRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -385,6 +393,7 @@ export interface FileRoutesById {
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
+  '/_authenticated/writing': typeof AuthenticatedWritingRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -429,6 +438,7 @@ export interface FileRouteTypes {
     | '/scholarships'
     | '/tracker'
     | '/tutor'
+    | '/writing'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/feedback'
@@ -469,6 +479,7 @@ export interface FileRouteTypes {
     | '/recommendations'
     | '/tracker'
     | '/tutor'
+    | '/writing'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/feedback'
@@ -512,6 +523,7 @@ export interface FileRouteTypes {
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
     | '/_authenticated/tutor'
+    | '/_authenticated/writing'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/admin/feedback'
@@ -576,6 +588,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/writing': {
+      id: '/_authenticated/writing'
+      path: '/writing'
+      fullPath: '/writing'
+      preLoaderRoute: typeof AuthenticatedWritingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tutor': {
       id: '/_authenticated/tutor'
@@ -938,6 +957,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
+  AuthenticatedWritingRoute: typeof AuthenticatedWritingRoute
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
   AuthenticatedParentEssaysRoute: typeof AuthenticatedParentEssaysRoute
   AuthenticatedParentFinaidRoute: typeof AuthenticatedParentFinaidRoute
@@ -961,6 +981,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
+  AuthenticatedWritingRoute: AuthenticatedWritingRoute,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
   AuthenticatedParentEssaysRoute: AuthenticatedParentEssaysRoute,
   AuthenticatedParentFinaidRoute: AuthenticatedParentFinaidRoute,
