@@ -46,7 +46,7 @@ function Buddies() {
 
   async function load() {
     setLoading(true);
-    const { data } = await supabase.from("buddy_profiles").select("*").order("updated_at", { ascending: false });
+    const { data } = await supabase.from("buddy_profiles_public").select("*").order("updated_at", { ascending: false });
     setRows((data as Buddy[]) || []);
     setLoading(false);
   }
