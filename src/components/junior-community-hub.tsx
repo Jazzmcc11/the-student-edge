@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Flame, Trophy, Target, MessageSquare, Calendar, BookOpen, Sparkles, Coffee } from "lucide-react";
+import { Flame, Trophy, Target, MessageSquare, Calendar, BookOpen, Sparkles, Coffee, GraduationCap } from "lucide-react";
 
 // A curated community landing panel for 11th graders (Juniors).
 // Focus: making the hardest year fun — test prep, essays, college list,
