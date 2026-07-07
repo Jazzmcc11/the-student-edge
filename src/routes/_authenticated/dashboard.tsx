@@ -17,7 +17,10 @@ import {
 } from "lucide-react";
 import { RemindersBell } from "@/components/reminders-bell";
 import { GradeLevelPanel } from "@/components/grade-level-panel";
+import { WritingPromptCard } from "@/components/writing-prompt-card";
 import { getGradePlan } from "@/lib/grade-plan";
+import { useGradeLevel } from "@/hooks/use-grade-level";
+
 import { toast } from "sonner";
 
 
