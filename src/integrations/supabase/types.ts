@@ -1253,6 +1253,7 @@ export type Database = {
           created_at: string
           display_name: string
           id: string
+          note: string
           scholarship_name: string
           user_id: string
         }[]
