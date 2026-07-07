@@ -74,4 +74,6 @@ export const MODULE_META: Record<string, { label: string; to: string }> = {
   essays: { label: "Essay Workshop", to: "/essays" },
   recommendations: { label: "Rec Letters", to: "/recommendations" },
   finaid: { label: "Financial Aid", to: "/finaid" },
+  writing: { label: "Writing Practice", to: "/writing" },
 };
+
