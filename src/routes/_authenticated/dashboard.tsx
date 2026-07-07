@@ -46,7 +46,9 @@ function Dashboard() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isAdmin } = useIsAdmin();
+  const { grade: currentGrade } = useGradeLevel();
   const [profile, setProfile] = useState<Profile | null>(null);
+
 
   useEffect(() => {
     (async () => {
