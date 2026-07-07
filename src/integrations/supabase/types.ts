@@ -675,6 +675,39 @@ export type Database = {
         }
         Relationships: []
       }
+      practice_attempts: {
+        Row: {
+          chosen: string
+          correct: boolean
+          created_at: string
+          id: string
+          question_id: string
+          section: string
+          test: string
+          user_id: string
+        }
+        Insert: {
+          chosen: string
+          correct: boolean
+          created_at?: string
+          id?: string
+          question_id: string
+          section: string
+          test: string
+          user_id: string
+        }
+        Update: {
+          chosen?: string
+          correct?: boolean
+          created_at?: string
+          id?: string
+          question_id?: string
+          section?: string
+          test?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           accent: string | null
@@ -1202,6 +1235,39 @@ export type Database = {
           note?: string | null
           scholarship_name?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      writing_entries: {
+        Row: {
+          created_at: string
+          id: string
+          prompt_id: string
+          prompt_text: string
+          response: string
+          updated_at: string
+          user_id: string
+          word_count: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          prompt_id: string
+          prompt_text: string
+          response?: string
+          updated_at?: string
+          user_id: string
+          word_count?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          prompt_id?: string
+          prompt_text?: string
+          response?: string
+          updated_at?: string
+          user_id?: string
+          word_count?: number
         }
         Relationships: []
       }
