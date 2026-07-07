@@ -90,6 +90,7 @@ export const GRADE_PLANS: Record<GradeLevel, GradePlan> = {
       { id: "fafsa", label: "File FAFSA (opens Oct 1)", href: "/finaid" },
       { id: "css", label: "File CSS Profile if your schools require it", href: "/finaid" },
       { id: "scholarships-senior", label: "Apply to at least 5 scholarships", href: "/scholarships" },
+      { id: "tsi-final", label: "Finish TSI (or confirm your exemption) before college starts", href: "/tutor" },
       { id: "compare", label: "Compare aid offers side-by-side", href: "/finaid" },
     ],
     priorityModules: ["tracker-colleges", "essays", "finaid", "scholarships", "recommendations", "calendar"],
