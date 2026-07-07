@@ -1243,38 +1243,20 @@ export type Database = {
         }
         Relationships: []
       }
-      wins_public: {
-        Row: {
-          amount: number | null
-          anonymous: boolean | null
-          created_at: string | null
-          display_name: string | null
-          id: string | null
-          scholarship_name: string | null
-          user_id: string | null
-        }
-        Insert: {
-          amount?: number | null
-          anonymous?: boolean | null
-          created_at?: string | null
-          display_name?: never
-          id?: string | null
-          scholarship_name?: string | null
-          user_id?: never
-        }
-        Update: {
-          amount?: number | null
-          anonymous?: boolean | null
-          created_at?: string | null
-          display_name?: never
-          id?: string | null
-          scholarship_name?: string | null
-          user_id?: never
-        }
-        Relationships: []
-      }
     }
     Functions: {
+      get_wins_feed: {
+        Args: never
+        Returns: {
+          amount: number
+          anonymous: boolean
+          created_at: string
+          display_name: string
+          id: string
+          scholarship_name: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
