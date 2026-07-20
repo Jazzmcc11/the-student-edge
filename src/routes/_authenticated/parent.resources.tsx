@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bookmark, BookmarkCheck, Clock, PenLine, Users } from "lucide-react";
 import { ARTICLES, ARTICLE_CATEGORIES, type ArticleCategory, type ParentArticle } from "@/lib/parent-articles";
-import { fetchApprovedSubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
+import { fetchApprovedSubmissions, aboutGradeLabel, ABOUT_GRADE_OPTIONS, type ParentSubmittedArticle } from "@/lib/parent-submissions";
 import { ParentSubmissionModal } from "@/components/parent-submission-modal";
 import { toast } from "sonner";
 
