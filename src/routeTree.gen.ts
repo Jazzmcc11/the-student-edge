@@ -44,6 +44,7 @@ import { Route as AuthenticatedCommunityWinsRouteImport } from './routes/_authen
 import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/_authenticated/community.discussions'
 import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
 import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
+import { Route as AuthenticatedAdminParentArticlesRouteImport } from './routes/_authenticated/admin.parent-articles'
 import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -245,6 +246,12 @@ const AuthenticatedCommunityAdviceRoute =
     path: '/advice',
     getParentRoute: () => AuthenticatedCommunityRoute,
   } as any)
+const AuthenticatedAdminParentArticlesRoute =
+  AuthenticatedAdminParentArticlesRouteImport.update({
+    id: '/admin/parent-articles',
+    path: '/admin/parent-articles',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFeedbackRoute =
   AuthenticatedAdminFeedbackRouteImport.update({
     id: '/admin/feedback',
@@ -311,6 +318,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
+  '/admin/parent-articles': typeof AuthenticatedAdminParentArticlesRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -352,6 +360,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
+  '/admin/parent-articles': typeof AuthenticatedAdminParentArticlesRoute
   '/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -397,6 +406,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
+  '/_authenticated/admin/parent-articles': typeof AuthenticatedAdminParentArticlesRoute
   '/_authenticated/community/advice': typeof AuthenticatedCommunityAdviceRouteWithChildren
   '/_authenticated/community/buddies': typeof AuthenticatedCommunityBuddiesRoute
   '/_authenticated/community/discussions': typeof AuthenticatedCommunityDiscussionsRouteWithChildren
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/feedback'
+    | '/admin/parent-articles'
     | '/community/advice'
     | '/community/buddies'
     | '/community/discussions'
@@ -483,6 +494,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/feedback'
+    | '/admin/parent-articles'
     | '/community/advice'
     | '/community/buddies'
     | '/community/discussions'
@@ -527,6 +539,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/admin/feedback'
+    | '/_authenticated/admin/parent-articles'
     | '/_authenticated/community/advice'
     | '/_authenticated/community/buddies'
     | '/_authenticated/community/discussions'
@@ -806,6 +819,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunityAdviceRouteImport
       parentRoute: typeof AuthenticatedCommunityRoute
     }
+    '/_authenticated/admin/parent-articles': {
+      id: '/_authenticated/admin/parent-articles'
+      path: '/admin/parent-articles'
+      fullPath: '/admin/parent-articles'
+      preLoaderRoute: typeof AuthenticatedAdminParentArticlesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/feedback': {
       id: '/_authenticated/admin/feedback'
       path: '/admin/feedback'
@@ -959,6 +979,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedWritingRoute: typeof AuthenticatedWritingRoute
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
+  AuthenticatedAdminParentArticlesRoute: typeof AuthenticatedAdminParentArticlesRoute
   AuthenticatedParentEssaysRoute: typeof AuthenticatedParentEssaysRoute
   AuthenticatedParentFinaidRoute: typeof AuthenticatedParentFinaidRoute
   AuthenticatedParentResourcesRoute: typeof AuthenticatedParentResourcesRoute
@@ -983,6 +1004,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedWritingRoute: AuthenticatedWritingRoute,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
+  AuthenticatedAdminParentArticlesRoute: AuthenticatedAdminParentArticlesRoute,
   AuthenticatedParentEssaysRoute: AuthenticatedParentEssaysRoute,
   AuthenticatedParentFinaidRoute: AuthenticatedParentFinaidRoute,
   AuthenticatedParentResourcesRoute: AuthenticatedParentResourcesRoute,
