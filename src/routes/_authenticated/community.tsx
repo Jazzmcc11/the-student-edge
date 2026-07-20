@@ -3,7 +3,9 @@ import { ArrowLeft, Trophy, Users, BookOpen, MessageSquare } from "lucide-react"
 import { useUserType } from "@/hooks/use-user-type";
 import { useGradeLevel } from "@/hooks/use-grade-level";
 import { FreshmanCommunityHub } from "@/components/freshman-community-hub";
+import { SophomoreCommunityHub } from "@/components/sophomore-community-hub";
 import { JuniorCommunityHub } from "@/components/junior-community-hub";
+import { SeniorCommunityHub } from "@/components/senior-community-hub";
 
 
 export const Route = createFileRoute("/_authenticated/community")({
@@ -24,8 +26,11 @@ function CommunityLayout() {
   const { grade } = useGradeLevel();
   const tabs = ALL_TABS.filter((t) => !t.studentOnly || userType !== "parent");
   const isTopLevel = ["/community/wins", "/community/discussions", "/community/advice", "/community/buddies"].includes(pathname);
-  const showFreshmanHub = userType !== "parent" && grade === 9 && isTopLevel;
-  const showJuniorHub = userType !== "parent" && grade === 11 && isTopLevel;
+  const isStudent = userType !== "parent";
+  const showFreshmanHub = isStudent && grade === 9 && isTopLevel;
+  const showSophomoreHub = isStudent && grade === 10 && isTopLevel;
+  const showJuniorHub = isStudent && grade === 11 && isTopLevel;
+  const showSeniorHub = isStudent && grade === 12 && isTopLevel;
 
   return (
     <div className="min-h-screen bg-gradient-night">
@@ -61,7 +66,9 @@ function CommunityLayout() {
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         {showFreshmanHub && <FreshmanCommunityHub />}
+        {showSophomoreHub && <SophomoreCommunityHub />}
         {showJuniorHub && <JuniorCommunityHub />}
+        {showSeniorHub && <SeniorCommunityHub />}
         <Outlet />
       </main>
     </div>
