@@ -269,6 +269,29 @@ function AthleteHub() {
               eligibilitycenter.org <ExternalLink className="inline h-3 w-3" />
             </a>.
           </p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <a
+              href="https://www.ncaa.org/eligibility-center/initial-eligibility-requirements/division-i/"
+              target="_blank" rel="noreferrer"
+              className="rounded-lg border border-gold/40 bg-gold/5 p-3 text-sm transition hover:bg-gold/10"
+            >
+              <p className="font-display font-semibold text-gold">D1 initial-eligibility requirements</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Official NCAA breakdown of core courses, GPA, and test-score rules <ExternalLink className="inline h-3 w-3" />
+              </p>
+            </a>
+            <a
+              href="https://www.ncaa.org/eligibility-center/initial-eligibility-requirements/division-ii/"
+              target="_blank" rel="noreferrer"
+              className="rounded-lg border border-border p-3 text-sm transition hover:border-gold/40"
+            >
+              <p className="font-display font-semibold">D2 initial-eligibility requirements</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Official NCAA D2 standards <ExternalLink className="inline h-3 w-3" />
+              </p>
+            </a>
+          </div>
+
           <ul className="mt-4 space-y-2">
             {NCAA_CHECKLIST.map((item) => {
               const checked = Boolean(profile[item.key as keyof AthleteProfile]);
