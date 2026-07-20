@@ -116,13 +116,24 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
                   maxLength={20} placeholder="e.g. Senior" />
               </div>
             </div>
-            <div>
-              <Label htmlFor="cat">Category</Label>
-              <select id="cat" value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
-                {SUBMISSION_CATEGORY_OPTIONS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
-              </select>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="cat">Category</Label>
+                <select id="cat" value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  {SUBMISSION_CATEGORY_OPTIONS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="about">Who is this for?</Label>
+                <select id="about" value={form.about_grade}
+                  onChange={(e) => setForm({ ...form, about_grade: e.target.value })}
+                  className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  {ABOUT_GRADE_OPTIONS.map((g) => <option key={g.id} value={g.id}>{g.label}</option>)}
+                </select>
+                <p className="mt-1 text-xs text-muted-foreground">Write to parents of any grade — even about a season you've already been through.</p>
+              </div>
             </div>
             <div>
               <Label htmlFor="title">Title</Label>
