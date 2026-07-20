@@ -40,6 +40,7 @@ interface Profile {
   grade_level: number | string | null;
   gpa: number | null;
   onboarding_checklist: Record<string, boolean> | null;
+  is_athlete: boolean | null;
 }
 
 
