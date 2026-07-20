@@ -537,6 +537,57 @@ export type Database = {
         }
         Relationships: []
       }
+      parent_articles: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          author_child_grade: string | null
+          author_display_name: string
+          author_id: string
+          blurb: string
+          body: string
+          category: string
+          created_at: string
+          id: string
+          moderation_note: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          author_child_grade?: string | null
+          author_display_name: string
+          author_id: string
+          blurb: string
+          body: string
+          category?: string
+          created_at?: string
+          id?: string
+          moderation_note?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          author_child_grade?: string | null
+          author_display_name?: string
+          author_id?: string
+          blurb?: string
+          body?: string
+          category?: string
+          created_at?: string
+          id?: string
+          moderation_note?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       parent_invites: {
         Row: {
           code: string
