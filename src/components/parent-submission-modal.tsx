@@ -37,6 +37,7 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
     blurb: "",
     body: "",
     category: SUBMISSION_CATEGORY_OPTIONS[0].id as string,
+    about_grade: "all" as string,
   });
 
   useEffect(() => {
