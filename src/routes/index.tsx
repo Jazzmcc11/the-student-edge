@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Music2, Zap, Check, X } from "lucide-react";
 import studentsHero from "@/assets/students-hero.jpg";
 import familiesImg from "@/assets/families.jpg";
@@ -27,9 +27,10 @@ const SPOTIFY_PLAYLIST_ID = "3C0Bd8qAYTczNcjtS7sy2V";
 const SPOTIFY_PLAYLIST_NAME = "thee human jukebox hbcu";
 
 function Landing() {
-  // -------- Floating notes --------
-  const notes = useMemo(
-    () =>
+  // -------- Floating notes (client-only to avoid SSR hydration mismatch) --------
+  const [notes, setNotes] = useState<Array<{ id: number; left: number; delay: number; duration: number; size: number; color: string }>>([]);
+  useEffect(() => {
+    setNotes(
       Array.from({ length: 12 }).map((_, i) => ({
         id: i,
         left: Math.random() * 100,
@@ -38,8 +39,9 @@ function Landing() {
         size: 14 + Math.random() * 22,
         color: ["text-burnt/40", "text-gold/40", "text-navy/50", "text-maroon/60"][i % 4],
       })),
-    []
-  );
+    );
+  }, []);
+
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
