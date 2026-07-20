@@ -109,7 +109,7 @@ function ParentResourcesPage() {
           )}
         </div>
 
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="mb-4 flex flex-wrap gap-2">
           <Pill active={filter === "all"} onClick={() => setFilter("all")}>All</Pill>
           <Pill active={filter === "fubu"} onClick={() => setFilter("fubu")}>
             <Users className="mr-1 h-3.5 w-3.5" /> From other parents {submissions.length > 0 && `(${submissions.length})`}
@@ -122,25 +122,38 @@ function ParentResourcesPage() {
           ))}
         </div>
 
-        {showFubuSection && (
-          <section className="mb-10">
-            <div className="mb-3 flex items-baseline justify-between">
-              <h2 className="font-display text-lg font-semibold">From other parents · FUBU</h2>
-              <p className="text-xs text-muted-foreground">Written by parents in the community</p>
-            </div>
-            {submissions.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">
-                No community pieces published yet. Be the first — hit <span className="text-gold">Share your wisdom</span> up top.
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-xs uppercase tracking-wider text-muted-foreground">Advice for:</span>
+          <Pill active={gradeFilter === "all"} onClick={() => setGradeFilter("all")}>All grades</Pill>
+          {ABOUT_GRADE_OPTIONS.filter((g) => g.id !== "all").map((g) => (
+            <Pill key={g.id} active={gradeFilter === g.id} onClick={() => setGradeFilter(g.id)}>{g.label.split(" — ")[0]}</Pill>
+          ))}
+        </div>
+
+        {showFubuSection && (() => {
+          const visibleSubs = submissions.filter(
+            (s) => gradeFilter === "all" || !s.about_grade || s.about_grade === "all" || s.about_grade === gradeFilter,
+          );
+          return (
+            <section className="mb-10">
+              <div className="mb-3 flex items-baseline justify-between">
+                <h2 className="font-display text-lg font-semibold">From other parents · FUBU</h2>
+                <p className="text-xs text-muted-foreground">Written by parents who've been where you are</p>
               </div>
-            ) : (
-              <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-                {submissions.map((s) => (
-                  <SubmissionCard key={s.id} sub={s} onOpen={() => setReading(submissionToArticle(s))} />
-                ))}
-              </div>
-            )}
-          </section>
-        )}
+              {visibleSubs.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">
+                  No community pieces here yet for this grade. Be the first — hit <span className="text-gold">Share your wisdom</span> up top and pick the grade this is for.
+                </div>
+              ) : (
+                <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+                  {visibleSubs.map((s) => (
+                    <SubmissionCard key={s.id} sub={s} onOpen={() => setReading(submissionToArticle(s))} />
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })()}
 
         {filter !== "fubu" && (
           <>
