@@ -198,12 +198,25 @@ function Pill({ active, onClick, children }: { active?: boolean; onClick: () => 
 }
 
 function ArticleCard({ article, saved, onSave, onOpen }: { article: ParentArticle; saved: boolean; onSave: () => void; onOpen: () => void }) {
+  const forGrade = article.aboutGrade && article.aboutGrade !== "all"
+    ? ({ "9": "9th", "10": "10th", "11": "11th", "12": "12th" } as Record<string, string>)[article.aboutGrade]
+    : null;
   return (
     <div className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card transition hover:border-gold/40">
       <button onClick={onOpen} className={`block w-full bg-gradient-to-br ${article.gradient} p-6 text-left`}>
-        <div className="text-4xl">{article.emoji}</div>
-        <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{article.title}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-4xl">{article.emoji}</div>
+          {forGrade && (
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold">
+              For {forGrade}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-3 font-display text-lg font-semibold leading-snug">{article.title}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{article.blurb}</p>
+        {article.fromParentOf && (
+          <p className="mt-2 text-xs italic text-gold/80">— from a parent of {article.fromParentOf}</p>
+        )}
       </button>
       <div className="flex items-center justify-between border-t border-border/50 px-5 py-3">
         <span className="inline-flex items-center text-xs text-muted-foreground">
