@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.is_linked_parent(uuid, uuid) TO authenticated;
