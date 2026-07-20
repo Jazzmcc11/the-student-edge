@@ -215,11 +215,19 @@ function ArticleCard({ article, saved, onSave, onOpen }: { article: ParentArticl
 }
 
 function SubmissionCard({ sub, onOpen }: { sub: ParentSubmittedArticle; onOpen: () => void }) {
+  const forLabel = aboutGradeLabel(sub.about_grade);
   return (
     <div className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-gold/30 bg-card transition hover:border-gold/60">
       <button onClick={onOpen} className="block w-full bg-gradient-to-br from-gold/15 via-amber-500/5 to-transparent p-6 text-left">
-        <div className="text-4xl">💬</div>
-        <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{sub.title}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-4xl">💬</div>
+          {forLabel && (
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold">
+              For {forLabel.split(" — ")[0]}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-3 font-display text-lg font-semibold leading-snug">{sub.title}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{sub.blurb}</p>
       </button>
       <div className="border-t border-border/50 px-5 py-3 text-xs text-muted-foreground">
