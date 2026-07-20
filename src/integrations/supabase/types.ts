@@ -121,6 +121,75 @@ export type Database = {
           },
         ]
       }
+      athlete_profiles: {
+        Row: {
+          act_score: number | null
+          amateurism_certified: boolean
+          created_at: string
+          division_target: string | null
+          gpa_core: number | null
+          graduation_year: number | null
+          height: string | null
+          highlight_reel_url: string | null
+          id: string
+          ncaa_id: string | null
+          ncaa_registered: boolean
+          notes: string | null
+          position: string | null
+          primary_sport: string | null
+          sat_score: number | null
+          test_scores_sent: boolean
+          transcripts_sent: boolean
+          updated_at: string
+          user_id: string
+          weight: string | null
+        }
+        Insert: {
+          act_score?: number | null
+          amateurism_certified?: boolean
+          created_at?: string
+          division_target?: string | null
+          gpa_core?: number | null
+          graduation_year?: number | null
+          height?: string | null
+          highlight_reel_url?: string | null
+          id?: string
+          ncaa_id?: string | null
+          ncaa_registered?: boolean
+          notes?: string | null
+          position?: string | null
+          primary_sport?: string | null
+          sat_score?: number | null
+          test_scores_sent?: boolean
+          transcripts_sent?: boolean
+          updated_at?: string
+          user_id: string
+          weight?: string | null
+        }
+        Update: {
+          act_score?: number | null
+          amateurism_certified?: boolean
+          created_at?: string
+          division_target?: string | null
+          gpa_core?: number | null
+          graduation_year?: number | null
+          height?: string | null
+          highlight_reel_url?: string | null
+          id?: string
+          ncaa_id?: string | null
+          ncaa_registered?: boolean
+          notes?: string | null
+          position?: string | null
+          primary_sport?: string | null
+          sat_score?: number | null
+          test_scores_sent?: boolean
+          transcripts_sent?: boolean
+          updated_at?: string
+          user_id?: string
+          weight?: string | null
+        }
+        Relationships: []
+      }
       buddy_profiles: {
         Row: {
           bio: string | null
@@ -510,6 +579,45 @@ export type Database = {
         }
         Relationships: []
       }
+      ncaa_core_courses: {
+        Row: {
+          category: string
+          completed: boolean
+          course_name: string
+          created_at: string
+          credits: number | null
+          grade: string | null
+          id: string
+          updated_at: string
+          user_id: string
+          year_taken: string | null
+        }
+        Insert: {
+          category: string
+          completed?: boolean
+          course_name: string
+          created_at?: string
+          credits?: number | null
+          grade?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+          year_taken?: string | null
+        }
+        Update: {
+          category?: string
+          completed?: boolean
+          course_name?: string
+          created_at?: string
+          credits?: number | null
+          grade?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+          year_taken?: string | null
+        }
+        Relationships: []
+      }
       nudges: {
         Row: {
           created_at: string
@@ -765,6 +873,7 @@ export type Database = {
       profiles: {
         Row: {
           accent: string | null
+          athlete_prompt_dismissed: boolean
           avatar_url: string | null
           bio: string | null
           created_at: string
@@ -776,6 +885,7 @@ export type Database = {
           gpa_scale: string | null
           grade_level: number | null
           id: string
+          is_athlete: boolean
           last_visited_at: string | null
           last_visited_module: string | null
           onboarded_at: string | null
@@ -796,6 +906,7 @@ export type Database = {
         }
         Insert: {
           accent?: string | null
+          athlete_prompt_dismissed?: boolean
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
@@ -807,6 +918,7 @@ export type Database = {
           gpa_scale?: string | null
           grade_level?: number | null
           id: string
+          is_athlete?: boolean
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
@@ -827,6 +939,7 @@ export type Database = {
         }
         Update: {
           accent?: string | null
+          athlete_prompt_dismissed?: boolean
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
@@ -838,6 +951,7 @@ export type Database = {
           gpa_scale?: string | null
           grade_level?: number | null
           id?: string
+          is_athlete?: boolean
           last_visited_at?: string | null
           last_visited_module?: string | null
           onboarded_at?: string | null
@@ -952,6 +1066,54 @@ export type Database = {
           notes?: string | null
           relationship?: string | null
           role?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      recruiting_contacts: {
+        Row: {
+          coach_email: string | null
+          coach_name: string | null
+          coach_phone: string | null
+          created_at: string
+          division: string | null
+          id: string
+          last_contact_at: string | null
+          next_step: string | null
+          notes: string | null
+          school_name: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          coach_email?: string | null
+          coach_name?: string | null
+          coach_phone?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          last_contact_at?: string | null
+          next_step?: string | null
+          notes?: string | null
+          school_name: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          coach_email?: string | null
+          coach_name?: string | null
+          coach_phone?: string | null
+          created_at?: string
+          division?: string | null
+          id?: string
+          last_contact_at?: string | null
+          next_step?: string | null
+          notes?: string | null
+          school_name?: string
+          status?: string
           updated_at?: string
           user_id?: string
         }
