@@ -64,11 +64,14 @@ function ParentResourcesPage() {
   }
 
   const list = useMemo(() => {
-    if (filter === "all") return ARTICLES;
-    if (filter === "saved") return ARTICLES.filter((a) => saved.has(a.slug));
-    if (filter === "fubu") return [];
-    return ARTICLES.filter((a) => a.category === filter);
-  }, [filter, saved]);
+    let base: ParentArticle[];
+    if (filter === "all") base = ARTICLES;
+    else if (filter === "saved") base = ARTICLES.filter((a) => saved.has(a.slug));
+    else if (filter === "fubu") return [];
+    else base = ARTICLES.filter((a) => a.category === filter);
+    if (gradeFilter === "all" || filter === "saved") return base;
+    return base.filter((a) => !a.aboutGrade || a.aboutGrade === "all" || a.aboutGrade === gradeFilter);
+  }, [filter, saved, gradeFilter]);
 
   const showFubuSection = filter === "all" || filter === "fubu";
 
