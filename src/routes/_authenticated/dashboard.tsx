@@ -260,6 +260,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
 
       <StudentAlerts studentId={profile.id} />
 
+      {!profile.is_athlete && <AthletePromptCard userId={profile.id} />}
+
+
       <GradeLevelPanel
         userId={profile.id}
         gradeLevel={profile.grade_level}
