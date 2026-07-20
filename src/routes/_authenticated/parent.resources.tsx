@@ -19,6 +19,7 @@ function ParentResourcesPage() {
   const [myName, setMyName] = useState<string>("");
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<ArticleCategory | "all" | "saved" | "fubu">("all");
+  const [gradeFilter, setGradeFilter] = useState<string>("all"); // 'all' | '9' | '10' | '11' | '12'
   const [reading, setReading] = useState<ParentArticle | null>(null);
   const [submissions, setSubmissions] = useState<ParentSubmittedArticle[]>([]);
   const [showSubmit, setShowSubmit] = useState(false);
