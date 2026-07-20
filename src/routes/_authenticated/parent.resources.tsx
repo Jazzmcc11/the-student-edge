@@ -34,6 +34,14 @@ function ParentResourcesPage() {
       setMyName(prof?.full_name ?? "");
       const { data } = await supabase.from("parent_saved_articles").select("article_slug").eq("parent_id", user.id);
       setSaved(new Set((data || []).map((r: any) => r.article_slug)));
+      // Auto-set grade filter to the linked student's grade (if any)
+      const { data: links } = await supabase.from("parent_student_links").select("student_id").eq("parent_id", user.id).limit(1);
+      const studentId = links?.[0]?.student_id;
+      if (studentId) {
+        const { data: sp } = await supabase.from("profiles").select("grade_level").eq("id", studentId).maybeSingle();
+        const g = sp?.grade_level ? String(sp.grade_level) : null;
+        if (g && ["9","10","11","12"].includes(g)) setGradeFilter(g);
+      }
       loadSubmissions();
     })();
   }, [navigate]);
