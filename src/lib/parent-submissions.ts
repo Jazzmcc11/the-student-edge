@@ -12,6 +12,7 @@ export interface ParentSubmittedArticle {
   blurb: string;
   body: string;
   category: string;
+  about_grade: string | null; // '9' | '10' | '11' | '12' | 'all' | null
   status: "pending" | "approved" | "rejected";
   moderation_note: string | null;
   approved_at: string | null;
@@ -26,6 +27,19 @@ export const SUBMISSION_CATEGORY_OPTIONS = [
   { id: "wellbeing", label: "Family well-being" },
   { id: "first-year", label: "Freshman year prep" },
 ] as const;
+
+export const ABOUT_GRADE_OPTIONS = [
+  { id: "all", label: "All grades" },
+  { id: "9", label: "9th — Freshman parents" },
+  { id: "10", label: "10th — Sophomore parents" },
+  { id: "11", label: "11th — Junior parents" },
+  { id: "12", label: "12th — Senior parents" },
+] as const;
+
+export function aboutGradeLabel(id: string | null | undefined): string | null {
+  if (!id) return null;
+  return ABOUT_GRADE_OPTIONS.find((g) => g.id === id)?.label ?? null;
+}
 
 export async function fetchApprovedSubmissions(): Promise<ParentSubmittedArticle[]> {
   const { data, error } = await supabase
