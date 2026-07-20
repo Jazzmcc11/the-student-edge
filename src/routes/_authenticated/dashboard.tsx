@@ -312,7 +312,7 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         </Link>
       )}
 
-      <StudentModules gradeLevel={profile.grade_level} />
+      <StudentModules gradeLevel={profile.grade_level} isAthlete={!!profile.is_athlete} />
     </>
   );
 }
