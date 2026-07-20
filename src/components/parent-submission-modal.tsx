@@ -63,6 +63,7 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
         blurb: parsed.data.blurb,
         body: parsed.data.body,
         category: parsed.data.category,
+        about_grade: form.about_grade || "all",
       });
       toast.success("Sent to the crew for review. Thank you.");
       onSubmitted?.();
