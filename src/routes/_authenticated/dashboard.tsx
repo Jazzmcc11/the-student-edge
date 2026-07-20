@@ -359,12 +359,12 @@ const ALL_MODULES = [
     tags: ["Invite", "Read-only"] },
 ] as const;
 
-function StudentModules({ gradeLevel }: { gradeLevel: number | string | null }) {
+function StudentModules({ gradeLevel, isAthlete }: { gradeLevel: number | string | null; isAthlete: boolean }) {
   const plan = getGradePlan(gradeLevel);
   const hidden = new Set(plan?.hiddenModules || []);
   const priority = plan?.priorityModules || [];
 
-  const visible = ALL_MODULES.filter(m => !hidden.has(m.key));
+  const visible = ALL_MODULES.filter(m => !hidden.has(m.key) && (m.key !== "athlete" || isAthlete));
   const sorted = [...visible].sort((a, b) => {
     const ai = priority.indexOf(a.key);
     const bi = priority.indexOf(b.key);
