@@ -28,6 +28,7 @@ import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedCollegesRouteImport } from './routes/_authenticated/colleges'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as AuthenticatedAthleteRouteImport } from './routes/_authenticated/athlete'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
@@ -148,6 +149,11 @@ const AuthenticatedCollegesRoute = AuthenticatedCollegesRouteImport.update({
 const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAthleteRoute = AuthenticatedAthleteRouteImport.update({
+  id: '/athlete',
+  path: '/athlete',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -300,6 +306,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/athlete': typeof AuthenticatedAthleteRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/colleges': typeof AuthenticatedCollegesRoute
   '/community': typeof AuthenticatedCommunityRouteWithChildren
@@ -344,6 +351,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/athlete': typeof AuthenticatedAthleteRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/colleges': typeof AuthenticatedCollegesRoute
   '/creative': typeof AuthenticatedCreativeRoute
@@ -388,6 +396,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/_authenticated/athlete': typeof AuthenticatedAthleteRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/colleges': typeof AuthenticatedCollegesRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRouteWithChildren
@@ -434,6 +443,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/athlete'
     | '/calendar'
     | '/colleges'
     | '/community'
@@ -478,6 +488,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/athlete'
     | '/calendar'
     | '/colleges'
     | '/creative'
@@ -521,6 +532,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/_authenticated/athlete'
     | '/_authenticated/calendar'
     | '/_authenticated/colleges'
     | '/_authenticated/community'
@@ -705,6 +717,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/calendar'
       preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/athlete': {
+      id: '/_authenticated/athlete'
+      path: '/athlete'
+      fullPath: '/athlete'
+      preLoaderRoute: typeof AuthenticatedAthleteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/.well-known/oauth-protected-resource': {
@@ -963,6 +982,7 @@ const AuthenticatedTrackerRouteWithChildren =
   AuthenticatedTrackerRoute._addFileChildren(AuthenticatedTrackerRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAthleteRoute: typeof AuthenticatedAthleteRoute
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCollegesRoute: typeof AuthenticatedCollegesRoute
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRouteWithChildren
@@ -988,6 +1008,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAthleteRoute: AuthenticatedAthleteRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCollegesRoute: AuthenticatedCollegesRoute,
   AuthenticatedCommunityRoute: AuthenticatedCommunityRouteWithChildren,
