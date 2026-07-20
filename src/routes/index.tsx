@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Music2, Zap, Check, X } from "lucide-react";
 import studentsHero from "@/assets/students-hero.jpg";
 import familiesImg from "@/assets/families.jpg";
