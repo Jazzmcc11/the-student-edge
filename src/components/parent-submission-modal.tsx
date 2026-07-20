@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { SUBMISSION_CATEGORY_OPTIONS, submitParentArticle, fetchMySubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
+import { SUBMISSION_CATEGORY_OPTIONS, ABOUT_GRADE_OPTIONS, submitParentArticle, fetchMySubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
 import { X, CheckCircle2, Clock, XCircle } from "lucide-react";
 
 const schema = z.object({
@@ -37,6 +37,7 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
     blurb: "",
     body: "",
     category: SUBMISSION_CATEGORY_OPTIONS[0].id as string,
+    about_grade: "all" as string,
   });
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
         blurb: parsed.data.blurb,
         body: parsed.data.body,
         category: parsed.data.category,
+        about_grade: form.about_grade || "all",
       });
       toast.success("Sent to the crew for review. Thank you.");
       onSubmitted?.();
@@ -114,13 +116,24 @@ export function ParentSubmissionModal({ userId, defaultName, onClose, onSubmitte
                   maxLength={20} placeholder="e.g. Senior" />
               </div>
             </div>
-            <div>
-              <Label htmlFor="cat">Category</Label>
-              <select id="cat" value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
-                {SUBMISSION_CATEGORY_OPTIONS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
-              </select>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="cat">Category</Label>
+                <select id="cat" value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  {SUBMISSION_CATEGORY_OPTIONS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="about">Who is this for?</Label>
+                <select id="about" value={form.about_grade}
+                  onChange={(e) => setForm({ ...form, about_grade: e.target.value })}
+                  className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  {ABOUT_GRADE_OPTIONS.map((g) => <option key={g.id} value={g.id}>{g.label}</option>)}
+                </select>
+                <p className="mt-1 text-xs text-muted-foreground">Write to parents of any grade — even about a season you've already been through.</p>
+              </div>
             </div>
             <div>
               <Label htmlFor="title">Title</Label>

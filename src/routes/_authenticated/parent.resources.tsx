@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bookmark, BookmarkCheck, Clock, PenLine, Users } from "lucide-react";
 import { ARTICLES, ARTICLE_CATEGORIES, type ArticleCategory, type ParentArticle } from "@/lib/parent-articles";
-import { fetchApprovedSubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
+import { fetchApprovedSubmissions, aboutGradeLabel, ABOUT_GRADE_OPTIONS, type ParentSubmittedArticle } from "@/lib/parent-submissions";
 import { ParentSubmissionModal } from "@/components/parent-submission-modal";
 import { toast } from "sonner";
 
@@ -19,6 +19,7 @@ function ParentResourcesPage() {
   const [myName, setMyName] = useState<string>("");
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<ArticleCategory | "all" | "saved" | "fubu">("all");
+  const [gradeFilter, setGradeFilter] = useState<string>("all"); // 'all' | '9' | '10' | '11' | '12'
   const [reading, setReading] = useState<ParentArticle | null>(null);
   const [submissions, setSubmissions] = useState<ParentSubmittedArticle[]>([]);
   const [showSubmit, setShowSubmit] = useState(false);
@@ -33,6 +34,14 @@ function ParentResourcesPage() {
       setMyName(prof?.full_name ?? "");
       const { data } = await supabase.from("parent_saved_articles").select("article_slug").eq("parent_id", user.id);
       setSaved(new Set((data || []).map((r: any) => r.article_slug)));
+      // Auto-set grade filter to the linked student's grade (if any)
+      const { data: links } = await supabase.from("parent_student_links").select("student_id").eq("parent_id", user.id).limit(1);
+      const studentId = links?.[0]?.student_id;
+      if (studentId) {
+        const { data: sp } = await supabase.from("profiles").select("grade_level").eq("id", studentId).maybeSingle();
+        const g = sp?.grade_level ? String(sp.grade_level) : null;
+        if (g && ["9","10","11","12"].includes(g)) setGradeFilter(g);
+      }
       loadSubmissions();
     })();
   }, [navigate]);
@@ -55,11 +64,14 @@ function ParentResourcesPage() {
   }
 
   const list = useMemo(() => {
-    if (filter === "all") return ARTICLES;
-    if (filter === "saved") return ARTICLES.filter((a) => saved.has(a.slug));
-    if (filter === "fubu") return [];
-    return ARTICLES.filter((a) => a.category === filter);
-  }, [filter, saved]);
+    let base: ParentArticle[];
+    if (filter === "all") base = ARTICLES;
+    else if (filter === "saved") base = ARTICLES.filter((a) => saved.has(a.slug));
+    else if (filter === "fubu") return [];
+    else base = ARTICLES.filter((a) => a.category === filter);
+    if (gradeFilter === "all" || filter === "saved") return base;
+    return base.filter((a) => !a.aboutGrade || a.aboutGrade === "all" || a.aboutGrade === gradeFilter);
+  }, [filter, saved, gradeFilter]);
 
   const showFubuSection = filter === "all" || filter === "fubu";
 
@@ -100,7 +112,7 @@ function ParentResourcesPage() {
           )}
         </div>
 
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="mb-4 flex flex-wrap gap-2">
           <Pill active={filter === "all"} onClick={() => setFilter("all")}>All</Pill>
           <Pill active={filter === "fubu"} onClick={() => setFilter("fubu")}>
             <Users className="mr-1 h-3.5 w-3.5" /> From other parents {submissions.length > 0 && `(${submissions.length})`}
@@ -113,25 +125,38 @@ function ParentResourcesPage() {
           ))}
         </div>
 
-        {showFubuSection && (
-          <section className="mb-10">
-            <div className="mb-3 flex items-baseline justify-between">
-              <h2 className="font-display text-lg font-semibold">From other parents · FUBU</h2>
-              <p className="text-xs text-muted-foreground">Written by parents in the community</p>
-            </div>
-            {submissions.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">
-                No community pieces published yet. Be the first — hit <span className="text-gold">Share your wisdom</span> up top.
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-xs uppercase tracking-wider text-muted-foreground">Advice for:</span>
+          <Pill active={gradeFilter === "all"} onClick={() => setGradeFilter("all")}>All grades</Pill>
+          {ABOUT_GRADE_OPTIONS.filter((g) => g.id !== "all").map((g) => (
+            <Pill key={g.id} active={gradeFilter === g.id} onClick={() => setGradeFilter(g.id)}>{g.label.split(" — ")[0]}</Pill>
+          ))}
+        </div>
+
+        {showFubuSection && (() => {
+          const visibleSubs = submissions.filter(
+            (s) => gradeFilter === "all" || !s.about_grade || s.about_grade === "all" || s.about_grade === gradeFilter,
+          );
+          return (
+            <section className="mb-10">
+              <div className="mb-3 flex items-baseline justify-between">
+                <h2 className="font-display text-lg font-semibold">From other parents · FUBU</h2>
+                <p className="text-xs text-muted-foreground">Written by parents who've been where you are</p>
               </div>
-            ) : (
-              <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-                {submissions.map((s) => (
-                  <SubmissionCard key={s.id} sub={s} onOpen={() => setReading(submissionToArticle(s))} />
-                ))}
-              </div>
-            )}
-          </section>
-        )}
+              {visibleSubs.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-border p-6 text-sm text-muted-foreground">
+                  No community pieces here yet for this grade. Be the first — hit <span className="text-gold">Share your wisdom</span> up top and pick the grade this is for.
+                </div>
+              ) : (
+                <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+                  {visibleSubs.map((s) => (
+                    <SubmissionCard key={s.id} sub={s} onOpen={() => setReading(submissionToArticle(s))} />
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })()}
 
         {filter !== "fubu" && (
           <>
@@ -173,12 +198,25 @@ function Pill({ active, onClick, children }: { active?: boolean; onClick: () => 
 }
 
 function ArticleCard({ article, saved, onSave, onOpen }: { article: ParentArticle; saved: boolean; onSave: () => void; onOpen: () => void }) {
+  const forGrade = article.aboutGrade && article.aboutGrade !== "all"
+    ? ({ "9": "9th", "10": "10th", "11": "11th", "12": "12th" } as Record<string, string>)[article.aboutGrade]
+    : null;
   return (
     <div className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-border bg-card transition hover:border-gold/40">
       <button onClick={onOpen} className={`block w-full bg-gradient-to-br ${article.gradient} p-6 text-left`}>
-        <div className="text-4xl">{article.emoji}</div>
-        <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{article.title}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-4xl">{article.emoji}</div>
+          {forGrade && (
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold">
+              For {forGrade}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-3 font-display text-lg font-semibold leading-snug">{article.title}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{article.blurb}</p>
+        {article.fromParentOf && (
+          <p className="mt-2 text-xs italic text-gold/80">— from a parent of {article.fromParentOf}</p>
+        )}
       </button>
       <div className="flex items-center justify-between border-t border-border/50 px-5 py-3">
         <span className="inline-flex items-center text-xs text-muted-foreground">
@@ -193,11 +231,19 @@ function ArticleCard({ article, saved, onSave, onOpen }: { article: ParentArticl
 }
 
 function SubmissionCard({ sub, onOpen }: { sub: ParentSubmittedArticle; onOpen: () => void }) {
+  const forLabel = aboutGradeLabel(sub.about_grade);
   return (
     <div className="mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-gold/30 bg-card transition hover:border-gold/60">
       <button onClick={onOpen} className="block w-full bg-gradient-to-br from-gold/15 via-amber-500/5 to-transparent p-6 text-left">
-        <div className="text-4xl">💬</div>
-        <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{sub.title}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-4xl">💬</div>
+          {forLabel && (
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold">
+              For {forLabel.split(" — ")[0]}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-3 font-display text-lg font-semibold leading-snug">{sub.title}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{sub.blurb}</p>
       </button>
       <div className="border-t border-border/50 px-5 py-3 text-xs text-muted-foreground">

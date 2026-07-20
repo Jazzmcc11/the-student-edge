@@ -539,6 +539,7 @@ export type Database = {
       }
       parent_articles: {
         Row: {
+          about_grade: string | null
           approved_at: string | null
           approved_by: string | null
           author_child_grade: string | null
@@ -555,6 +556,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          about_grade?: string | null
           approved_at?: string | null
           approved_by?: string | null
           author_child_grade?: string | null
@@ -571,6 +573,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          about_grade?: string | null
           approved_at?: string | null
           approved_by?: string | null
           author_child_grade?: string | null
