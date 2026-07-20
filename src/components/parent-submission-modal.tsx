@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { SUBMISSION_CATEGORY_OPTIONS, submitParentArticle, fetchMySubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
+import { SUBMISSION_CATEGORY_OPTIONS, ABOUT_GRADE_OPTIONS, submitParentArticle, fetchMySubmissions, type ParentSubmittedArticle } from "@/lib/parent-submissions";
 import { X, CheckCircle2, Clock, XCircle } from "lucide-react";
 
 const schema = z.object({
