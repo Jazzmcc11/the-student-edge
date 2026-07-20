@@ -69,6 +69,7 @@ export async function submitParentArticle(input: {
   blurb: string;
   body: string;
   category: string;
+  about_grade: string | null;
 }) {
   const { error } = await supabase.from("parent_articles").insert({
     ...input,
