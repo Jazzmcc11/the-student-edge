@@ -58,7 +58,7 @@ function Dashboard() {
       if (!user) return;
       const { data: prof, error } = await supabase
         .from("profiles")
-        .select("id, full_name, display_name, email, user_type, last_visited_module, grade_level, gpa, onboarding_checklist")
+        .select("id, full_name, display_name, email, user_type, last_visited_module, grade_level, gpa, onboarding_checklist, is_athlete")
         .eq("id", user.id)
         .maybeSingle();
       if (error) console.error("profile fetch error", error);
@@ -77,6 +77,7 @@ function Dashboard() {
           grade_level: null,
           gpa: null,
           onboarding_checklist: {},
+          is_athlete: false,
         });
       }
     })();
