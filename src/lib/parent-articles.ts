@@ -13,6 +13,8 @@ export interface ParentArticle {
   emoji: string;
   href?: string; // optional external link ("Read on…"); otherwise renders body inline
   body?: string[]; // paragraphs for the inline reader
+  aboutGrade?: "9" | "10" | "11" | "12" | "all"; // which grade parents is this for
+  fromParentOf?: string; // e.g. "a senior" — for FUBU-style attribution
 }
 
 export const ARTICLE_CATEGORIES: { id: ArticleCategory; label: string }[] = [
