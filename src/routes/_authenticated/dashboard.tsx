@@ -18,6 +18,7 @@ import {
 import { RemindersBell } from "@/components/reminders-bell";
 import { GradeLevelPanel } from "@/components/grade-level-panel";
 import { WritingPromptCard } from "@/components/writing-prompt-card";
+import { AthletePromptCard } from "@/components/athlete-prompt-card";
 import { getGradePlan } from "@/lib/grade-plan";
 import { useGradeLevel } from "@/hooks/use-grade-level";
 
@@ -39,6 +40,7 @@ interface Profile {
   grade_level: number | string | null;
   gpa: number | null;
   onboarding_checklist: Record<string, boolean> | null;
+  is_athlete: boolean | null;
 }
 
 
@@ -56,7 +58,7 @@ function Dashboard() {
       if (!user) return;
       const { data: prof, error } = await supabase
         .from("profiles")
-        .select("id, full_name, display_name, email, user_type, last_visited_module, grade_level, gpa, onboarding_checklist")
+        .select("id, full_name, display_name, email, user_type, last_visited_module, grade_level, gpa, onboarding_checklist, is_athlete")
         .eq("id", user.id)
         .maybeSingle();
       if (error) console.error("profile fetch error", error);
@@ -75,6 +77,7 @@ function Dashboard() {
           grade_level: null,
           gpa: null,
           onboarding_checklist: {},
+          is_athlete: false,
         });
       }
     })();
@@ -257,6 +260,9 @@ function StudentDashboard({ profile }: { profile: Profile }) {
 
       <StudentAlerts studentId={profile.id} />
 
+      {!profile.is_athlete && <AthletePromptCard userId={profile.id} />}
+
+
       <GradeLevelPanel
         userId={profile.id}
         gradeLevel={profile.grade_level}
@@ -306,7 +312,7 @@ function StudentDashboard({ profile }: { profile: Profile }) {
         </Link>
       )}
 
-      <StudentModules gradeLevel={profile.grade_level} />
+      <StudentModules gradeLevel={profile.grade_level} isAthlete={!!profile.is_athlete} />
     </>
   );
 }
@@ -345,17 +351,20 @@ const ALL_MODULES = [
   { key: "personality", to: "/personality", icon: Sparkles, title: "Personality Test",
     description: "12 questions, an archetype, and a study plan built around how you actually work.",
     tags: ["Archetype", "Study plan"] },
+  { key: "athlete", to: "/athlete", icon: Trophy, title: "Athlete Hub",
+    description: "NCAA eligibility, core-course tracker, sliding-scale check, and every coach conversation in one place.",
+    tags: ["NCAA", "Recruiting", "Sliding scale"] },
   { key: "family", to: "/family", icon: Heart, title: "Family access",
     description: "Invite a parent with a code. Read-only — you stay in control.",
     tags: ["Invite", "Read-only"] },
 ] as const;
 
-function StudentModules({ gradeLevel }: { gradeLevel: number | string | null }) {
+function StudentModules({ gradeLevel, isAthlete }: { gradeLevel: number | string | null; isAthlete: boolean }) {
   const plan = getGradePlan(gradeLevel);
   const hidden = new Set(plan?.hiddenModules || []);
   const priority = plan?.priorityModules || [];
 
-  const visible = ALL_MODULES.filter(m => !hidden.has(m.key));
+  const visible = ALL_MODULES.filter(m => !hidden.has(m.key) && (m.key !== "athlete" || isAthlete));
   const sorted = [...visible].sort((a, b) => {
     const ai = priority.indexOf(a.key);
     const bi = priority.indexOf(b.key);
