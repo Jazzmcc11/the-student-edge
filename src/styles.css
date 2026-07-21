@@ -173,6 +173,8 @@
   .bg-gradient-burnt { background-image: var(--gradient-burnt); }
   .bg-gradient-gold { background-image: var(--gradient-gold); }
   .bg-gradient-rule { background-image: var(--gradient-rule); }
+  .bg-gradient-night { background-image: var(--gradient-night); }
   .shadow-burnt { box-shadow: var(--shadow-burnt); }
   .shadow-gold { box-shadow: var(--shadow-gold); }
+
 }
