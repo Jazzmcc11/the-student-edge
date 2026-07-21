@@ -54,62 +54,65 @@
 :root {
   --radius: 0.75rem;
 
-  /* The Plug — Southern Collegiate palette
-     UT Austin / Texas A&M / Florida / SMU inspired */
-  --background: #0A0A0A;
-  --foreground: #F0EDE6;
+  /* The Plug — Warm Cream (light mode)
+     Southern letterhead: warm off-white paper, burnt orange + maroon ink, gold accents */
+  --background: #FAF7F0;
+  --foreground: #1F1B18;
 
-  --card: #161616;
-  --card-foreground: #F0EDE6;
-  --surface: #161616;
+  --card: #FFFFFF;
+  --card-foreground: #1F1B18;
+  --surface: #F5F1E6;
 
-  --popover: #161616;
-  --popover-foreground: #F0EDE6;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F1B18;
 
   --primary: #BF5700;            /* burnt orange */
-  --primary-foreground: #F0EDE6;
+  --primary-foreground: #FFFFFF;
 
   --secondary: #500000;          /* maroon */
-  --secondary-foreground: #F0EDE6;
+  --secondary-foreground: #FAF7F0;
 
-  --muted: #1a1a1a;
-  --muted-foreground: #9b958a;
+  --muted: #F0EBE0;
+  --muted-foreground: #6B5F52;
 
-  --accent: #C9A84C;             /* gold */
-  --accent-foreground: #0A0A0A;
+  --accent: #A8862E;             /* gold, darkened for contrast on cream */
+  --accent-foreground: #FFFFFF;
 
-  --destructive: oklch(0.6 0.22 27);
-  --destructive-foreground: #F0EDE6;
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: #FFFFFF;
 
-  --border: #2C2C2C;
-  --input: #1a1a1a;
+  --border: #E4DDCE;
+  --input: #F0EBE0;
   --ring: #BF5700;
 
   --burnt: #BF5700;
   --maroon: #500000;
   --navy: #1B2A4A;
-  --gold: #C9A84C;
+  --gold: #A8862E;
 
   --gradient-burnt: linear-gradient(135deg, #BF5700, #8a3e00);
-  --gradient-gold: linear-gradient(135deg, #d8bb63, #a8862e);
-  --gradient-rule: linear-gradient(90deg, #BF5700, #500000, #1B2A4A, #C9A84C);
-  --shadow-burnt: 0 10px 40px -10px color-mix(in oklab, #BF5700 45%, transparent);
-  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, #C9A84C 35%, transparent);
+  --gradient-gold: linear-gradient(135deg, #C9A84C, #8a6b1e);
+  --gradient-rule: linear-gradient(90deg, #BF5700, #500000, #1B2A4A, #A8862E);
+  --gradient-night: linear-gradient(180deg, #FAF7F0 0%, #F5F1E6 100%);
+  --shadow-burnt: 0 10px 40px -10px color-mix(in oklab, #BF5700 25%, transparent);
+  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, #A8862E 25%, transparent);
 
-  --sidebar: #0F0F0F;
-  --sidebar-foreground: #F0EDE6;
+  --sidebar: #F5F1E6;
+  --sidebar-foreground: #1F1B18;
   --sidebar-primary: #BF5700;
-  --sidebar-primary-foreground: #F0EDE6;
-  --sidebar-accent: #161616;
-  --sidebar-accent-foreground: #F0EDE6;
-  --sidebar-border: #2C2C2C;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0EBE0;
+  --sidebar-accent-foreground: #1F1B18;
+  --sidebar-border: #E4DDCE;
   --sidebar-ring: #BF5700;
 }
 
 .dark {
-  --background: #0A0A0A;
-  --foreground: #F0EDE6;
+  /* Kept for legacy — cream palette is now the default */
+  --background: #FAF7F0;
+  --foreground: #1F1B18;
 }
+
 
 /* Accent switching — overrides --primary / --ring / --accent */
 :root[data-accent="gold"] {
