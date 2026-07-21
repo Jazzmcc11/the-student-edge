@@ -583,10 +583,7 @@ function SplitSection() {
       <div className="hidden lg:block" style={{ borderLeft: "1px solid var(--maroon)" }} />
 
       {/* Parent */}
-      <div
-        className="border-t-4 border-navy p-12 lg:p-16"
-        style={{ background: "#0F0A0A" }}
-      >
+      <div className="border-t-4 border-navy bg-muted p-12 lg:p-16">
         <div className="mb-8 overflow-hidden rounded-xl border border-navy/40">
           <img
             src={familiesImg}
@@ -598,9 +595,7 @@ function SplitSection() {
           />
         </div>
         <h3 className="font-display text-3xl font-bold text-navy md:text-4xl">
-          <span style={{ color: "#4a6fb0" }}>
-            Built for the parent who wants to help but doesn't know how.
-          </span>
+          Built for the parent who wants to help but doesn't know how.
         </h3>
         <ul className="mt-8 space-y-4">
           {[
@@ -609,10 +604,7 @@ function SplitSection() {
             "Get a graduation party planned without overpaying.",
           ].map((b) => (
             <li key={b} className="flex items-start gap-3">
-              <span
-                className="mt-2 h-2 w-2 shrink-0 rounded-full"
-                style={{ background: "#4a6fb0" }}
-              />
+              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-navy" />
               <span className="text-foreground">{b}</span>
             </li>
           ))}
@@ -620,8 +612,7 @@ function SplitSection() {
         <Link to="/auth" className="mt-8 inline-block">
           <Button
             variant="outline"
-            className="border-2 text-foreground hover:bg-navy hover:text-foreground"
-            style={{ borderColor: "#4a6fb0", color: "#9ab4dc" }}
+            className="border-2 border-navy text-navy hover:bg-navy hover:text-primary-foreground"
           >
             Learn more <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
