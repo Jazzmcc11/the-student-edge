@@ -709,7 +709,7 @@ function Pricing() {
                     p.cta === "burnt"
                       ? "bg-burnt text-primary-foreground hover:bg-burnt/90"
                       : p.cta === "maroon"
-                      ? "bg-maroon text-foreground hover:bg-maroon/80"
+                      ? "bg-maroon text-primary-foreground hover:bg-maroon/90"
                       : "border border-foreground/40 bg-transparent text-foreground hover:bg-foreground/5"
                   }`}
                 >
