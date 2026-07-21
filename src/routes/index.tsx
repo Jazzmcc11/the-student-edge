@@ -490,7 +490,7 @@ function Modules() {
 
 function MeetP() {
   return (
-    <section className="bg-[#0c0c0c] py-24">
+    <section className="bg-muted py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-12 border-l-4 border-burnt pl-8 lg:grid-cols-2">
           {/* Chat mock */}
