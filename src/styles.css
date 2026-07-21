@@ -116,9 +116,9 @@
 
 /* Accent switching — overrides --primary / --ring / --accent */
 :root[data-accent="gold"] {
-  --primary: #C9A84C;
-  --ring: #C9A84C;
-  --accent: #C9A84C;
+  --primary: #A8862E;
+  --ring: #A8862E;
+  --accent: #A8862E;
 }
 :root[data-accent="burnt"] {
   --primary: #BF5700;
@@ -126,15 +126,16 @@
   --accent: #BF5700;
 }
 :root[data-accent="maroon"] {
-  --primary: #7a1a1a;
-  --ring: #7a1a1a;
-  --accent: #7a1a1a;
+  --primary: #500000;
+  --ring: #500000;
+  --accent: #500000;
 }
 :root[data-accent="navy"] {
   --primary: #1B2A4A;
   --ring: #1B2A4A;
-  --accent: #2a3d6b;
+  --accent: #1B2A4A;
 }
+
 
 @layer base {
   * {
