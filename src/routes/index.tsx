@@ -684,7 +684,7 @@ function Pricing() {
               }`}
             >
               {p.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-background">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
                   Most Popular
                 </span>
               )}
