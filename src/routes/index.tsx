@@ -368,12 +368,12 @@ function WinBoard() {
     },
   ];
   return (
-    <section className="relative border-y border-border bg-surface py-20">
+    <section className="relative border-y border-border bg-muted py-20">
       <div
         aria-hidden
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-15"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(15,15,15,0.7), rgba(15,15,15,0.95)), url(${bandImg})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(250,247,240,0.85), rgba(250,247,240,0.98)), url(${bandImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
