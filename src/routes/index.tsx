@@ -263,7 +263,7 @@ function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-maroon bg-transparent text-foreground hover:bg-maroon hover:text-foreground"
+              className="border-maroon bg-transparent text-maroon hover:bg-maroon hover:text-primary-foreground"
             >
               I'm a Parent — Learn More
               <ArrowRight className="ml-1 h-4 w-4" />
