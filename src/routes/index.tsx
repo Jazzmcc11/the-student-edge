@@ -263,7 +263,7 @@ function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-maroon bg-transparent text-foreground hover:bg-maroon hover:text-foreground"
+              className="border-maroon bg-transparent text-maroon hover:bg-maroon hover:text-primary-foreground"
             >
               I'm a Parent — Learn More
               <ArrowRight className="ml-1 h-4 w-4" />
@@ -684,7 +684,7 @@ function Pricing() {
               }`}
             >
               {p.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-background">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
                   Most Popular
                 </span>
               )}
@@ -709,7 +709,7 @@ function Pricing() {
                     p.cta === "burnt"
                       ? "bg-burnt text-primary-foreground hover:bg-burnt/90"
                       : p.cta === "maroon"
-                      ? "bg-maroon text-foreground hover:bg-maroon/80"
+                      ? "bg-maroon text-primary-foreground hover:bg-maroon/90"
                       : "border border-foreground/40 bg-transparent text-foreground hover:bg-foreground/5"
                   }`}
                 >
