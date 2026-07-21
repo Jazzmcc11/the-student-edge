@@ -368,7 +368,7 @@ function WinBoard() {
     },
   ];
   return (
-    <section className="relative border-y border-border bg-[#0F0F0F] py-20">
+    <section className="relative border-y border-border bg-surface py-20">
       <div
         aria-hidden
         className="absolute inset-0 opacity-20"
