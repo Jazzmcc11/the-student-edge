@@ -281,7 +281,7 @@ function Hero() {
           {["FERPA Compliant", "No Ads. Ever.", "Student Data Never Sold."].map((b) => (
             <span
               key={b}
-              className="rounded-full border border-navy/60 bg-navy px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-foreground"
+              className="rounded-full border border-maroon/40 bg-surface px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-foreground"
             >
               {b}
             </span>
