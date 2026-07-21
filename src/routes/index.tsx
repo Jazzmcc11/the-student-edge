@@ -368,7 +368,7 @@ function WinBoard() {
     },
   ];
   return (
-    <section className="relative border-y border-border bg-[#0F0F0F] py-20">
+    <section className="relative border-y border-border bg-surface py-20">
       <div
         aria-hidden
         className="absolute inset-0 opacity-20"
@@ -490,7 +490,7 @@ function Modules() {
 
 function MeetP() {
   return (
-    <section className="bg-[#0c0c0c] py-24">
+    <section className="bg-muted py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-12 border-l-4 border-burnt pl-8 lg:grid-cols-2">
           {/* Chat mock */}
@@ -744,7 +744,7 @@ function Footer() {
     { h: "Company", items: ["Privacy Policy", "Terms of Service", "Contact", "FERPA Compliance"] },
   ];
   return (
-    <footer className="bg-black">
+    <footer className="bg-surface">
       <div className="h-1 w-full bg-gradient-rule" />
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
