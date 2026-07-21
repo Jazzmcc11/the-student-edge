@@ -744,7 +744,7 @@ function Footer() {
     { h: "Company", items: ["Privacy Policy", "Terms of Service", "Contact", "FERPA Compliance"] },
   ];
   return (
-    <footer className="bg-black">
+    <footer className="bg-surface">
       <div className="h-1 w-full bg-gradient-rule" />
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
