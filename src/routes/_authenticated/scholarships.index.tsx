@@ -97,7 +97,17 @@ function ScholarshipsList() {
             <option value="">All categories</option>
             {categories.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as any)}
+            className="rounded-md border border-input bg-background px-3 text-sm"
+          >
+            <option value="deadline">Sort: Deadline</option>
+            <option value="amount">Sort: Amount</option>
+            <option value="category">Sort: Category / Major</option>
+          </select>
         </div>
+
 
         {loading ? (
           <p className="text-muted-foreground">Loading…</p>
