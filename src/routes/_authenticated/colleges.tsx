@@ -159,8 +159,10 @@ function Colleges() {
           <>
             <p className="mb-3 text-xs text-muted-foreground">{total.toLocaleString()} schools match</p>
             <div className="grid gap-3 sm:grid-cols-2">
-              {results.map((c) => (
-                <Card key={c.id} className="flex flex-col gap-3 p-4">
+              {results.map((c) => {
+                const early = findEarlyPlan(c.name);
+                return (
+                <Card key={c.id} className={`flex flex-col gap-3 p-4 ${early ? "border-gold/50" : ""}`}>
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="font-display text-lg font-bold leading-tight">{c.name}</h3>
@@ -169,10 +171,21 @@ function Colleges() {
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-1">
+                      {early && (
+                        <Badge className="bg-gold/90 text-primary-foreground gap-1">
+                          <Zap className="h-3 w-3" /> {early.type}
+                        </Badge>
+                      )}
                       {c.hbcu && <Badge className="bg-gold text-primary-foreground">HBCU</Badge>}
                       {c.ownership && <Badge variant="outline" className="capitalize">{c.ownership}</Badge>}
                     </div>
                   </div>
+                  {early && (
+                    <p className="rounded-md border border-gold/30 bg-gold/5 px-2 py-1 text-[11px] text-gold">
+                      Apply by <strong>{early.deadline}</strong>{early.decisionBy && <> · decision {early.decisionBy}</>}
+                    </p>
+                  )}
+
 
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <Stat icon={Percent} label="Admit" value={fmtPct(c.admissionRate)} />
