@@ -1,0 +1,1 @@
+CREATE POLICY "Linked students can view parent profile" ON public.profiles FOR SELECT USING (public.is_linked_parent(id, auth.uid()));

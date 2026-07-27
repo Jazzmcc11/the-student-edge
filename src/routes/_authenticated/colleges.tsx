@@ -35,6 +35,8 @@ function Colleges() {
   const [q, setQ] = useState("");
   const [state, setState] = useState("");
   const [hbcuOnly, setHbcuOnly] = useState(false);
+  const [ownership, setOwnership] = useState<"" | "public" | "private">("");
+  const [size, setSize] = useState<"" | "small" | "medium" | "large">("");
   const [page, setPage] = useState(0);
   const [results, setResults] = useState<CollegeResult[] | null>(null);
   const [total, setTotal] = useState(0);
@@ -47,7 +49,14 @@ function Colleges() {
     setLoading(true);
     setPage(p);
     try {
-      const res = await search({ data: { q: q || undefined, state: state || undefined, hbcuOnly, page: p } });
+      const res = await search({ data: {
+        q: q || undefined,
+        state: state || undefined,
+        hbcuOnly,
+        ownership: ownership || undefined,
+        size: size || undefined,
+        page: p,
+      } });
       setResults(res.results);
       setTotal(res.total);
     } catch (e) {
@@ -57,6 +66,7 @@ function Colleges() {
       setLoading(false);
     }
   }
+
 
   async function addToList(c: CollegeResult) {
     setAdding(c.id);
@@ -99,18 +109,28 @@ function Colleges() {
 
         <form
           onSubmit={(e) => { e.preventDefault(); run(0); }}
-          className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center"
+          className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center"
         >
-          <div className="relative flex-1">
+          <div className="relative flex-1 min-w-[200px]">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Howard, Spelman, UT Austin…" className="pl-9" />
           </div>
-          <select
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            className="h-10 rounded-md border border-input bg-background px-3 text-sm"
-          >
+          <select value={state} onChange={(e) => setState(e.target.value)}
+            className="h-10 rounded-md border border-input bg-background px-3 text-sm">
             {STATES.map((s) => <option key={s} value={s}>{s || "All states"}</option>)}
+          </select>
+          <select value={ownership} onChange={(e) => setOwnership(e.target.value as any)}
+            className="h-10 rounded-md border border-input bg-background px-3 text-sm">
+            <option value="">Public + private</option>
+            <option value="public">Public only</option>
+            <option value="private">Private only</option>
+          </select>
+          <select value={size} onChange={(e) => setSize(e.target.value as any)}
+            className="h-10 rounded-md border border-input bg-background px-3 text-sm">
+            <option value="">Any size</option>
+            <option value="small">Small (&lt;3k)</option>
+            <option value="medium">Medium (3k–15k)</option>
+            <option value="large">Large (15k+)</option>
           </select>
           <label className="flex h-10 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm">
             <input type="checkbox" checked={hbcuOnly} onChange={(e) => setHbcuOnly(e.target.checked)} className="accent-gold" />
@@ -118,6 +138,19 @@ function Colleges() {
           </label>
           <Button type="submit" disabled={loading}>{loading ? "Searching…" : "Search"}</Button>
         </form>
+
+        <Card className="mb-6 border-gold/30 bg-gold/5 p-4 text-sm">
+          <p className="font-semibold text-gold">Early Decision & Early Action</p>
+          <p className="mt-1 text-muted-foreground">
+            Apply by Nov 1–15 and hear back in December from schools like{" "}
+            <a className="underline" href="https://www.tsu.edu/admissions/" target="_blank" rel="noopener noreferrer">Texas Southern</a>,{" "}
+            <a className="underline" href="https://admissions.howard.edu/" target="_blank" rel="noopener noreferrer">Howard</a>,{" "}
+            <a className="underline" href="https://admission.spelman.edu/" target="_blank" rel="noopener noreferrer">Spelman</a>,{" "}
+            <a className="underline" href="https://admissions.rice.edu/" target="_blank" rel="noopener noreferrer">Rice</a>,{" "}
+            <a className="underline" href="https://admissions.utexas.edu/" target="_blank" rel="noopener noreferrer">UT Austin</a>. Check each school's site for the exact ED/EA deadline.
+          </p>
+        </Card>
+
 
         {loading && !results ? (
           <div className="grid gap-3 sm:grid-cols-2">

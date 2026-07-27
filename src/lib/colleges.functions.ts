@@ -77,6 +77,8 @@ export const searchColleges = createServerFn({ method: "POST" })
         q: z.string().max(80).optional(),
         state: z.string().length(2).optional(),
         hbcuOnly: z.boolean().optional(),
+        ownership: z.enum(["public", "private"]).optional(),
+        size: z.enum(["small", "medium", "large"]).optional(),
         page: z.number().int().min(0).max(50).optional(),
       })
       .parse(data),
@@ -96,8 +98,14 @@ export const searchColleges = createServerFn({ method: "POST" })
     if (data.q) params.set("school.name", data.q);
     if (data.state) params.set("school.state", data.state.toUpperCase());
     if (data.hbcuOnly) params.set("school.minority_serving.historically_black", "1");
+    if (data.ownership === "public") params.set("school.ownership", "1");
+    if (data.ownership === "private") params.set("school.ownership", "2");
+    if (data.size === "small") params.set("latest.student.size__range", "100..3000");
+    if (data.size === "medium") params.set("latest.student.size__range", "3000..15000");
+    if (data.size === "large") params.set("latest.student.size__range", "15000..");
     // Sort by enrollment so well-known schools surface first when no query
     if (!data.q) params.set("sort", "latest.student.size:desc");
+
 
     const res = await fetch(`${BASE}?${params}`);
     if (!res.ok) {
