@@ -11,7 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/empty-state";
 import { pingActivity } from "@/lib/personalization";
-import { ArrowLeft, Search, MapPin, Users, Percent, DollarSign, Plus, ExternalLink, GraduationCap } from "lucide-react";
+import { ArrowLeft, Search, MapPin, Users, Percent, DollarSign, Plus, ExternalLink, GraduationCap, Zap } from "lucide-react";
+import { findEarlyPlan } from "@/lib/early-decision";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/colleges")({
@@ -142,14 +143,10 @@ function Colleges() {
         <Card className="mb-6 border-gold/30 bg-gold/5 p-4 text-sm">
           <p className="font-semibold text-gold">Early Decision & Early Action</p>
           <p className="mt-1 text-muted-foreground">
-            Apply by Nov 1–15 and hear back in December from schools like{" "}
-            <a className="underline" href="https://www.tsu.edu/admissions/" target="_blank" rel="noopener noreferrer">Texas Southern</a>,{" "}
-            <a className="underline" href="https://admissions.howard.edu/" target="_blank" rel="noopener noreferrer">Howard</a>,{" "}
-            <a className="underline" href="https://admission.spelman.edu/" target="_blank" rel="noopener noreferrer">Spelman</a>,{" "}
-            <a className="underline" href="https://admissions.rice.edu/" target="_blank" rel="noopener noreferrer">Rice</a>,{" "}
-            <a className="underline" href="https://admissions.utexas.edu/" target="_blank" rel="noopener noreferrer">UT Austin</a>. Check each school's site for the exact ED/EA deadline.
+            Any school in your results with a <span className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-1.5 text-[10px] font-semibold text-gold"><Zap className="h-2.5 w-2.5" />EARLY</span> tag has a November deadline and a December decision. Add them to your list to keep the deadline front-and-center.
           </p>
         </Card>
+
 
 
         {loading && !results ? (
@@ -162,8 +159,10 @@ function Colleges() {
           <>
             <p className="mb-3 text-xs text-muted-foreground">{total.toLocaleString()} schools match</p>
             <div className="grid gap-3 sm:grid-cols-2">
-              {results.map((c) => (
-                <Card key={c.id} className="flex flex-col gap-3 p-4">
+              {results.map((c) => {
+                const early = findEarlyPlan(c.name);
+                return (
+                <Card key={c.id} className={`flex flex-col gap-3 p-4 ${early ? "border-gold/50" : ""}`}>
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="font-display text-lg font-bold leading-tight">{c.name}</h3>
@@ -172,10 +171,21 @@ function Colleges() {
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-1">
+                      {early && (
+                        <Badge className="bg-gold/90 text-primary-foreground gap-1">
+                          <Zap className="h-3 w-3" /> {early.type}
+                        </Badge>
+                      )}
                       {c.hbcu && <Badge className="bg-gold text-primary-foreground">HBCU</Badge>}
                       {c.ownership && <Badge variant="outline" className="capitalize">{c.ownership}</Badge>}
                     </div>
                   </div>
+                  {early && (
+                    <p className="rounded-md border border-gold/30 bg-gold/5 px-2 py-1 text-[11px] text-gold">
+                      Apply by <strong>{early.deadline}</strong>{early.decisionBy && <> · decision {early.decisionBy}</>}
+                    </p>
+                  )}
+
 
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <Stat icon={Percent} label="Admit" value={fmtPct(c.admissionRate)} />
@@ -202,7 +212,9 @@ function Colleges() {
                     )}
                   </div>
                 </Card>
-              ))}
+                );
+              })}
+
             </div>
 
             <div className="mt-6 flex items-center justify-center gap-3">
