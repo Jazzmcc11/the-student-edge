@@ -212,7 +212,9 @@ function Colleges() {
                     )}
                   </div>
                 </Card>
-              ))}
+                );
+              })}
+
             </div>
 
             <div className="mt-6 flex items-center justify-center gap-3">
