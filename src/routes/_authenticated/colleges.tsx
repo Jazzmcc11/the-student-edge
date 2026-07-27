@@ -143,14 +143,10 @@ function Colleges() {
         <Card className="mb-6 border-gold/30 bg-gold/5 p-4 text-sm">
           <p className="font-semibold text-gold">Early Decision & Early Action</p>
           <p className="mt-1 text-muted-foreground">
-            Apply by Nov 1–15 and hear back in December from schools like{" "}
-            <a className="underline" href="https://www.tsu.edu/admissions/" target="_blank" rel="noopener noreferrer">Texas Southern</a>,{" "}
-            <a className="underline" href="https://admissions.howard.edu/" target="_blank" rel="noopener noreferrer">Howard</a>,{" "}
-            <a className="underline" href="https://admission.spelman.edu/" target="_blank" rel="noopener noreferrer">Spelman</a>,{" "}
-            <a className="underline" href="https://admissions.rice.edu/" target="_blank" rel="noopener noreferrer">Rice</a>,{" "}
-            <a className="underline" href="https://admissions.utexas.edu/" target="_blank" rel="noopener noreferrer">UT Austin</a>. Check each school's site for the exact ED/EA deadline.
+            Any school in your results with a <span className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-1.5 text-[10px] font-semibold text-gold"><Zap className="h-2.5 w-2.5" />EARLY</span> tag has a November deadline and a December decision. Add them to your list to keep the deadline front-and-center.
           </p>
         </Card>
+
 
 
         {loading && !results ? (
