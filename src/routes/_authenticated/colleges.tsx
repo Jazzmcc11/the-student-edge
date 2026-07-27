@@ -35,6 +35,8 @@ function Colleges() {
   const [q, setQ] = useState("");
   const [state, setState] = useState("");
   const [hbcuOnly, setHbcuOnly] = useState(false);
+  const [ownership, setOwnership] = useState<"" | "public" | "private">("");
+  const [size, setSize] = useState<"" | "small" | "medium" | "large">("");
   const [page, setPage] = useState(0);
   const [results, setResults] = useState<CollegeResult[] | null>(null);
   const [total, setTotal] = useState(0);
@@ -47,7 +49,14 @@ function Colleges() {
     setLoading(true);
     setPage(p);
     try {
-      const res = await search({ data: { q: q || undefined, state: state || undefined, hbcuOnly, page: p } });
+      const res = await search({ data: {
+        q: q || undefined,
+        state: state || undefined,
+        hbcuOnly,
+        ownership: ownership || undefined,
+        size: size || undefined,
+        page: p,
+      } });
       setResults(res.results);
       setTotal(res.total);
     } catch (e) {
@@ -57,6 +66,7 @@ function Colleges() {
       setLoading(false);
     }
   }
+
 
   async function addToList(c: CollegeResult) {
     setAdding(c.id);
