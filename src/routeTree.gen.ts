@@ -9,55 +9,59 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedWritingRouteImport } from './routes/_authenticated/writing'
-import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
-import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
-import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
-import { Route as AuthenticatedRecommendationsRouteImport } from './routes/_authenticated/recommendations'
-import { Route as AuthenticatedQuizzesRouteImport } from './routes/_authenticated/quizzes'
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
-import { Route as AuthenticatedFinaidRouteImport } from './routes/_authenticated/finaid'
-import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
-import { Route as AuthenticatedEssaysRouteImport } from './routes/_authenticated/essays'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
-import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
-import { Route as AuthenticatedCollegesRouteImport } from './routes/_authenticated/colleges'
-import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
-import { Route as AuthenticatedAthleteRouteImport } from './routes/_authenticated/athlete'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
-import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
-import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
-import { Route as AuthenticatedTrackerCollegesRouteImport } from './routes/_authenticated/tracker.colleges'
-import { Route as AuthenticatedScholarshipsIdRouteImport } from './routes/_authenticated/scholarships.$id'
-import { Route as AuthenticatedParentTasksRouteImport } from './routes/_authenticated/parent.tasks'
-import { Route as AuthenticatedParentScholarshipsRouteImport } from './routes/_authenticated/parent.scholarships'
-import { Route as AuthenticatedParentResourcesRouteImport } from './routes/_authenticated/parent.resources'
-import { Route as AuthenticatedParentFinaidRouteImport } from './routes/_authenticated/parent.finaid'
-import { Route as AuthenticatedParentEssaysRouteImport } from './routes/_authenticated/parent.essays'
-import { Route as AuthenticatedCommunityWinsRouteImport } from './routes/_authenticated/community.wins'
-import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/_authenticated/community.discussions'
-import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
-import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
-import { Route as AuthenticatedAdminParentArticlesRouteImport } from './routes/_authenticated/admin.parent-articles'
-import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthenticatedAthleteRouteImport } from './routes/_authenticated/athlete'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as AuthenticatedCollegesRouteImport } from './routes/_authenticated/colleges'
+import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
+import { Route as AuthenticatedCreativeRouteImport } from './routes/_authenticated/creative'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEssaysRouteImport } from './routes/_authenticated/essays'
+import { Route as AuthenticatedFamilyRouteImport } from './routes/_authenticated/family'
+import { Route as AuthenticatedFinaidRouteImport } from './routes/_authenticated/finaid'
+import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedQuizzesRouteImport } from './routes/_authenticated/quizzes'
+import { Route as AuthenticatedRecommendationsRouteImport } from './routes/_authenticated/recommendations'
+import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
+import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
+import { Route as AuthenticatedWritingRouteImport } from './routes/_authenticated/writing'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as ApiPublicHooksCheckDeadlinesRouteImport } from './routes/api/public/hooks/check-deadlines'
-import { Route as AuthenticatedCommunityThreadsIdRouteImport } from './routes/_authenticated/community.threads.$id'
-import { Route as AuthenticatedCommunityDiscussionsSlugRouteImport } from './routes/_authenticated/community.discussions.$slug'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
+import { Route as AuthenticatedAdminParentArticlesRouteImport } from './routes/_authenticated/admin.parent-articles'
+import { Route as AuthenticatedCommunityIndexRouteImport } from './routes/_authenticated/community.index'
+import { Route as AuthenticatedCommunityAdviceRouteImport } from './routes/_authenticated/community.advice'
+import { Route as AuthenticatedCommunityBuddiesRouteImport } from './routes/_authenticated/community.buddies'
+import { Route as AuthenticatedCommunityDiscussionsRouteImport } from './routes/_authenticated/community.discussions'
+import { Route as AuthenticatedCommunityWinsRouteImport } from './routes/_authenticated/community.wins'
+import { Route as AuthenticatedParentEssaysRouteImport } from './routes/_authenticated/parent.essays'
+import { Route as AuthenticatedParentFinaidRouteImport } from './routes/_authenticated/parent.finaid'
+import { Route as AuthenticatedParentResourcesRouteImport } from './routes/_authenticated/parent.resources'
+import { Route as AuthenticatedParentScholarshipsRouteImport } from './routes/_authenticated/parent.scholarships'
+import { Route as AuthenticatedParentTasksRouteImport } from './routes/_authenticated/parent.tasks'
+import { Route as AuthenticatedScholarshipsIndexRouteImport } from './routes/_authenticated/scholarships.index'
+import { Route as AuthenticatedScholarshipsIdRouteImport } from './routes/_authenticated/scholarships.$id'
+import { Route as AuthenticatedTrackerCollegesRouteImport } from './routes/_authenticated/tracker.colleges'
+import { Route as AuthenticatedTrackerScholarshipsRouteImport } from './routes/_authenticated/tracker.scholarships'
 import { Route as AuthenticatedCommunityAdviceIdRouteImport } from './routes/_authenticated/community.advice.$id'
+import { Route as AuthenticatedCommunityDiscussionsSlugRouteImport } from './routes/_authenticated/community.discussions.$slug'
+import { Route as AuthenticatedCommunityThreadsIdRouteImport } from './routes/_authenticated/community.threads.$id'
+import { Route as ApiPublicHooksCheckDeadlinesRouteImport } from './routes/api/public/hooks/check-deadlines'
 
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -65,50 +69,66 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedWritingRoute = AuthenticatedWritingRouteImport.update({
-  id: '/writing',
-  path: '/writing',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
-  id: '/tutor',
-  path: '/tutor',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
-  id: '/tracker',
-  path: '/tracker',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedScholarshipsRoute =
-  AuthenticatedScholarshipsRouteImport.update({
-    id: '/scholarships',
-    path: '/scholarships',
-    getParentRoute: () => AuthenticatedRouteRoute,
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
   } as any)
-const AuthenticatedRecommendationsRoute =
-  AuthenticatedRecommendationsRouteImport.update({
-    id: '/recommendations',
-    path: '/recommendations',
-    getParentRoute: () => AuthenticatedRouteRoute,
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
   } as any)
-const AuthenticatedQuizzesRoute = AuthenticatedQuizzesRouteImport.update({
-  id: '/quizzes',
-  path: '/quizzes',
+const AuthenticatedAthleteRoute = AuthenticatedAthleteRouteImport.update({
+  id: '/athlete',
+  path: '/athlete',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCollegesRoute = AuthenticatedCollegesRouteImport.update({
+  id: '/colleges',
+  path: '/colleges',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCreativeRoute = AuthenticatedCreativeRouteImport.update({
+  id: '/creative',
+  path: '/creative',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEssaysRoute = AuthenticatedEssaysRouteImport.update({
+  id: '/essays',
+  path: '/essays',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
+  id: '/family',
+  path: '/family',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFinaidRoute = AuthenticatedFinaidRouteImport.update({
+  id: '/finaid',
+  path: '/finaid',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPersonalityRoute =
@@ -117,139 +137,70 @@ const AuthenticatedPersonalityRoute =
     path: '/personality',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedFinaidRoute = AuthenticatedFinaidRouteImport.update({
-  id: '/finaid',
-  path: '/finaid',
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedFamilyRoute = AuthenticatedFamilyRouteImport.update({
-  id: '/family',
-  path: '/family',
+const AuthenticatedQuizzesRoute = AuthenticatedQuizzesRouteImport.update({
+  id: '/quizzes',
+  path: '/quizzes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedEssaysRoute = AuthenticatedEssaysRouteImport.update({
-  id: '/essays',
-  path: '/essays',
+const AuthenticatedRecommendationsRoute =
+  AuthenticatedRecommendationsRouteImport.update({
+    id: '/recommendations',
+    path: '/recommendations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedScholarshipsRoute =
+  AuthenticatedScholarshipsRouteImport.update({
+    id: '/scholarships',
+    path: '/scholarships',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCreativeRoute = AuthenticatedCreativeRouteImport.update({
-  id: '/creative',
-  path: '/creative',
+const AuthenticatedWritingRoute = AuthenticatedWritingRouteImport.update({
+  id: '/writing',
+  path: '/writing',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedCollegesRoute = AuthenticatedCollegesRouteImport.update({
-  id: '/colleges',
-  path: '/colleges',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
-  id: '/calendar',
-  path: '/calendar',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAthleteRoute = AuthenticatedAthleteRouteImport.update({
-  id: '/athlete',
-  path: '/athlete',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminFeedbackRoute =
+  AuthenticatedAdminFeedbackRouteImport.update({
+    id: '/admin/feedback',
+    path: '/admin/feedback',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedScholarshipsIndexRoute =
-  AuthenticatedScholarshipsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedScholarshipsRoute,
+const AuthenticatedAdminParentArticlesRoute =
+  AuthenticatedAdminParentArticlesRouteImport.update({
+    id: '/admin/parent-articles',
+    path: '/admin/parent-articles',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedCommunityIndexRoute =
   AuthenticatedCommunityIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedCommunityRoute,
-  } as any)
-const AuthenticatedTrackerScholarshipsRoute =
-  AuthenticatedTrackerScholarshipsRouteImport.update({
-    id: '/scholarships',
-    path: '/scholarships',
-    getParentRoute: () => AuthenticatedTrackerRoute,
-  } as any)
-const AuthenticatedTrackerCollegesRoute =
-  AuthenticatedTrackerCollegesRouteImport.update({
-    id: '/colleges',
-    path: '/colleges',
-    getParentRoute: () => AuthenticatedTrackerRoute,
-  } as any)
-const AuthenticatedScholarshipsIdRoute =
-  AuthenticatedScholarshipsIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedScholarshipsRoute,
-  } as any)
-const AuthenticatedParentTasksRoute =
-  AuthenticatedParentTasksRouteImport.update({
-    id: '/parent/tasks',
-    path: '/parent/tasks',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedParentScholarshipsRoute =
-  AuthenticatedParentScholarshipsRouteImport.update({
-    id: '/parent/scholarships',
-    path: '/parent/scholarships',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedParentResourcesRoute =
-  AuthenticatedParentResourcesRouteImport.update({
-    id: '/parent/resources',
-    path: '/parent/resources',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedParentFinaidRoute =
-  AuthenticatedParentFinaidRouteImport.update({
-    id: '/parent/finaid',
-    path: '/parent/finaid',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedParentEssaysRoute =
-  AuthenticatedParentEssaysRouteImport.update({
-    id: '/parent/essays',
-    path: '/parent/essays',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedCommunityWinsRoute =
-  AuthenticatedCommunityWinsRouteImport.update({
-    id: '/wins',
-    path: '/wins',
-    getParentRoute: () => AuthenticatedCommunityRoute,
-  } as any)
-const AuthenticatedCommunityDiscussionsRoute =
-  AuthenticatedCommunityDiscussionsRouteImport.update({
-    id: '/discussions',
-    path: '/discussions',
-    getParentRoute: () => AuthenticatedCommunityRoute,
-  } as any)
-const AuthenticatedCommunityBuddiesRoute =
-  AuthenticatedCommunityBuddiesRouteImport.update({
-    id: '/buddies',
-    path: '/buddies',
     getParentRoute: () => AuthenticatedCommunityRoute,
   } as any)
 const AuthenticatedCommunityAdviceRoute =
@@ -258,40 +209,83 @@ const AuthenticatedCommunityAdviceRoute =
     path: '/advice',
     getParentRoute: () => AuthenticatedCommunityRoute,
   } as any)
-const AuthenticatedAdminParentArticlesRoute =
-  AuthenticatedAdminParentArticlesRouteImport.update({
-    id: '/admin/parent-articles',
-    path: '/admin/parent-articles',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedAdminFeedbackRoute =
-  AuthenticatedAdminFeedbackRouteImport.update({
-    id: '/admin/feedback',
-    path: '/admin/feedback',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicHooksCheckDeadlinesRoute =
-  ApiPublicHooksCheckDeadlinesRouteImport.update({
-    id: '/api/public/hooks/check-deadlines',
-    path: '/api/public/hooks/check-deadlines',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AuthenticatedCommunityThreadsIdRoute =
-  AuthenticatedCommunityThreadsIdRouteImport.update({
-    id: '/threads/$id',
-    path: '/threads/$id',
+const AuthenticatedCommunityBuddiesRoute =
+  AuthenticatedCommunityBuddiesRouteImport.update({
+    id: '/buddies',
+    path: '/buddies',
     getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityDiscussionsRoute =
+  AuthenticatedCommunityDiscussionsRouteImport.update({
+    id: '/discussions',
+    path: '/discussions',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedCommunityWinsRoute =
+  AuthenticatedCommunityWinsRouteImport.update({
+    id: '/wins',
+    path: '/wins',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const AuthenticatedParentEssaysRoute =
+  AuthenticatedParentEssaysRouteImport.update({
+    id: '/parent/essays',
+    path: '/parent/essays',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParentFinaidRoute =
+  AuthenticatedParentFinaidRouteImport.update({
+    id: '/parent/finaid',
+    path: '/parent/finaid',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParentResourcesRoute =
+  AuthenticatedParentResourcesRouteImport.update({
+    id: '/parent/resources',
+    path: '/parent/resources',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParentScholarshipsRoute =
+  AuthenticatedParentScholarshipsRouteImport.update({
+    id: '/parent/scholarships',
+    path: '/parent/scholarships',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedParentTasksRoute =
+  AuthenticatedParentTasksRouteImport.update({
+    id: '/parent/tasks',
+    path: '/parent/tasks',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedScholarshipsIndexRoute =
+  AuthenticatedScholarshipsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedScholarshipsRoute,
+  } as any)
+const AuthenticatedScholarshipsIdRoute =
+  AuthenticatedScholarshipsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedScholarshipsRoute,
+  } as any)
+const AuthenticatedTrackerCollegesRoute =
+  AuthenticatedTrackerCollegesRouteImport.update({
+    id: '/colleges',
+    path: '/colleges',
+    getParentRoute: () => AuthenticatedTrackerRoute,
+  } as any)
+const AuthenticatedTrackerScholarshipsRoute =
+  AuthenticatedTrackerScholarshipsRouteImport.update({
+    id: '/scholarships',
+    path: '/scholarships',
+    getParentRoute: () => AuthenticatedTrackerRoute,
+  } as any)
+const AuthenticatedCommunityAdviceIdRoute =
+  AuthenticatedCommunityAdviceIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedCommunityAdviceRoute,
   } as any)
 const AuthenticatedCommunityDiscussionsSlugRoute =
   AuthenticatedCommunityDiscussionsSlugRouteImport.update({
@@ -299,11 +293,17 @@ const AuthenticatedCommunityDiscussionsSlugRoute =
     path: '/$slug',
     getParentRoute: () => AuthenticatedCommunityDiscussionsRoute,
   } as any)
-const AuthenticatedCommunityAdviceIdRoute =
-  AuthenticatedCommunityAdviceIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedCommunityAdviceRoute,
+const AuthenticatedCommunityThreadsIdRoute =
+  AuthenticatedCommunityThreadsIdRouteImport.update({
+    id: '/threads/$id',
+    path: '/threads/$id',
+    getParentRoute: () => AuthenticatedCommunityRoute,
+  } as any)
+const ApiPublicHooksCheckDeadlinesRoute =
+  ApiPublicHooksCheckDeadlinesRouteImport.update({
+    id: '/api/public/hooks/check-deadlines',
+    path: '/api/public/hooks/check-deadlines',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -598,18 +598,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -619,137 +612,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/writing': {
-      id: '/_authenticated/writing'
-      path: '/writing'
-      fullPath: '/writing'
-      preLoaderRoute: typeof AuthenticatedWritingRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/tutor': {
-      id: '/_authenticated/tutor'
-      path: '/tutor'
-      fullPath: '/tutor'
-      preLoaderRoute: typeof AuthenticatedTutorRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/tracker': {
-      id: '/_authenticated/tracker'
-      path: '/tracker'
-      fullPath: '/tracker'
-      preLoaderRoute: typeof AuthenticatedTrackerRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/scholarships': {
-      id: '/_authenticated/scholarships'
-      path: '/scholarships'
-      fullPath: '/scholarships'
-      preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/recommendations': {
-      id: '/_authenticated/recommendations'
-      path: '/recommendations'
-      fullPath: '/recommendations'
-      preLoaderRoute: typeof AuthenticatedRecommendationsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/quizzes': {
-      id: '/_authenticated/quizzes'
-      path: '/quizzes'
-      fullPath: '/quizzes'
-      preLoaderRoute: typeof AuthenticatedQuizzesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/personality': {
-      id: '/_authenticated/personality'
-      path: '/personality'
-      fullPath: '/personality'
-      preLoaderRoute: typeof AuthenticatedPersonalityRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/finaid': {
-      id: '/_authenticated/finaid'
-      path: '/finaid'
-      fullPath: '/finaid'
-      preLoaderRoute: typeof AuthenticatedFinaidRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/family': {
-      id: '/_authenticated/family'
-      path: '/family'
-      fullPath: '/family'
-      preLoaderRoute: typeof AuthenticatedFamilyRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/essays': {
-      id: '/_authenticated/essays'
-      path: '/essays'
-      fullPath: '/essays'
-      preLoaderRoute: typeof AuthenticatedEssaysRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/creative': {
-      id: '/_authenticated/creative'
-      path: '/creative'
-      fullPath: '/creative'
-      preLoaderRoute: typeof AuthenticatedCreativeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/community': {
-      id: '/_authenticated/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/colleges': {
-      id: '/_authenticated/colleges'
-      path: '/colleges'
-      fullPath: '/colleges'
-      preLoaderRoute: typeof AuthenticatedCollegesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/calendar': {
-      id: '/_authenticated/calendar'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/athlete': {
-      id: '/_authenticated/athlete'
-      path: '/athlete'
-      fullPath: '/athlete'
-      preLoaderRoute: typeof AuthenticatedAthleteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -759,95 +633,165 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/scholarships/': {
-      id: '/_authenticated/scholarships/'
-      path: '/'
-      fullPath: '/scholarships/'
-      preLoaderRoute: typeof AuthenticatedScholarshipsIndexRouteImport
-      parentRoute: typeof AuthenticatedScholarshipsRoute
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/athlete': {
+      id: '/_authenticated/athlete'
+      path: '/athlete'
+      fullPath: '/athlete'
+      preLoaderRoute: typeof AuthenticatedAthleteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/colleges': {
+      id: '/_authenticated/colleges'
+      path: '/colleges'
+      fullPath: '/colleges'
+      preLoaderRoute: typeof AuthenticatedCollegesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/community': {
+      id: '/_authenticated/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/creative': {
+      id: '/_authenticated/creative'
+      path: '/creative'
+      fullPath: '/creative'
+      preLoaderRoute: typeof AuthenticatedCreativeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/essays': {
+      id: '/_authenticated/essays'
+      path: '/essays'
+      fullPath: '/essays'
+      preLoaderRoute: typeof AuthenticatedEssaysRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/family': {
+      id: '/_authenticated/family'
+      path: '/family'
+      fullPath: '/family'
+      preLoaderRoute: typeof AuthenticatedFamilyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/finaid': {
+      id: '/_authenticated/finaid'
+      path: '/finaid'
+      fullPath: '/finaid'
+      preLoaderRoute: typeof AuthenticatedFinaidRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/personality': {
+      id: '/_authenticated/personality'
+      path: '/personality'
+      fullPath: '/personality'
+      preLoaderRoute: typeof AuthenticatedPersonalityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quizzes': {
+      id: '/_authenticated/quizzes'
+      path: '/quizzes'
+      fullPath: '/quizzes'
+      preLoaderRoute: typeof AuthenticatedQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/recommendations': {
+      id: '/_authenticated/recommendations'
+      path: '/recommendations'
+      fullPath: '/recommendations'
+      preLoaderRoute: typeof AuthenticatedRecommendationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scholarships': {
+      id: '/_authenticated/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof AuthenticatedScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tracker': {
+      id: '/_authenticated/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof AuthenticatedTrackerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/writing': {
+      id: '/_authenticated/writing'
+      path: '/writing'
+      fullPath: '/writing'
+      preLoaderRoute: typeof AuthenticatedWritingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/feedback': {
+      id: '/_authenticated/admin/feedback'
+      path: '/admin/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AuthenticatedAdminFeedbackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/parent-articles': {
+      id: '/_authenticated/admin/parent-articles'
+      path: '/admin/parent-articles'
+      fullPath: '/admin/parent-articles'
+      preLoaderRoute: typeof AuthenticatedAdminParentArticlesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/community/': {
       id: '/_authenticated/community/'
       path: '/'
       fullPath: '/community/'
       preLoaderRoute: typeof AuthenticatedCommunityIndexRouteImport
-      parentRoute: typeof AuthenticatedCommunityRoute
-    }
-    '/_authenticated/tracker/scholarships': {
-      id: '/_authenticated/tracker/scholarships'
-      path: '/scholarships'
-      fullPath: '/tracker/scholarships'
-      preLoaderRoute: typeof AuthenticatedTrackerScholarshipsRouteImport
-      parentRoute: typeof AuthenticatedTrackerRoute
-    }
-    '/_authenticated/tracker/colleges': {
-      id: '/_authenticated/tracker/colleges'
-      path: '/colleges'
-      fullPath: '/tracker/colleges'
-      preLoaderRoute: typeof AuthenticatedTrackerCollegesRouteImport
-      parentRoute: typeof AuthenticatedTrackerRoute
-    }
-    '/_authenticated/scholarships/$id': {
-      id: '/_authenticated/scholarships/$id'
-      path: '/$id'
-      fullPath: '/scholarships/$id'
-      preLoaderRoute: typeof AuthenticatedScholarshipsIdRouteImport
-      parentRoute: typeof AuthenticatedScholarshipsRoute
-    }
-    '/_authenticated/parent/tasks': {
-      id: '/_authenticated/parent/tasks'
-      path: '/parent/tasks'
-      fullPath: '/parent/tasks'
-      preLoaderRoute: typeof AuthenticatedParentTasksRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/parent/scholarships': {
-      id: '/_authenticated/parent/scholarships'
-      path: '/parent/scholarships'
-      fullPath: '/parent/scholarships'
-      preLoaderRoute: typeof AuthenticatedParentScholarshipsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/parent/resources': {
-      id: '/_authenticated/parent/resources'
-      path: '/parent/resources'
-      fullPath: '/parent/resources'
-      preLoaderRoute: typeof AuthenticatedParentResourcesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/parent/finaid': {
-      id: '/_authenticated/parent/finaid'
-      path: '/parent/finaid'
-      fullPath: '/parent/finaid'
-      preLoaderRoute: typeof AuthenticatedParentFinaidRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/parent/essays': {
-      id: '/_authenticated/parent/essays'
-      path: '/parent/essays'
-      fullPath: '/parent/essays'
-      preLoaderRoute: typeof AuthenticatedParentEssaysRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/community/wins': {
-      id: '/_authenticated/community/wins'
-      path: '/wins'
-      fullPath: '/community/wins'
-      preLoaderRoute: typeof AuthenticatedCommunityWinsRouteImport
-      parentRoute: typeof AuthenticatedCommunityRoute
-    }
-    '/_authenticated/community/discussions': {
-      id: '/_authenticated/community/discussions'
-      path: '/discussions'
-      fullPath: '/community/discussions'
-      preLoaderRoute: typeof AuthenticatedCommunityDiscussionsRouteImport
-      parentRoute: typeof AuthenticatedCommunityRoute
-    }
-    '/_authenticated/community/buddies': {
-      id: '/_authenticated/community/buddies'
-      path: '/buddies'
-      fullPath: '/community/buddies'
-      preLoaderRoute: typeof AuthenticatedCommunityBuddiesRouteImport
       parentRoute: typeof AuthenticatedCommunityRoute
     }
     '/_authenticated/community/advice': {
@@ -857,47 +801,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunityAdviceRouteImport
       parentRoute: typeof AuthenticatedCommunityRoute
     }
-    '/_authenticated/admin/parent-articles': {
-      id: '/_authenticated/admin/parent-articles'
-      path: '/admin/parent-articles'
-      fullPath: '/admin/parent-articles'
-      preLoaderRoute: typeof AuthenticatedAdminParentArticlesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/admin/feedback': {
-      id: '/_authenticated/admin/feedback'
-      path: '/admin/feedback'
-      fullPath: '/admin/feedback'
-      preLoaderRoute: typeof AuthenticatedAdminFeedbackRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/check-deadlines': {
-      id: '/api/public/hooks/check-deadlines'
-      path: '/api/public/hooks/check-deadlines'
-      fullPath: '/api/public/hooks/check-deadlines'
-      preLoaderRoute: typeof ApiPublicHooksCheckDeadlinesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/community/threads/$id': {
-      id: '/_authenticated/community/threads/$id'
-      path: '/threads/$id'
-      fullPath: '/community/threads/$id'
-      preLoaderRoute: typeof AuthenticatedCommunityThreadsIdRouteImport
+    '/_authenticated/community/buddies': {
+      id: '/_authenticated/community/buddies'
+      path: '/buddies'
+      fullPath: '/community/buddies'
+      preLoaderRoute: typeof AuthenticatedCommunityBuddiesRouteImport
       parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/discussions': {
+      id: '/_authenticated/community/discussions'
+      path: '/discussions'
+      fullPath: '/community/discussions'
+      preLoaderRoute: typeof AuthenticatedCommunityDiscussionsRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/community/wins': {
+      id: '/_authenticated/community/wins'
+      path: '/wins'
+      fullPath: '/community/wins'
+      preLoaderRoute: typeof AuthenticatedCommunityWinsRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/_authenticated/parent/essays': {
+      id: '/_authenticated/parent/essays'
+      path: '/parent/essays'
+      fullPath: '/parent/essays'
+      preLoaderRoute: typeof AuthenticatedParentEssaysRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parent/finaid': {
+      id: '/_authenticated/parent/finaid'
+      path: '/parent/finaid'
+      fullPath: '/parent/finaid'
+      preLoaderRoute: typeof AuthenticatedParentFinaidRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parent/resources': {
+      id: '/_authenticated/parent/resources'
+      path: '/parent/resources'
+      fullPath: '/parent/resources'
+      preLoaderRoute: typeof AuthenticatedParentResourcesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parent/scholarships': {
+      id: '/_authenticated/parent/scholarships'
+      path: '/parent/scholarships'
+      fullPath: '/parent/scholarships'
+      preLoaderRoute: typeof AuthenticatedParentScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parent/tasks': {
+      id: '/_authenticated/parent/tasks'
+      path: '/parent/tasks'
+      fullPath: '/parent/tasks'
+      preLoaderRoute: typeof AuthenticatedParentTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scholarships/': {
+      id: '/_authenticated/scholarships/'
+      path: '/'
+      fullPath: '/scholarships/'
+      preLoaderRoute: typeof AuthenticatedScholarshipsIndexRouteImport
+      parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
+    '/_authenticated/scholarships/$id': {
+      id: '/_authenticated/scholarships/$id'
+      path: '/$id'
+      fullPath: '/scholarships/$id'
+      preLoaderRoute: typeof AuthenticatedScholarshipsIdRouteImport
+      parentRoute: typeof AuthenticatedScholarshipsRoute
+    }
+    '/_authenticated/tracker/colleges': {
+      id: '/_authenticated/tracker/colleges'
+      path: '/colleges'
+      fullPath: '/tracker/colleges'
+      preLoaderRoute: typeof AuthenticatedTrackerCollegesRouteImport
+      parentRoute: typeof AuthenticatedTrackerRoute
+    }
+    '/_authenticated/tracker/scholarships': {
+      id: '/_authenticated/tracker/scholarships'
+      path: '/scholarships'
+      fullPath: '/tracker/scholarships'
+      preLoaderRoute: typeof AuthenticatedTrackerScholarshipsRouteImport
+      parentRoute: typeof AuthenticatedTrackerRoute
+    }
+    '/_authenticated/community/advice/$id': {
+      id: '/_authenticated/community/advice/$id'
+      path: '/$id'
+      fullPath: '/community/advice/$id'
+      preLoaderRoute: typeof AuthenticatedCommunityAdviceIdRouteImport
+      parentRoute: typeof AuthenticatedCommunityAdviceRoute
     }
     '/_authenticated/community/discussions/$slug': {
       id: '/_authenticated/community/discussions/$slug'
@@ -906,12 +899,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunityDiscussionsSlugRouteImport
       parentRoute: typeof AuthenticatedCommunityDiscussionsRoute
     }
-    '/_authenticated/community/advice/$id': {
-      id: '/_authenticated/community/advice/$id'
-      path: '/$id'
-      fullPath: '/community/advice/$id'
-      preLoaderRoute: typeof AuthenticatedCommunityAdviceIdRouteImport
-      parentRoute: typeof AuthenticatedCommunityAdviceRoute
+    '/_authenticated/community/threads/$id': {
+      id: '/_authenticated/community/threads/$id'
+      path: '/threads/$id'
+      fullPath: '/community/threads/$id'
+      preLoaderRoute: typeof AuthenticatedCommunityThreadsIdRouteImport
+      parentRoute: typeof AuthenticatedCommunityRoute
+    }
+    '/api/public/hooks/check-deadlines': {
+      id: '/api/public/hooks/check-deadlines'
+      path: '/api/public/hooks/check-deadlines'
+      fullPath: '/api/public/hooks/check-deadlines'
+      preLoaderRoute: typeof ApiPublicHooksCheckDeadlinesRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
