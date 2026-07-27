@@ -13,7 +13,8 @@ import {
 import {
   Collapsible, CollapsibleContent, CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Plus, Trash2, Check, X, GraduationCap, ChevronDown, ExternalLink } from "lucide-react";
+import { Plus, Trash2, Check, X, GraduationCap, ChevronDown, ExternalLink, Zap } from "lucide-react";
+import { findEarlyPlan, isEarlyDeadlineType } from "@/lib/early-decision";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
 import { TableSkeleton } from "@/components/skeletons";
