@@ -33,6 +33,7 @@ function ScholarshipsList() {
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [category, setCategory] = useState("");
+  const [sort, setSort] = useState<"deadline" | "amount" | "category">("deadline");
 
   async function load() {
     setLoading(true);
@@ -47,11 +48,21 @@ function ScholarshipsList() {
   useEffect(() => { load(); }, []);
 
   const categories = Array.from(new Set(rows.map((r) => r.category).filter(Boolean))) as string[];
-  const filtered = rows.filter((r) => {
-    if (category && r.category !== category) return false;
-    if (q && !`${r.name} ${r.provider ?? ""} ${r.description ?? ""}`.toLowerCase().includes(q.toLowerCase())) return false;
-    return true;
-  });
+  const filtered = rows
+    .filter((r) => {
+      if (category && r.category !== category) return false;
+      if (q && !`${r.name} ${r.provider ?? ""} ${r.description ?? ""}`.toLowerCase().includes(q.toLowerCase())) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      if (sort === "amount") return (b.amount ?? 0) - (a.amount ?? 0);
+      if (sort === "category") return (a.category ?? "zzz").localeCompare(b.category ?? "zzz");
+      // deadline
+      const ad = a.deadline ? new Date(a.deadline).getTime() : Infinity;
+      const bd = b.deadline ? new Date(b.deadline).getTime() : Infinity;
+      return ad - bd;
+    });
+
 
   return (
     <div className="min-h-screen bg-gradient-night">
