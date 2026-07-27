@@ -11,7 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/empty-state";
 import { pingActivity } from "@/lib/personalization";
-import { ArrowLeft, Search, MapPin, Users, Percent, DollarSign, Plus, ExternalLink, GraduationCap } from "lucide-react";
+import { ArrowLeft, Search, MapPin, Users, Percent, DollarSign, Plus, ExternalLink, GraduationCap, Zap } from "lucide-react";
+import { findEarlyPlan } from "@/lib/early-decision";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/colleges")({
