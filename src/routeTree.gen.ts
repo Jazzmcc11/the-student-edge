@@ -18,6 +18,7 @@ import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedScholarshipsRouteImport } from './routes/_authenticated/scholarships'
 import { Route as AuthenticatedRecommendationsRouteImport } from './routes/_authenticated/recommendations'
+import { Route as AuthenticatedQuizzesRouteImport } from './routes/_authenticated/quizzes'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPersonalityRouteImport } from './routes/_authenticated/personality'
 import { Route as AuthenticatedFinaidRouteImport } from './routes/_authenticated/finaid'
@@ -100,6 +101,11 @@ const AuthenticatedRecommendationsRoute =
     path: '/recommendations',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedQuizzesRoute = AuthenticatedQuizzesRouteImport.update({
+  id: '/quizzes',
+  path: '/quizzes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -317,6 +323,7 @@ export interface FileRoutesByFullPath {
   '/finaid': typeof AuthenticatedFinaidRoute
   '/personality': typeof AuthenticatedPersonalityRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/quizzes': typeof AuthenticatedQuizzesRoute
   '/recommendations': typeof AuthenticatedRecommendationsRoute
   '/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
@@ -361,6 +368,7 @@ export interface FileRoutesByTo {
   '/finaid': typeof AuthenticatedFinaidRoute
   '/personality': typeof AuthenticatedPersonalityRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/quizzes': typeof AuthenticatedQuizzesRoute
   '/recommendations': typeof AuthenticatedRecommendationsRoute
   '/tracker': typeof AuthenticatedTrackerRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRoute
@@ -407,6 +415,7 @@ export interface FileRoutesById {
   '/_authenticated/finaid': typeof AuthenticatedFinaidRoute
   '/_authenticated/personality': typeof AuthenticatedPersonalityRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/quizzes': typeof AuthenticatedQuizzesRoute
   '/_authenticated/recommendations': typeof AuthenticatedRecommendationsRoute
   '/_authenticated/scholarships': typeof AuthenticatedScholarshipsRouteWithChildren
   '/_authenticated/tracker': typeof AuthenticatedTrackerRouteWithChildren
@@ -454,6 +463,7 @@ export interface FileRouteTypes {
     | '/finaid'
     | '/personality'
     | '/profile'
+    | '/quizzes'
     | '/recommendations'
     | '/scholarships'
     | '/tracker'
@@ -498,6 +508,7 @@ export interface FileRouteTypes {
     | '/finaid'
     | '/personality'
     | '/profile'
+    | '/quizzes'
     | '/recommendations'
     | '/tracker'
     | '/tutor'
@@ -543,6 +554,7 @@ export interface FileRouteTypes {
     | '/_authenticated/finaid'
     | '/_authenticated/personality'
     | '/_authenticated/profile'
+    | '/_authenticated/quizzes'
     | '/_authenticated/recommendations'
     | '/_authenticated/scholarships'
     | '/_authenticated/tracker'
@@ -647,6 +659,13 @@ declare module '@tanstack/react-router' {
       path: '/recommendations'
       fullPath: '/recommendations'
       preLoaderRoute: typeof AuthenticatedRecommendationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quizzes': {
+      id: '/_authenticated/quizzes'
+      path: '/quizzes'
+      fullPath: '/quizzes'
+      preLoaderRoute: typeof AuthenticatedQuizzesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/profile': {
@@ -993,6 +1012,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFinaidRoute: typeof AuthenticatedFinaidRoute
   AuthenticatedPersonalityRoute: typeof AuthenticatedPersonalityRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedQuizzesRoute: typeof AuthenticatedQuizzesRoute
   AuthenticatedRecommendationsRoute: typeof AuthenticatedRecommendationsRoute
   AuthenticatedScholarshipsRoute: typeof AuthenticatedScholarshipsRouteWithChildren
   AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRouteWithChildren
@@ -1019,6 +1039,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFinaidRoute: AuthenticatedFinaidRoute,
   AuthenticatedPersonalityRoute: AuthenticatedPersonalityRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedQuizzesRoute: AuthenticatedQuizzesRoute,
   AuthenticatedRecommendationsRoute: AuthenticatedRecommendationsRoute,
   AuthenticatedScholarshipsRoute: AuthenticatedScholarshipsRouteWithChildren,
   AuthenticatedTrackerRoute: AuthenticatedTrackerRouteWithChildren,
