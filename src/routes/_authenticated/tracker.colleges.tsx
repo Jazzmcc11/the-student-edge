@@ -127,9 +127,30 @@ function CollegeCard({
     ? Math.ceil((new Date(r.deadline_date).getTime() - Date.now()) / 86400000)
     : null;
 
+  const earlyPlan = findEarlyPlan(r.college_name);
+  const showEarly = earlyPlan || isEarlyDeadlineType(r.deadline_type);
+
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className="overflow-hidden rounded-xl border border-border bg-card">
+    <Collapsible open={open} onOpenChange={setOpen} className={`overflow-hidden rounded-xl border bg-card ${showEarly ? "border-gold/50 shadow-[0_0_0_1px_hsl(var(--gold)/0.2)]" : "border-border"}`}>
+      {showEarly && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-gold/30 bg-gold/10 px-4 py-2 text-xs text-gold">
+          <Zap className="h-3.5 w-3.5 fill-gold" />
+          <span className="font-semibold uppercase tracking-wider">
+            {earlyPlan?.type ?? r.deadline_type ?? "Early deadline"}
+          </span>
+          {earlyPlan && (
+            <>
+              <span className="text-gold/70">·</span>
+              <span>Apply by <strong>{earlyPlan.deadline}</strong>{earlyPlan.decisionBy && <> · hear back {earlyPlan.decisionBy}</>}</span>
+              <a href={earlyPlan.url} target="_blank" rel="noreferrer" className="ml-auto inline-flex items-center gap-1 underline hover:no-underline">
+                Admissions <ExternalLink className="h-3 w-3" />
+              </a>
+            </>
+          )}
+        </div>
+      )}
       <div className="flex flex-wrap items-center gap-3 p-4">
+
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <h3 className="font-display text-lg font-semibold truncate">{r.college_name}</h3>
