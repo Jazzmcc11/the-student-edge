@@ -121,9 +121,10 @@ function Dashboard() {
                 <Settings className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Profile</span>
               </Button>
             </Link>
-            <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground hover:text-gold">
-              <LogOut className="mr-2 h-4 w-4" /> <span className="hidden sm:inline">Sign out</span>
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="border-gold/40 text-foreground hover:bg-gold/10 hover:text-gold">
+              <LogOut className="mr-2 h-4 w-4" /> Sign out
             </Button>
+
           </div>
         </div>
       </header>
