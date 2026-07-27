@@ -708,7 +708,7 @@ function ModuleCard({ to, icon: Icon, title, description, tags }: { to: string; 
           <p className="mt-1.5 text-sm text-muted-foreground">{description}</p>
           <div className="mt-4 flex flex-wrap gap-1.5">
             {tags.map((t) => (
-              <span key={t} className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">{t}</span>
+              <span key={t} className="rounded-full border border-border bg-surface px-2.5 py-0.5 text-xs text-muted-foreground">{t}</span>
             ))}
           </div>
           <div className="mt-5">
